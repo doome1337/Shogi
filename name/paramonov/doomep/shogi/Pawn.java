@@ -101,7 +101,4 @@ public class Pawn extends Piece {
     public Piece demote () {
         return this;
     }
-    public asdf defee(){
-
-    }
 }

@@ -1,7 +1,5 @@
 package name.paramonov.doomep.shogi;
 
-import java.util.List;
-
 /** A Class representing a piece in a game of shogi.
  * This class defines the basic requirements for a piece: 
  * <ul>
@@ -11,16 +9,16 @@ import java.util.List;
  * <li> Is located on the board or on in the drop table.
  * </ul>
  * All pieces extend this class, and implement different rules of checking for valid moves and promotion.
- * @author          Dmitry Andreevich Paramonon
+ * @author          Dmitry Andreevich Paramonov
  * @author          Jiayin Huang
  */
 public abstract class Piece {
-    /** The x-value of this piece on the gameboard.
+    /** The x-value of this piece on the game board.
      * Will be in a range from 1 to 9.
      */
     protected int x;
     
-    /** The y-value of this piece on the gameboard.
+    /** The y-value of this piece on the game board.
      * Will be in a range from 1 to 9.
      */
     protected int y;

@@ -18,9 +18,7 @@ public class EmptyPiece extends Piece {
     }
     
     public GameState move(GameState state, int x, int y) {
-        if (this.checkMove(state, x, y)) {
-            return state;
-        }
+        return state;
     }
     
     public boolean isPromotable() {
@@ -28,8 +26,11 @@ public class EmptyPiece extends Piece {
     }
 
     public Piece promote() {
-        if (this.isPromotable()) {
-            return this;
-        }
+    	return this;
     }
+
+	@Override
+	public Piece demote() {
+		return this;
+	}
 }

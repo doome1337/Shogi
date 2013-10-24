@@ -1,30 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="288000cc-1411-4e20-83ba-cb71a9a3413b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/name/paramonov/doomep/shogi/EmptyPiece.html" afterPath="$PROJECT_DIR$/name/paramonov/doomep/shogi/EmptyPiece.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/name/paramonov/doomep/shogi/GameState.html" afterPath="$PROJECT_DIR$/name/paramonov/doomep/shogi/GameState.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/name/paramonov/doomep/shogi/Pawn.html" afterPath="$PROJECT_DIR$/name/paramonov/doomep/shogi/Pawn.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/name/paramonov/doomep/shogi/Pawn.java" afterPath="$PROJECT_DIR$/name/paramonov/doomep/shogi/Pawn.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/name/paramonov/doomep/shogi/Piece.html" afterPath="$PROJECT_DIR$/name/paramonov/doomep/shogi/Piece.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/name/paramonov/doomep/shogi/Piece.java" afterPath="$PROJECT_DIR$/name/paramonov/doomep/shogi/Piece.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/name/paramonov/doomep/shogi/PromotedPawn.html" afterPath="$PROJECT_DIR$/name/paramonov/doomep/shogi/PromotedPawn.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/allclasses-frame.html" afterPath="$PROJECT_DIR$/allclasses-frame.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/allclasses-noframe.html" afterPath="$PROJECT_DIR$/allclasses-noframe.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/constant-values.html" afterPath="$PROJECT_DIR$/constant-values.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/deprecated-list.html" afterPath="$PROJECT_DIR$/deprecated-list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/help-doc.html" afterPath="$PROJECT_DIR$/help-doc.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index-all.html" afterPath="$PROJECT_DIR$/index-all.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/overview-tree.html" afterPath="$PROJECT_DIR$/overview-tree.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/name/paramonov/doomep/shogi/package-frame.html" afterPath="$PROJECT_DIR$/name/paramonov/doomep/shogi/package-frame.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/name/paramonov/doomep/shogi/package-summary.html" afterPath="$PROJECT_DIR$/name/paramonov/doomep/shogi/package-summary.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/name/paramonov/doomep/shogi/package-tree.html" afterPath="$PROJECT_DIR$/name/paramonov/doomep/shogi/package-tree.html" />
-    </list>
+    <list default="true" id="288000cc-1411-4e20-83ba-cb71a9a3413b" name="Default" comment="" />
     <ignored path="Shogi.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/Dummy.txt" changelist="288000cc-1411-4e20-83ba-cb71a9a3413b" time="1382625663966" ignored="false" />
     <file path="/Pawn.java" changelist="288000cc-1411-4e20-83ba-cb71a9a3413b" time="1382625805077" ignored="false" />
+    <file path="/a.groovy" changelist="288000cc-1411-4e20-83ba-cb71a9a3413b" time="1382625897059" ignored="false" />
+    <file path="/a.java" changelist="288000cc-1411-4e20-83ba-cb71a9a3413b" time="1382625918696" ignored="false" />
+    <file path="/sample.java" changelist="288000cc-1411-4e20-83ba-cb71a9a3413b" time="1382625917586" ignored="false" />
+    <file path="/fragment.java" changelist="288000cc-1411-4e20-83ba-cb71a9a3413b" time="1382626972290" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,10 +70,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Piece.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Piece.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/name/paramonov/doomep/shogi/Piece.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="16" selection-start="181" selection-end="181" vertical-scroll-proportion="0.0">
+            <state line="6" column="68" selection-start="181" selection-end="181" vertical-scroll-proportion="0.13975155">
               <folding />
             </state>
           </provider>
@@ -97,7 +82,7 @@
       <file leaf-file-name="EmptyPiece.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/name/paramonov/doomep/shogi/EmptyPiece.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="41" selection-start="36" selection-end="36" vertical-scroll-proportion="0.0">
+            <state line="2" column="34" selection-start="72" selection-end="72" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -106,16 +91,16 @@
       <file leaf-file-name="GameState.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/name/paramonov/doomep/shogi/GameState.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="11" column="14" selection-start="394" selection-end="394" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Pawn.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Pawn.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/name/paramonov/doomep/shogi/Pawn.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="104" column="8" selection-start="4057" selection-end="4057" vertical-scroll-proportion="0.8835404">
+            <state line="103" column="12" selection-start="4044" selection-end="4044" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -124,7 +109,7 @@
       <file leaf-file-name="PromotedPawn.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/name/paramonov/doomep/shogi/PromotedPawn.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="2" column="36" selection-start="74" selection-end="74" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -141,6 +126,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitLogSettings">
+    <option name="myStructureFilterPaths" />
     <option name="myDateState">
       <MyDateState />
     </option>
@@ -210,10 +196,15 @@
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="options.lastSelected" value="project.propGUI" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/name/paramonov/doomep/shogi/PromotedPawn.java" />
+    <property name="FullScreen" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
+    <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="MemberChooser.copyJavadoc" value="false" />
   </component>
   <component name="RunManager">
@@ -312,6 +303,23 @@
     </configuration>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false" SSL_PROTOCOLS="all">
+    <option name="USER" value="" />
+    <option name="PASSWORD" value="" />
+    <option name="mySSHConnectionTimeout" value="30000" />
+    <option name="mySSHReadTimeout" value="30000" />
+    <option name="LAST_MERGED_REVISION" />
+    <option name="MERGE_DRY_RUN" value="false" />
+    <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
+    <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
+    <option name="IGNORE_SPACES_IN_MERGE" value="false" />
+    <option name="CHECK_NESTED_FOR_QUICK_MERGE" value="false" />
+    <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
+    <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
+    <option name="FORCE_UPDATE" value="false" />
+    <option name="IGNORE_EXTERNALS" value="false" />
+    <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="288000cc-1411-4e20-83ba-cb71a9a3413b" name="Default" comment="" />
@@ -320,11 +328,31 @@
     </task>
     <servers />
   </component>
+  <component name="TodoView" selected-index="0">
+    <todo-panel id="selected-file">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="default-changelist">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1440" height="790" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32886904" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -332,11 +360,11 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24964131" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32886904" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24964131" sideWeight="0.67113096" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24964131" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24964131" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -406,37 +434,37 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/name/paramonov/doomep/shogi/PromotedPawn.java">
+    <entry file="file://$PROJECT_DIR$/name/paramonov/doomep/shogi/Pawn.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/name/paramonov/doomep/shogi/Piece.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="16" selection-start="181" selection-end="181" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/name/paramonov/doomep/shogi/EmptyPiece.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="41" selection-start="36" selection-end="36" vertical-scroll-proportion="0.0">
+        <state line="103" column="12" selection-start="4044" selection-end="4044" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/name/paramonov/doomep/shogi/GameState.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="11" column="14" selection-start="394" selection-end="394" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/name/paramonov/doomep/shogi/Pawn.java">
+    <entry file="file://$PROJECT_DIR$/name/paramonov/doomep/shogi/EmptyPiece.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="104" column="8" selection-start="4057" selection-end="4057" vertical-scroll-proportion="0.8835404">
+        <state line="2" column="34" selection-start="72" selection-end="72" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/name/paramonov/doomep/shogi/PromotedPawn.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="36" selection-start="74" selection-end="74" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/name/paramonov/doomep/shogi/Piece.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="68" selection-start="181" selection-end="181" vertical-scroll-proportion="0.13975155">
           <folding />
         </state>
       </provider>

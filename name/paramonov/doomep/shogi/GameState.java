@@ -32,7 +32,7 @@ public class GameState {
      * and with empty drop tables.
      */
     public GameState () {
-        this.board = new ArrayList<ArrayList<Piece>>(9);
+        this.board = new ArrayList<List<Piece>>(9);
         for (int i = 0; i < 9; i++) {
             this.board.set(i, new ArrayList<Piece>(9));
         }
@@ -40,7 +40,7 @@ public class GameState {
         this.dropTable2 = new ArrayList<Piece>(0);
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                this.setPieceAt(i, j, new EmptyPiece());
+                this.setPieceAt(i, j, new EmptyPiece(i, j));
             }
         }
     }
@@ -70,7 +70,7 @@ public class GameState {
     }
 
     /** Adds a piece to the drop table of a given player.
-     * Appens a Piece to the List that represents 
+     * Appends a Piece to the List that represents 
      * the drop table with the given allegiance.
      * @param   allegiance  The drop table to be added to. Either 1 or -1.
      * @param   piece       The piece to be added to the drop table.
