@@ -1,7 +1,7 @@
+package name.paramonov.doomep.shogi;
+
 import java.util.List;
 import java.util.ArrayList;
-
-package name.paramonov.doomep.shogi;
 
 /** A class representing the state of the game at any given moment.
  * Stores the board and the contents of the two drop tables.
@@ -81,6 +81,7 @@ public class GameState {
             case -1:    dropTable2.add(piece); break;
         }
         piece.setAllegiance(allegiance);
+        piece.demote();
         //TODO: Finish this.
     }
 

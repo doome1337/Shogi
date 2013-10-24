@@ -1,10 +1,14 @@
 package name.paramonov.doomep.shogi;
 
-import java.util.List;
-
 /** A Class representing a pawn in a game of shogi.
  */
 public class Pawn extends Piece {
+    /** Constructs a pawn at a given x and y-value,
+     * with the given allegiance.
+     * @param   x           The x-value at which this pawn is located.
+     * @param   y           The y-value at which this pawn is located.
+     * @param   allegiance  The allegiance of this pawn.
+     */
     public Pawn(int x, int y, int allegiance) {
         this.x = x;
         this.y = y;
@@ -19,13 +23,14 @@ public class Pawn extends Piece {
      * Afterwards, this method checks to see if the target rank is 
      * within the range of permitted ranks,
      * followed by verifying if the target tile doesn't contain friendly units.
-     * @return          Whether this Pawn can move to the given x and y values.
+     * @return              Whether this Pawn can move to the given x and y values.
      */
-    public boolean checkMove (List<List<Piece>> board, int x, int y) {
+    public boolean checkMove (GameState state, int x, int y) {
          return ((y == this.y + this.allegiance)
          && (x == this.x)
-         && !((y < Piece.STARTING_BOARD_Y) || (y > Piece.STARTING_BOARD_Y+8))
-         && (board.get(y)
+         && !((y < 0) || (y > 8))
+         && (state.getBoard()
+                  .get(y)
                   .get(x)
                   .getAllegiance() != this.allegiance)); 
     }
@@ -36,22 +41,22 @@ public class Pawn extends Piece {
      * If the target tile is occupied by an enemy tile,
      * it is captured, demoted, 
      * and placed in the drop table.
-     * @param   x       The x-value to which this piece is trying to move.
-     * @param   y       The y-value to which this piece is trying to move.
-     * @param   board   The state of the board before the piece is moved.
-     * @return          The state of the board after the piece is moved.
+     * @param   x           The x-value to which this piece is trying to move.
+     * @param   y           The y-value to which this piece is trying to move.
+     * @param   state       The state of the game before the piece is moved.
+     * @return              The state of the game after the piece is moved.
      */
-    public List<List<Piece>> move (List<List<Piece>> board, int x, int y) {
-        if (this.checkMove(board, x, y)) {
-            if (!(board.get(y).get(x) instanceof EmptyPiece)) {
-                board.get(((this.allegiance)?(Piece.STARTING_BOARD_Y*9):10)).append(board.get(y).get(x).setAllegiance(this.allegiance).demote());
+    public GameState move (GameState state, int x, int y) {
+        if (this.checkMove(state, x, y)) {
+            if (!(state.getPieceAt(x, y) instanceof EmptyPiece)) {
+                state.addPieceToDropTable(this.allegiance, state.getPieceAt(x, y));
             } 
-            board.get(y).set(x, this);
-            board.get(this.y).set(this.x, new EmptyPiece(this.y, this.x));
+            state.setPieceAt(x, y, this);
+            state.setPieceAt(this.x, this.y, new EmptyPiece(this.x, this.y));
             this.y = y;
             this.x = x;
         }
-        return board;
+        return state;
     }
 
     /** Returns whether or not this pawn can promote.
@@ -71,15 +76,29 @@ public class Pawn extends Piece {
      * which is true for ranks 1, 2 and 3.
      * Therefore the function works 
      * for all necessary occasions.
-     * @return          Whether the pawn can promote 
+     * @return              Whether the pawn can promote 
      * in its current location.
      */
     public boolean getPromotable () {
-        return ((4 + Piece.STARTING_BOARD_Y + this.allegiance) * this.allegiance 
+        return ((4 + this.allegiance) * this.allegiance 
                 < this.y * this.allegiance);
     }
 
+    /** Returns the Piece this pawn promotes to.
+     * Creates a PromotedPawn with the same allegiance 
+     * and location as this pawn.
+     * @return              The PromotedPawn equivalent of this Pawn.
+     */
     public Piece promote () {
-        return new PromotedPawn ();
+        return new PromotedPawn (this.x, this.y, this.allegiance);
+    }
+
+    /** Returns the piece this pawn demotes to.
+     * As pawns are not a promoted piece, 
+     * demoting them has no effect.
+     * @return              This pawn.
+     */
+    public Piece demote () {
+        return this;
     }
 }

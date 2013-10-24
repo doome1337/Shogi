@@ -15,11 +15,6 @@ import java.util.List;
  * @author          Jiayin Huang
  */
 public abstract class Piece {
-    /** The y-value of the first row on the board.
-     * Used before the starting board value is finalized.
-     */
-    protected static final int STARTING_BOARD_Y = 1;
-
     /** The x-value of this piece on the gameboard.
      * Will be in a range from 1 to 9.
      */
@@ -45,49 +40,81 @@ public abstract class Piece {
 
     /** Returns whether a move can be undertaken by this Piece.
      * Each piece has different rules, so this one is to be implemented individually.
-     * @param   board   The current state of the board at the time of verification. 
-     * @param   x       The x-value to which this piece is trying to move.
-     * @param   y       The y-value to which this piece is trying to move.
-     * @return          Whether this Piece can move to the given x and y values.
+     * @param   state       The current state of the game at the time of verification. 
+     * @param   x           The x-value to which this piece is trying to move.
+     * @param   y           The y-value to which this piece is trying to move.
+     * @return              Whether this Piece can move to the given x and y values.
      */
-    public abstract boolean checkMove (List<List<Piece>> board, int x, int y); 
+    public abstract boolean checkMove (GameState state, int x, int y); 
     
     /** Moves this piece to a different location. 
      * Changes the x and y-values of this Piece, and then returns a board style List&lt;List&lt;Piece&gt;&gt;
-     * @param   board   The currect state of the board at the time of this method being run.
-     * @param   x       The x-value to which this piece is trying to move.
-     * @param   y       The y-value to which this piece is trying to move.
-     * @return          The state of the board after this piece has been moved.
+     * @param   state       The currect state of the game at the time of this method being run.
+     * @param   x           The x-value to which this piece is trying to move.
+     * @param   y           The y-value to which this piece is trying to move.
+     * @return              The state of the board after this piece has been moved.
      */
-    public abstract List<List<Piece>> move (List<List<Piece>> board, int x, int y);
+    public abstract GameState move (GameState state, int x, int y);
 
     /** Verifies whether this piece can be promoted. 
      * This is placed here so that calling .getPromotable() can be done on any piece, 
      * which allows us to find out exactly which pieces can be promoted.
      * If it was implemented in a different class, that would cause trouble if we were to verify for any piece.
-     * @return          Whether or not the piece can be promoted.
+     * @return              Whether or not the piece can be promoted.
      */
     public abstract boolean isPromotable ();
 
     /** Returns the piece this piece is promoted to.
      * Each piece promotes to a different piece, 
      * and therefore is implemented individually in each subclass.
-     * @return          The piece this piece promotes to.
+     * @return              The piece this piece promotes to.
      */
     public abstract Piece promote ();
 
+    /** Returns the piece this piece is demoted from.
+     * Each piece demotes to a different piece,
+     * and therefore is implemented individually in each subclass.
+     * This method is mostly used only in capturing, as you cannot demote normally.
+     * @return              The piece this piece demotes to.
+     */
+    public abstract Piece demote ();
+
+    /** Sets this piece's x and 
+     * y-values to certain values.
+     * @param   x           The value to which the x-value is to be set.
+     * @param   y           The value to which the y-value is to be set.
+     */
+    public void setPosition(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
     /** Returns this piece's x-value.
-     * @return          This piece's x location on the board.
+     * @return              This piece's x location on the board.
      */
     public int getX () {
         return x;
     }
 
+    /** Sets the x-value of this piece to be a certain value.
+     * @param   x           The value to which this x-value is to be set.
+     */
+    public void setX(int x) {
+        this.x = x;
+    }
+
     /** Returns this piece's y-value.
-     * @return          This piece's y location on the board.
+     * @return              This piece's y location on the board.
      */
     public int getY () {
         return y;
+    }
+
+    /** Sets the y-value of this piece to be a certain value.
+     * @param   y           The value to which this y-value is to be set.
+     */
+    public void setY(int y) {
+        this.y = y;
     }
 
     /** Returns this piece's allegiance.
@@ -97,8 +124,11 @@ public abstract class Piece {
      * <li> 0: "Mercenary" (Neutral).
      * <li> -1: "Black" (Top side).
      * </ul>
-     * Mercenary pieces can be captured by either side, and then dropped. They do not move, and cannot attack any pieces.
-     * @return          The value of this piece's allegiance.
+     * Mercenary pieces can be captured by either side, 
+     * and then dropped. 
+     * They do not move, 
+     * and cannot attack any pieces.
+     * @return              The value of this piece's allegiance.
      */
     public int getAllegiance () {
         return allegiance;
@@ -108,7 +138,8 @@ public abstract class Piece {
      * Use for capturing pieces.
      * Possible values listed above.
      * Method has a return in order to double-check whether the setting worked flawlessly.
-     * @return          The new value of this piece's allegiance. 
+     * @param   allegiance  The value to which this piece's allegiance is to be set to.
+     * @return              The new value of this piece's allegiance. 
      */
     public int setAllegiance (int allegiance) {
         this.allegiance = allegiance;
