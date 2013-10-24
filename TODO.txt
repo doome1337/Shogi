@@ -12,3 +12,5 @@ Create classes/interfaces for promotion.
 Decide whether to have a separate class for PromotedPawn, that's equivalent in all ways to a GoldenGeneral, a PromotedPawn class that extends GoldenGeneral, or have it change into a GoldenGeneral.
 
 Figure out how to implement demotion upon capture. And how it will work with the above ideas. Note that this mandates the existance of a PromotedPawn class. Or a promotedFrom field in GoldenGeneral.
+
+Finish the setPieceAt method in GameState.java. Also, add a setX and setY method to Piece.java. We need to be able to set those in order to dropTable effectively. Make them package-private.
