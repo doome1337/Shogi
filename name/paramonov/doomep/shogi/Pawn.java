@@ -79,7 +79,7 @@ public class Pawn extends Piece {
      * @return              Whether the pawn can promote 
      * in its current location.
      */
-    public boolean getPromotable () {
+    public boolean isPromotable () {
         return ((4 + this.allegiance) * this.allegiance 
                 < this.y * this.allegiance);
     }
@@ -100,5 +100,8 @@ public class Pawn extends Piece {
      */
     public Piece demote () {
         return this;
+    }
+    public asdf defee(){
+
     }
 }

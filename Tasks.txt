@@ -1,0 +1,9 @@
+Planning: 
+    UML: 
+    Gant:
+    Screenshots:
+Coding:
+    Engine: Dima
+    UI: 
+    Additional Classes: 
+Finalized Debugging and Testing:
