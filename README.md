@@ -1,4 +1,0 @@
-Shogi
-=====
-
-Shogi Engine
