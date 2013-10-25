@@ -1,5 +1,5 @@
 package name.paramonov.doomep.shogi;
-
+//TODO: Documentation.
 public class EmptyPiece extends Piece {
     /** Constructs an EmptyPiece at a given location.
      * @param   x       The x-value 
@@ -14,24 +14,20 @@ public class EmptyPiece extends Piece {
         this.pieceName = "Empty Tile";
     }
 
-    public boolean checkMove(GameState state, int x, int y) {
+    protected boolean isValidMove(GameState state, int x, int y) {
         return false;
     }
     
-    public GameState move(GameState state, int x, int y) {
-        return state;
-    }
-    
-    public boolean isPromotable() {
+    protected boolean isPromotable() {
         return false;
     }
 
-    public Piece promote() {
+    protected Piece promote() {
         return this;
     }
 
     @Override
-    public Piece demote() {
+    protected Piece demote() {
         return this;
 	}
 }

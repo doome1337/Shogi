@@ -54,7 +54,7 @@ public abstract class Piece {
         int[][] tempResults;
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                if (this.checkMove(state, i, j)) {
+                if (this.isValidMove(state, i, j)) {
                     tempResults = new int[results.length+1][2];
                     System.arraycopy(results, 0, tempResults, 0, results.length);
                     tempResults[results.length] = new int[] {i, j};
@@ -72,16 +72,31 @@ public abstract class Piece {
      * @param   y           The y-value to which this piece is trying to move.
      * @return              Whether this Piece can move to the given x and y values.
      */
-    public abstract boolean checkMove (GameState state, int x, int y); 
+    protected abstract boolean isValidMove (GameState state, int x, int y); 
     
-    /** Moves this piece to a different location. 
-     * Changes the x and y-values of this Piece, and then returns a board style List&lt;List&lt;Piece&gt;&gt;
-     * @param   state       The currect state of the game at the time of this method being run.
+    /** Moves the piece, and captures any pieces at the target tile.
+     * Verifies if target tile is a valid move, 
+     * and then moves the piece to that location.
+     * If the target tile is occupied by an enemy tile,
+     * it is captured, demoted, 
+     * and placed in the drop table.
      * @param   x           The x-value to which this piece is trying to move.
      * @param   y           The y-value to which this piece is trying to move.
-     * @return              The state of the board after this piece has been moved.
+     * @param   state       The state of the game before the piece is moved.
+     * @return              The state of the game after the piece is moved.
      */
-    public abstract GameState move (GameState state, int x, int y);
+    protected GameState move (GameState state, int x, int y) {
+        if (this.isValidMove(state, x, y)) {
+            if (!(state.getPieceAt(x, y) instanceof EmptyPiece)) {
+                state.addPieceToDropTable(this.allegiance, state.getPieceAt(x, y));
+            } 
+            state.setPieceAt(x, y, this);
+            state.setPieceAt(this.x, this.y, new EmptyPiece(this.x, this.y));
+            this.y = y;
+            this.x = x;
+        }
+        return state;
+    }
 
     /** Verifies whether this piece can be promoted. 
      * This is placed here so that calling .getPromotable() can be done on any piece, 
@@ -89,14 +104,14 @@ public abstract class Piece {
      * If it was implemented in a different class, that would cause trouble if we were to verify for any piece.
      * @return              Whether or not the piece can be promoted.
      */
-    public abstract boolean isPromotable ();
+    protected abstract boolean isPromotable ();
 
     /** Returns the piece this piece is promoted to.
      * Each piece promotes to a different piece, 
      * and therefore is implemented individually in each subclass.
      * @return              The piece this piece promotes to.
      */
-    public abstract Piece promote ();
+    protected abstract Piece promote ();
 
     /** Returns the piece this piece is demoted from.
      * Each piece demotes to a different piece,
@@ -104,14 +119,14 @@ public abstract class Piece {
      * This method is mostly used only in capturing, as you cannot demote normally.
      * @return              The piece this piece demotes to.
      */
-    public abstract Piece demote ();
+    protected abstract Piece demote ();
 
     /** Sets this piece's x and 
      * y-values to certain values.
      * @param   x           The value to which the x-value is to be set.
      * @param   y           The value to which the y-value is to be set.
      */
-    public void setPosition(int x, int y) {
+    protected void setPosition(int x, int y) {
         this.x = x;
         this.y = y;
     }
@@ -126,7 +141,7 @@ public abstract class Piece {
     /** Sets the x-value of this piece to be a certain value.
      * @param   x           The value to which this x-value is to be set.
      */
-    public void setX(int x) {
+    protected void setX(int x) {
         this.x = x;
     }
 
@@ -140,7 +155,7 @@ public abstract class Piece {
     /** Sets the y-value of this piece to be a certain value.
      * @param   y           The value to which this y-value is to be set.
      */
-    public void setY(int y) {
+    protected void setY(int y) {
         this.y = y;
     }
 
@@ -168,7 +183,7 @@ public abstract class Piece {
      * @param   allegiance  The value to which this piece's allegiance is to be set to.
      * @return              The new value of this piece's allegiance. 
      */
-    public int setAllegiance (int allegiance) {
+    protected int setAllegiance (int allegiance) {
         this.allegiance = allegiance;
         return this.allegiance;
     }

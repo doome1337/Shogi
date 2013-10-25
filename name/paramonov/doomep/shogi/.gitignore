@@ -4,3 +4,6 @@
 /Piece.class
 /PromotedPawn.class
 /Lance.class
+/PromotedLance.class
+/PromotablePiece.class
+/UnpromotablePiece.class

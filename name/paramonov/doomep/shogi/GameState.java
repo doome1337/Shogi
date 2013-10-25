@@ -1,7 +1,7 @@
 package name.paramonov.doomep.shogi;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 /** A class representing the state of the game at any given moment.
  * Stores the board and the contents of the two drop tables.
@@ -69,27 +69,65 @@ public class GameState {
         return this.dropTable2;
     }
 
+    public List<Piece> getCorrectDropTable(int allegiance) {
+        if (allegiance == 1) {
+            return this.dropTable1;
+        } else if (allegiance == -1) {
+            return this.dropTable2;
+        } else {
+            return null;
+        }
+    }
+    
     /** Adds a piece to the drop table of a given player.
      * Appends a Piece to the List that represents 
      * the drop table with the given allegiance.
      * @param   allegiance  The drop table to be added to. Either 1 or -1.
      * @param   piece       The piece to be added to the drop table.
      */
-    public void addPieceToDropTable (int allegiance, Piece piece) {
+    protected void addPieceToDropTable (int allegiance, Piece piece) {
         switch (allegiance) {
             case 1:     dropTable1.add(piece); break;
             case -1:    dropTable2.add(piece); break;
         }
         piece.setAllegiance(allegiance);
         piece.demote();
+        piece.setPosition(-1, -1);
         //TODO: Finish this.
+        //TODO: Is this finished? Look back over plans and decide.
+        //TODO: Pretty sure this is finished nao.
     }
-
+    /** Drops a piece from the drop table onto the board.
+     * Removes the piece from the drop table, 
+     * and places it on the board.
+     * @param allegiance
+     * @param x
+     * @param y
+     * @param piece
+     */
+    protected void dropPieceFromTable (int allegiance, int x, int y, Piece piece) {
+        this.setPieceAt(x, y, piece);
+        piece.setPosition(x, y);
+        this.getCorrectDropTable(allegiance).remove(piece);
+        //TODO: This is done if addPieceToDropTable is done(). I think. Revise this anyway.
+    }
+    
+    /** Obtains the Piece at a point on the board.
+     * Returns the Piece at the given (x, y) value pair, on the board.
+     * @param   x           The x-value at which we're looking for a Piece.
+     * @param   y           The y-value at which we're looking for a Piece.
+     * @return              The Piece at the given x and y values.
+     */
     public Piece getPieceAt (int x, int y) {
         return board.get(y).get(x);
     }
 
-    public void setPieceAt (int x, int y, Piece piece) {
+    /** Places a Piece on a given tile of the board.
+     * @param   x           The x-value at which we're placing the Piece.
+     * @param   y           The y-value at which we're placing the Piece.
+     * @param piece         The Piece to place on the board.
+     */
+    protected void setPieceAt (int x, int y, Piece piece) {
         board.get(y).set(x, piece);
     }
 }

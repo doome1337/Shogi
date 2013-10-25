@@ -5,6 +5,11 @@ Each piece has an int affiliation value:
 Has function to determine valid moves, and to promote.
 Whether valid moves will return a list of all valid moves, or if it will return for a given tile that's inputted, will be decided later.
 
+To verify King being attacked...
+    An attacking method?
+    King is located in possible moves of enemy Piece (most likely path)?
+        For efficient looping of enemy piece, store them in yet another array? Ug.
+
 Store board as a List<List<Piece>>. Don't forget to define an empty piece.
 Alternatively, store board as a List<Piece>, and have each piece store it's own location variables. Much more efficient, and doesn't require EmptyPieces.
 
@@ -16,6 +21,7 @@ However, then the bottom corner is (1, 0)... Consider maybe using 0-8 are board,
 
 Promotable pieces implement Promotable. Or maybe create a PromotablePiece and an UnpromotablePiece class.
     Probably won't do, as we want to just call board.get.get.promote, without type mismatch errors. So everything is implemented in Piece.
+        Or~, we have the methods abstract in Piece, abstract class PromotablePiece, and then have those have more abstract methods! Multiple abstract nesting!
 
 Mercenary pieces. Don't belong to either player. Can attack neither player. Can be captured by either player and then dropped by that player. Only in special modes.
 

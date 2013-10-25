@@ -1,6 +1,6 @@
 package name.paramonov.doomep.shogi;
-
-public class Lance extends Piece {
+//TODO: Documentation.
+public class Lance extends PromotablePiece {
     public Lance(int x, int y, int allegiance) {
         this.x = x;
         this.y = y;
@@ -9,36 +9,32 @@ public class Lance extends Piece {
     }
     
     @Override
-    public boolean checkMove(GameState state, int x, int y) {
-        boolean validMove;
-        for (int i = this.y; i <= y; i++) {
+    protected
+    /** Checks whether this Lance can move to a given location.
+     * @param state         The state of the game at this time.
+     * @param x             The x-value of the target tile.
+     * @param y             The y-value of the target tile.
+     * @return              Whether or not this Lance can move to the target tile.
+     */ boolean isValidMove(GameState state, int x, int y) {
+        boolean validMove = true;
+        for (int i = this.y+this.allegiance; validMove && i*this.allegiance <= y*this.allegiance; i+= this.allegiance) {
             
         }
         return false;
     }
-
+    
     @Override
-    public GameState move(GameState state, int x, int y) {
-        // TODO Auto-generated method stub
-        return null;
+    protected Piece promote() {
+        if (this.isPromotable()) {
+            return new PromotedLance(this.x, this.y, this.allegiance);
+        } else {
+            return this;
+        }
     }
 
     @Override
-    public boolean isPromotable() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public Piece promote() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Piece demote() {
-        // TODO Auto-generated method stub
-        return null;
+    protected Piece demote() {
+        return this;
     }
 
 }
