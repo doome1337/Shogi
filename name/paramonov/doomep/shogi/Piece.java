@@ -39,8 +39,32 @@ public abstract class Piece {
     /** Name of this piece.
      * Implemented in each subclass individually.
      * Used to find out the name of the piece and to differentiate them.
+     */
     protected String pieceName;
 
+    /** Generates all possible moves for this piece.
+     * Used to see which tiles it can go to, 
+     * and returns an array of all possible (x, y)-value pairs 
+     * where this piece can move.
+     * @param   state       The current state of the game at the time of verification.
+     * @return              The possible locations where this piece can move.
+     */
+    public int[][] generateMoves (GameState state) {
+        int[][] results = new int[0][2];
+        int[][] tempResults;
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (this.checkMove(state, i, j)) {
+                    tempResults = new int[results.length+1][2];
+                    System.arraycopy(results, 0, tempResults, 0, results.length);
+                    tempResults[results.length] = new int[] {i, j};
+                    results = tempResults;
+                }
+            }
+        }
+        return results;
+    }
+    
     /** Returns whether a move can be undertaken by this Piece.
      * Each piece has different rules, so this one is to be implemented individually.
      * @param   state       The current state of the game at the time of verification. 

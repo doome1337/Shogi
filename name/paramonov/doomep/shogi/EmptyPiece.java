@@ -10,7 +10,8 @@ public class EmptyPiece extends Piece {
     public EmptyPiece (int x, int y) {
         this.x = x;
         this.y = y;
-        this.allegiance = 0; 
+        this.allegiance = 0;
+        this.pieceName = "Empty Tile";
     }
 
     public boolean checkMove(GameState state, int x, int y) {
@@ -26,11 +27,11 @@ public class EmptyPiece extends Piece {
     }
 
     public Piece promote() {
-    	return this;
+        return this;
     }
 
-	@Override
-	public Piece demote() {
-		return this;
+    @Override
+    public Piece demote() {
+        return this;
 	}
 }

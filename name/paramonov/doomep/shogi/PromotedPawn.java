@@ -1,16 +1,17 @@
 package name.paramonov.doomep.shogi;
 
 public class PromotedPawn extends Piece {
-	public PromotedPawn (int x, int y, int allegiance) {
-		this.x = x;
-		this.y = y;
-		this.allegiance = allegiance;
+    public PromotedPawn (int x, int y, int allegiance) {
+        this.x = x;
+        this.y = y;
+        this.allegiance = allegiance;
+        this.pieceName = "Promoted Pawn";
 	}
-	
+
 	@Override
 	public boolean checkMove(GameState state, int x, int y) {
-		// TODO Auto-generated method stub
-		return false;
+	    // TODO Auto-generated method stub
+	    return false;
 	}
 
 	@Override

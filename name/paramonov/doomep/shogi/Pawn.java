@@ -13,12 +13,13 @@ public class Pawn extends Piece {
         this.x = x;
         this.y = y;
         this.allegiance = allegiance;
+        this.pieceName = "Pawn";
     }
 
-    /** Returns whether a move can be untertaken by this Pawn.
+    /** Returns whether a move can be undertaken by this Pawn.
      * Pieces with an allegiance of 1 move up the board, and up the ranks. 
      * Pieces with an allegiance of -1 move down the board, and down the ranks.
-     * This method hecks to see if the target tile is on the next rank,
+     * This method checks to see if the target tile is on the next rank,
      * then checks to see if the target tile is on the same file as this Pawn.
      * Afterwards, this method checks to see if the target rank is 
      * within the range of permitted ranks,
@@ -93,6 +94,7 @@ public class Pawn extends Piece {
         return new PromotedPawn (this.x, this.y, this.allegiance);
     }
 
+    @Override
     /** Returns the piece this pawn demotes to.
      * As pawns are not a promoted piece, 
      * demoting them has no effect.
@@ -101,4 +103,6 @@ public class Pawn extends Piece {
     public Piece demote () {
         return this;
     }
+
+   
 }
