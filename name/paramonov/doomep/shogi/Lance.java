@@ -9,13 +9,13 @@ public class Lance extends PromotablePiece {
     }
     
     @Override
-    protected
     /** Checks whether this Lance can move to a given location.
      * @param state         The state of the game at this time.
      * @param x             The x-value of the target tile.
      * @param y             The y-value of the target tile.
      * @return              Whether or not this Lance can move to the target tile.
-     */ boolean isValidMove(GameState state, int x, int y) {
+     */ 
+    protected boolean isValidMove(GameState state, int x, int y) {
         boolean validMove = true;
         for (int i = this.y+this.allegiance; validMove && i*this.allegiance <= y*this.allegiance; i+= this.allegiance) {
             

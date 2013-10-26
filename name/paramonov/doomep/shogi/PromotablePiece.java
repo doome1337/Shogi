@@ -4,7 +4,6 @@ public abstract class PromotablePiece extends Piece {
     protected abstract boolean isValidMove(GameState state, int x, int y);
 
     @Override
-    protected
     /** Returns whether or not this pawn can promote.
      * Uses the formula:
      * (5+a)a &lt; ay,
@@ -24,14 +23,14 @@ public abstract class PromotablePiece extends Piece {
      * for all necessary occasions.
      * @return              Whether the pawn can promote 
      * in its current location.
-     */ boolean isPromotable () {
+     */
+    protected boolean isPromotable () {
         return ((4 + this.allegiance) * this.allegiance 
                 < this.y * this.allegiance);
     }
 
     @Override
-    protected
-    abstract Piece promote();
+    protected abstract Piece promote();
 
     protected abstract Piece demote();
 }

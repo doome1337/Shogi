@@ -55,14 +55,12 @@ public class Pawn extends PromotablePiece {
     }
 
     @Override
-    protected
     /** Returns the piece this pawn demotes to.
      * As pawns are not a promoted piece, 
      * demoting them has no effect.
      * @return              This pawn.
-     */ Piece demote () {
+     */
+    protected Piece demote () {
         return this;
     }
-
-   
 }
