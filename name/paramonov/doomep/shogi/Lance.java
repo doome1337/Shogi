@@ -16,6 +16,7 @@ public class Lance extends PromotablePiece {
      * @return              Whether or not this Lance can move to the target tile.
      */ 
     protected boolean isValidMove(GameState state, int x, int y) {
+        //TODO: THIS.
         boolean validMove = true;
         for (int i = this.y+this.allegiance; validMove && i*this.allegiance <= y*this.allegiance; i+= this.allegiance) {
             
