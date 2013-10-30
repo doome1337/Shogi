@@ -27,6 +27,8 @@ Mercenary pieces. Don't belong to either player. Can attack neither player. Can 
 
 Board highlights possible moves, like Andrey's chess program.
 
+Wikipedia: "Normally when a player moves a piece, he/she snaps it to the board with the ends of the fingers of the same hand. This makes a sudden sound effect, bringing the piece to the attention of the opponent." So, the snapping sound will occur whenever a piece is moved.
+
 Console codes:
 pro_mode 1:
     Disables tile highlighting. All invalid moves result in an instant loss.
