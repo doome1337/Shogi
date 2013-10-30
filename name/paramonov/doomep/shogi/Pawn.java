@@ -35,9 +35,7 @@ public class Pawn extends PromotablePiece {
          return ((y == this.y + this.allegiance)
          && (x == this.x)
          && !((y < 0) || (y > 8))
-         && (state.getBoard()
-                  .get(y)
-                  .get(x)
+         && (state.getPieceAt(x, y)
                   .getAllegiance() != this.allegiance));
     }
 

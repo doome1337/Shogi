@@ -1,29 +1,44 @@
 package name.paramonov.doomep.shogi;
-//TODO: Documentation.
+
+/** A Class representing a lance in a game of shogi.
+ */
 public class Lance extends PromotablePiece {
+    /** Constructs a lance at a given x and y-value,
+     * with the given allegiance.
+     * @param   x           The x-value at which this lance is located.
+     * @param   y           The y-value at which this lance is located.
+     * @param   allegiance  The allegiance of this lance.
+     */
     public Lance(int x, int y, int allegiance) {
         this.x = x;
         this.y = y;
         this.allegiance = allegiance;
         this.pieceName = "Lance";
     }
-    
-    @Override
+        
     /** Checks whether this Lance can move to a given location.
      * @param state         The state of the game at this time.
      * @param x             The x-value of the target tile.
      * @param y             The y-value of the target tile.
      * @return              Whether or not this Lance can move to the target tile.
-     */ 
+     */
+    @Override
     protected boolean isValidMove(GameState state, int x, int y) {
-        //TODO: THIS.
-        boolean validMove = true;
-        for (int i = this.y+this.allegiance; validMove && i*this.allegiance <= y*this.allegiance; i+= this.allegiance) {
-            
+        boolean validMove = (x == this.x && !((y < 0) || (y > 8)));
+        for (int i = this.y+this.allegiance; validMove && i*this.allegiance < y*this.allegiance; i+= this.allegiance) {
+            validMove = state.getPieceAt(x, i) instanceof EmptyPiece;
         }
-        return false;
+        if (validMove) {
+            validMove = state.getPieceAt(x, y).getAllegiance() != this.allegiance;
+        }
+        return validMove;
     }
     
+    /** Returns the Piece this lance promotes to.
+     * Creates a PromotedLance with the same allegiance 
+     * and location as this pawn.
+     * @return              The PromotedLance equivalent of this Lance.
+     */
     @Override
     protected Piece promote() {
         if (this.isPromotable()) {
@@ -33,9 +48,13 @@ public class Lance extends PromotablePiece {
         }
     }
 
+    /** Returns the piece this Lawn demotes to.
+     * As lances are not a promoted piece, 
+     * demoting them has no effect.
+     * @return              This Lance.
+     */
     @Override
     protected Piece demote() {
         return this;
     }
-
 }
