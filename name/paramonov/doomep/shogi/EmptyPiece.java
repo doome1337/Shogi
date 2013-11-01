@@ -12,9 +12,7 @@ public class EmptyPiece extends Piece {
      * at which this EmptyPiece is.
      */
     public EmptyPiece (int x, int y) {
-        this.x = x;
-        this.y = y;
-        this.allegiance = 0;
+        super(x, y, 0);
         this.pieceName = "Empty Tile";
     }
 

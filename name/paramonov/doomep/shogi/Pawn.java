@@ -10,9 +10,7 @@ public class Pawn extends PromotablePiece {
      * @param   allegiance  The allegiance of this pawn.
      */
     public Pawn(int x, int y, int allegiance) {
-        this.x = x;
-        this.y = y;
-        this.allegiance = allegiance;
+        super(x, y, allegiance);
         this.pieceName = "Pawn";
     }
 

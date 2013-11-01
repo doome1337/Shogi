@@ -10,9 +10,7 @@ public class Lance extends PromotablePiece {
      * @param   allegiance  The allegiance of this lance.
      */
     public Lance(int x, int y, int allegiance) {
-        this.x = x;
-        this.y = y;
-        this.allegiance = allegiance;
+        super(x, y, allegiance);
         this.pieceName = "Lance";
     }
         
@@ -24,6 +22,13 @@ public class Lance extends PromotablePiece {
      */
     @Override
     protected boolean isValidMove(GameState state, int x, int y) {
+        /* First verifies if the target value is on the board, 
+         * and is on the same x-column.
+         * Then, loops through the tiles, moving 1 forwards,
+         * where forwards is determined by allegiance.
+         * If the move at any point becomes illegal, 
+         * the entire move is illegal.
+         * */
         boolean validMove = (x == this.x && !((y < 0) || (y > 8)));
         for (int i = this.y+this.allegiance; validMove && i*this.allegiance < y*this.allegiance; i+= this.allegiance) {
             validMove = state.getPieceAt(x, i) instanceof EmptyPiece;

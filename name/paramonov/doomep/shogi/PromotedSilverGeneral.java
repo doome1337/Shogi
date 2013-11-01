@@ -1,18 +1,11 @@
 package name.paramonov.doomep.shogi;
-/** A Class representing a promoted lance in a game of shogi.
- */
-public class PromotedLance extends UnpromotablePiece {
-    /** Constructs a promoted lance at a given x and y-value,
-     * with the given allegiance.
-     * @param   x           The x-value at which this promoted lance is located.
-     * @param   y           The y-value at which this promoted lance is located.
-     * @param   allegiance  The allegiance of this promoted lance.
-     */
-    public PromotedLance(int x, int y, int allegiance) {
+//TODO: Documentation.
+public class PromotedSilverGeneral extends UnpromotablePiece {
+    public PromotedSilverGeneral(int x, int y, int allegiance) {
         super(x, y, allegiance);
-        this.pieceName = "Promoted Lance";
+        this.pieceName = "Promoted Silver General";
     }
-    
+
     /** Returns whether a move can be undertaken by this PromotePawn.
      * @param   x           The x-value to which this piece is trying to move.
      * @param   y           The y-value to which this piece is trying to move.
@@ -38,13 +31,13 @@ public class PromotedLance extends UnpromotablePiece {
                    && (state.getPieceAt(x, y).getAllegiance() != this.allegiance));
     }
 
-    /** Returns the piece this promoted lance demotes to.
-     * In this case, this is a lance with the same x and y values, 
+    /** Returns the piece this promoted silver general demotes to.
+     * In this case, this is a silver general with the same x and y values, 
      * and the same allegiance.
-     * @return              The lance equivalent of this promoted lance.
+     * @return              The silver general equivalent of this promoted silver general.
      */
     @Override
     protected Piece demote() {
-        return new Lance(this.x, this.y, this.allegiance);
+        return new SilverGeneral(this.x, this.y, this.allegiance);
     }
 }

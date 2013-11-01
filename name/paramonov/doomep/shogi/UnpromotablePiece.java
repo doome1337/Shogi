@@ -4,6 +4,16 @@ package name.paramonov.doomep.shogi;
  * @author      Jiaying Huang
  */
 public abstract class UnpromotablePiece extends Piece {
+    /** Constructs an unpromotable piece at a given x and y-value,
+     * with the given allegiance.
+     * @param   x           The x-value at which this piece is located.
+     * @param   y           The y-value at which this piece is located.
+     * @param   allegiance  The allegiance of this piece.
+     */
+    public UnpromotablePiece(int x, int y, int allegiance) {
+        super(x, y, allegiance);
+    }
+    
     protected abstract boolean isValidMove(GameState state, int x, int y);
 
     /** Returns whether or not this piece can promote.

@@ -14,12 +14,12 @@ package name.paramonov.doomep.shogi;
  */
 public abstract class Piece {
     /** The x-value of this piece on the game board.
-     * Will be in a range from 1 to 9.
+     * Will be in a range from 0 to 8.
      */
     protected int x;
     
     /** The y-value of this piece on the game board.
-     * Will be in a range from 1 to 9.
+     * Will be in a range from 0 to 8.
      */
     protected int y;
     
@@ -42,6 +42,18 @@ public abstract class Piece {
      */
     protected String pieceName;
 
+    /** Constructs a piece at a given x and y-value,
+     * with the given allegiance.
+     * @param   x           The x-value at which this piece is located.
+     * @param   y           The y-value at which this piece is located.
+     * @param   allegiance  The allegiance of this piece.
+     */
+    public Piece(int x, int y, int allegiance) {
+        this.x = x;
+        this.y = y;
+        this.allegiance = allegiance;
+    }
+    
     /** Generates all possible moves for this piece.
      * Used to see which tiles it can go to, 
      * and returns an array of all possible (x, y)-value pairs 
