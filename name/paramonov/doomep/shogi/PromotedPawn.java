@@ -13,7 +13,7 @@ public class PromotedPawn extends UnpromotablePiece {
         this.pieceName = "Promoted Pawn";
 	}
     
-    /** Returns whether a move can be undertaken by this PromotePawn.
+    /** Returns whether a move can be undertaken by this PromotedPawn.
      * @param   x           The x-value to which this piece is trying to move.
      * @param   y           The y-value to which this piece is trying to move.
      * @param   state       The state of the game before the piece is moved.

@@ -61,17 +61,11 @@ public abstract class Piece {
      * @param   state       The current state of the game at the time of verification.
      * @return              The possible locations where this piece can move.
      */
-    public int[][] generateMoves (GameState state) {
-        int[][] results = new int[0][2];
-        int[][] tempResults;
+    public boolean[][] generateMoves (GameState state) {
+        boolean[][] results = new boolean[9][9];
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                if (this.isValidMove(state, i, j)) {
-                    tempResults = new int[results.length+1][2];
-                    System.arraycopy(results, 0, tempResults, 0, results.length);
-                    tempResults[results.length] = new int[] {i, j};
-                    results = tempResults;
-                }
+                results[i][j] = this.isValidMove(state, i, j);
             }
         }
         return results;

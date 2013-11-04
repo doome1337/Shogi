@@ -13,11 +13,11 @@ public class PromotedLance extends UnpromotablePiece {
         this.pieceName = "Promoted Lance";
     }
     
-    /** Returns whether a move can be undertaken by this PromotePawn.
+    /** Returns whether a move can be undertaken by this PromotedLance.
      * @param   x           The x-value to which this piece is trying to move.
      * @param   y           The y-value to which this piece is trying to move.
      * @param   state       The state of the game before the piece is moved.
-     * @return              Whether this PromotedPawn can move to the given x and y values.
+     * @return              Whether this PromotedLance can move to the given x and y values.
      */
     @Override
     protected boolean isValidMove(GameState state, int x, int y) {

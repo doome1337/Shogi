@@ -130,4 +130,14 @@ public class GameState {
     protected void setPieceAt (int x, int y, Piece piece) {
         board.get(y).set(x, piece);
     }
+
+    public boolean isAttacked(int x, int y, int attackingAllegiance) {
+        boolean isAttacked = false;
+        for (int i = 0; !isAttacked && i < 9; i++) {
+            for (int j = 0; !isAttacked && j < 9; j++) {
+                isAttacked = this.getPieceAt(i, j).getAllegiance() == attackingAllegiance && this.getPieceAt(i, j).isValidMove(this, x, y);
+            }
+        }
+        return isAttacked;
+    }
 }

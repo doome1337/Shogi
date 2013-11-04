@@ -1,16 +1,24 @@
 package name.paramonov.doomep.shogi;
 //TODO: Documentation.
+/** A Class representing a promoted silver general in a game of shogi.
+ */
 public class PromotedSilverGeneral extends UnpromotablePiece {
+    /** Constructs a promoted silver general at a given x and y-value,
+     * with the given allegiance.
+     * @param   x           The x-value at which this promoted silver general is located.
+     * @param   y           The y-value at which this promoted silver general is located.
+     * @param   allegiance  The allegiance of this promoted silver general.
+     */
     public PromotedSilverGeneral(int x, int y, int allegiance) {
         super(x, y, allegiance);
         this.pieceName = "Promoted Silver General";
     }
 
-    /** Returns whether a move can be undertaken by this PromotePawn.
+    /** Returns whether a move can be undertaken by this PromotedSilverGeneral.
      * @param   x           The x-value to which this piece is trying to move.
      * @param   y           The y-value to which this piece is trying to move.
      * @param   state       The state of the game before the piece is moved.
-     * @return              Whether this PromotedPawn can move to the given x and y values.
+     * @return              Whether this PromotedSilverGeneral can move to the given x and y values.
      */
     @Override
     protected boolean isValidMove(GameState state, int x, int y) {

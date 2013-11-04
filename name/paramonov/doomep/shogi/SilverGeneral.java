@@ -5,23 +5,24 @@ package name.paramonov.doomep.shogi;
 public class SilverGeneral extends PromotablePiece {
     /** Constructs a silver general at a given x and y-value,
      * with the given allegiance.
-     * @param   x           The x-value at which this pawn is located.
-     * @param   y           The y-value at which this pawn is located.
-     * @param   allegiance  The allegiance of this pawn.
+     * @param   x           The x-value at which this silver general is located.
+     * @param   y           The y-value at which this silver general is located.
+     * @param   allegiance  The allegiance of this silver general.
      */
     public SilverGeneral(int x, int y, int allegiance) {
         super(x, y, allegiance);
         this.pieceName = "Silver General";
     }
     
-    /** Constructs a lance at a given x and y-value,
-     * with the given allegiance.
-     * @param   x           The x-value at which this lance is located.
-     * @param   y           The y-value at which this lance is located.
-     * @param   allegiance  The allegiance of this lance.
+    /** Returns whether a move can be undertaken by this SilverGeneral.
+     * @param   x           The x-value to which this piece is trying to move.
+     * @param   y           The y-value to which this piece is trying to move.
+     * @param   state       The state of the game before the piece is moved.
+     * @return              Whether this SilverGeneral can move to the given x and y values.
      */
     @Override
     protected boolean isValidMove(GameState state, int x, int y) {
+        //TODO: Comment.
         return ((((y == this.y+this.allegiance) 
                && (x == this.x-1 || x == this.x || x == this.x+1)) 
               || ((y == this.y-this.allegiance) 
@@ -46,7 +47,7 @@ public class SilverGeneral extends PromotablePiece {
         }
     }
 
-    /** Returns the piece this pawn demotes to.
+    /** Returns the piece this silver general demotes to.
      * As silver generals are not a promoted piece, 
      * demoting them has no effect.
      * @return              This silver general.

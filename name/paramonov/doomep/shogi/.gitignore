@@ -12,3 +12,8 @@
 /GoldGeneral.class
 /Knight.class
 /PromotedKnight.class
+/Rook.class
+/PromotedRook.class
+/Bishop.class
+/PromotedBishop.class
+/King.class
