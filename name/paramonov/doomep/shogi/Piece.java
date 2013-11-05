@@ -80,6 +80,17 @@ public abstract class Piece {
      */
     protected abstract boolean isValidMove (GameState state, int x, int y); 
     
+    /** Returns whether a move can be undertaken by this Piece without verifying for check.
+     * Used in order to prevent King check feedback.
+     * @param state         The current state of the game at the time of verification. 
+     * @param   x           The x-value to which this piece is trying to move.
+     * @param   y           The y-value to which this piece is trying to move.
+     * @return              Whether this Piece can move to the given x and y values.
+     */
+    protected boolean isUncheckedMove(GameState state, int x, int y) {
+        return this.isValidMove(state, x, y);
+    }
+    
     /** Moves the piece, and captures any pieces at the target tile.
      * Verifies if target tile is a valid move, 
      * and then moves the piece to that location.

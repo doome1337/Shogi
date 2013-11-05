@@ -131,11 +131,18 @@ public class GameState {
         board.get(y).set(x, piece);
     }
 
+    /** Checks whether a tile is being attacked by any Piece of a given allegiance.
+     * @param x             The x-value of the tile which we are checking.
+     * @param y             The y-value of the tile which we are checking.
+     * @param attackingAllegiance
+     *                      The allegiance that we are checking whether or not the tile is being attacked.
+     * @return              Whether or not the given tile is bing attacked by any Piece of the given allegiance.
+     */
     public boolean isAttacked(int x, int y, int attackingAllegiance) {
         boolean isAttacked = false;
         for (int i = 0; !isAttacked && i < 9; i++) {
             for (int j = 0; !isAttacked && j < 9; j++) {
-                isAttacked = this.getPieceAt(i, j).getAllegiance() == attackingAllegiance && this.getPieceAt(i, j).isValidMove(this, x, y);
+                isAttacked = this.getPieceAt(i, j).getAllegiance() == attackingAllegiance && this.getPieceAt(i, j).isUncheckedMove(this, x, y);
             }
         }
         return isAttacked;
