@@ -4,6 +4,7 @@ public class Rook extends PromotablePiece {
     public Rook(int x, int y, int allegiance) {
         super(x, y, allegiance);
         this.pieceName = "Rook";
+        this.doubleCharRepresentation = "R ";
     }
 
     @Override

@@ -4,6 +4,7 @@ public class PromotedBishop extends UnpromotablePiece {
     public PromotedBishop(int x, int y, int allegiance) {
         super(x, y, allegiance);
         this.pieceName = "Promoted Bishop";
+        this.doubleCharRepresentation = "B+";
     }
 
     @Override

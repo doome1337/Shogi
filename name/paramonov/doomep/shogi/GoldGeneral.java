@@ -12,6 +12,7 @@ public class GoldGeneral extends UnpromotablePiece {
     public GoldGeneral(int x, int y, int allegiance) {
         super(x, y, allegiance);
         this.pieceName = "Gold General";
+        this.doubleCharRepresentation = "G ";
     }
     /** Returns whether a move can be undertaken by this GoldGeneral.
      * @param   x           The x-value to which this piece is trying to move.

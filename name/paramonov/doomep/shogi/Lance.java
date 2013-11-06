@@ -12,6 +12,7 @@ public class Lance extends PromotablePiece {
     public Lance(int x, int y, int allegiance) {
         super(x, y, allegiance);
         this.pieceName = "Lance";
+        this.doubleCharRepresentation = "L ";
     }
         
     /** Checks whether this Lance can move to a given location.

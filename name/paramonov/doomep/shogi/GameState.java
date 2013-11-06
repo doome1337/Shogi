@@ -34,13 +34,13 @@ public class GameState {
     public GameState () {
         this.board = new ArrayList<List<Piece>>(9);
         for (int i = 0; i < 9; i++) {
-            this.board.set(i, new ArrayList<Piece>(9));
+            this.board.add(i, new ArrayList<Piece>(9));
         }
         this.dropTable1 = new ArrayList<Piece>(0);
         this.dropTable2 = new ArrayList<Piece>(0);
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                this.setPieceAt(i, j, new EmptyPiece(i, j));
+                this.board.get(i).add(new EmptyPiece(i, j));
             }
         }
     }
@@ -146,5 +146,38 @@ public class GameState {
             }
         }
         return isAttacked;
+    }
+
+    /** Sets this board to be the default starting configuration of Shogi.
+     */
+    public void defaultBoardConfigure() {
+        /* Order is the standard Ohashi order of placing pieces.
+         */
+        this.setPieceAt(4, 0, new King(4, 0, 1));
+        this.setPieceAt(4, 8, new King(4, 8, -1));
+        this.setPieceAt(3, 0, new GoldGeneral(3, 0, 1));
+        this.setPieceAt(5, 8, new GoldGeneral(5, 8, -1));
+        this.setPieceAt(5, 0, new GoldGeneral(5, 0, 1));
+        this.setPieceAt(3, 8, new GoldGeneral(3, 8, -1));
+        this.setPieceAt(2, 0, new SilverGeneral(2, 0, 1));
+        this.setPieceAt(6, 8, new SilverGeneral(6, 8, -1));
+        this.setPieceAt(6, 0, new SilverGeneral(6, 0, 1));
+        this.setPieceAt(2, 8, new SilverGeneral(2, 8, -1));
+        this.setPieceAt(1, 0, new Knight(1, 0, 1));
+        this.setPieceAt(7, 8, new Knight(7, 8, -1));
+        this.setPieceAt(7, 0, new Knight(7, 0, 1));
+        this.setPieceAt(1, 8, new Knight(1, 8, -1));
+        this.setPieceAt(0, 0, new Lance(0, 0, 1));
+        this.setPieceAt(8, 8, new Lance(8, 8, -1));
+        this.setPieceAt(8, 0, new Lance(8, 0, 1));
+        this.setPieceAt(0, 8, new Lance(0, 8, -1));
+        this.setPieceAt(1, 1, new Bishop(1, 1, 1));
+        this.setPieceAt(7, 7, new Bishop(7, 7, -1));
+        this.setPieceAt(7, 1, new Rook(7, 1, 1));
+        this.setPieceAt(1, 7, new Rook(1, 7, -1));
+        for (int i = 0; i < 9; i++) {
+            this.setPieceAt(i, 2, new Pawn(i, 2, 1));
+            this.setPieceAt(8-i, 6, new Pawn(8-i, 6, -1));
+        }
     }
 }
