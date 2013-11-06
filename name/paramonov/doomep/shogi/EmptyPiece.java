@@ -14,6 +14,7 @@ public class EmptyPiece extends Piece {
     public EmptyPiece (int x, int y) {
         super(x, y, 0);
         this.pieceName = "Empty Tile";
+        this.doubleCharRepresentation = new String[]{"  ","  ", "  "};
     }
 
     /** Returns whether or not this EmptyPiece can move to a given tile.
