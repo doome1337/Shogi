@@ -97,18 +97,34 @@ public class GameState {
         //TODO: Is this finished? Look back over plans and decide.
         //TODO: Pretty sure this is finished nao.
     }
+    
     /** Drops a piece from the drop table onto the board.
      * Removes the piece from the drop table, 
      * and places it on the board.
-     * @param allegiance
-     * @param x
-     * @param y
-     * @param piece
+     * @param allegiance    The allegiance of the drop table we're dropping from.
+     * @param x             The x-value at which we're dropping the piece.
+     * @param y             The y-value at which we're dropping the piece.
+     * @param piece         The piece we're dropping.
      */
     protected void dropPieceFromTable (int allegiance, int x, int y, Piece piece) {
         this.setPieceAt(x, y, piece);
         piece.setPosition(x, y);
         this.getCorrectDropTable(allegiance).remove(piece);
+        //TODO: This is done if addPieceToDropTable is done(). I think. Revise this anyway.
+    }
+    
+    /** Drops a piece from the drop table onto the board.
+     * Removes the piece from the drop table, 
+     * and places it on the board.
+     * @param allegiance    The allegiance of the drop table we're dropping from.
+     * @param x             The x-value at which we're dropping the piece.
+     * @param y             The y-value at which we're dropping the piece.
+     * @param piece         The piece we're dropping.
+     */
+    protected void dropPieceFromTable (int allegiance, int x, int y, int pieceNumberInDropTable) {
+        this.setPieceAt(x, y, this.getCorrectDropTable(allegiance).get(pieceNumberInDropTable));
+        this.getCorrectDropTable(allegiance).get(pieceNumberInDropTable).setPosition(x, y);
+        this.getCorrectDropTable(allegiance).remove(pieceNumberInDropTable);
         //TODO: This is done if addPieceToDropTable is done(). I think. Revise this anyway.
     }
     
@@ -129,6 +145,14 @@ public class GameState {
      */
     protected void setPieceAt (int x, int y, Piece piece) {
         board.get(y).set(x, piece);
+    }
+    
+    /** Promotes the piece at a given x and y value.
+     * @param x             The x-value of the piece that is being promoted.
+     * @param y             The y-value of the piece that is being promoted.
+     */
+    protected void promotedPieceAt (int x, int y) {
+        this.setPieceAt(x, y, this.getPieceAt(x, y).promote());
     }
 
     /** Checks whether a tile is being attacked by any Piece of a given allegiance.

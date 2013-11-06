@@ -66,7 +66,7 @@ public class PieceTest {
                 input = input.substring(input.indexOf(" ")+1);
                 int y = Integer.parseInt(input.substring(input.indexOf(" ")+1, input.indexOf(" ")+2));
                 if (state.getPieceAt(x, y).isPromotable()) {
-                    state.setPieceAt(x, y, state.getPieceAt(x, y).promote());
+                    state.promotedPieceAt(x, y);
                 }
             } else if (input.startsWith("d")) {
                 int a = Integer.parseInt(input.substring(input.indexOf(" ")+1, input.indexOf(" ")+2));
@@ -77,7 +77,7 @@ public class PieceTest {
                 input = input.substring(input.indexOf(" ")+1);
                 int y = Integer.parseInt(input.substring(input.indexOf(" ")+1, input.indexOf(" ")+2));
                 if (state.getPieceAt(x, y) instanceof EmptyPiece) {
-                    state.dropPieceFromTable(a, x, y, state.getCorrectDropTable(a).get(p));
+                    state.dropPieceFromTable(a, x, y, p);
                 }
             } else if (input.startsWith("q")) {
                 quit = true;
