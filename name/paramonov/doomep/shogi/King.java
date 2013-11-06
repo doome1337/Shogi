@@ -4,7 +4,7 @@ public class King extends UnpromotablePiece {
     public King(int x, int y, int allegiance) {
         super(x, y, allegiance);
         this.pieceName = "King";
-        this.doubleCharRepresentation = "K ";
+        this.doubleCharRepresentation = new String[]{"k ","K#", "K "};
     }
     
     @Override

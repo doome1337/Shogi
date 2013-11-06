@@ -11,7 +11,7 @@ public class PromotedLance extends UnpromotablePiece {
     public PromotedLance(int x, int y, int allegiance) {
         super(x, y, allegiance);
         this.pieceName = "Promoted Lance";
-        this.doubleCharRepresentation = "L+";
+        this.doubleCharRepresentation = new String[]{"l+","L*", "L+"};
     }
     
     /** Returns whether a move can be undertaken by this PromotedLance.

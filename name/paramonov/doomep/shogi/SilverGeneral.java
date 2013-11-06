@@ -12,7 +12,7 @@ public class SilverGeneral extends PromotablePiece {
     public SilverGeneral(int x, int y, int allegiance) {
         super(x, y, allegiance);
         this.pieceName = "Silver General";
-        this.doubleCharRepresentation = "S ";
+        this.doubleCharRepresentation = new String[]{"s ","S#", "S "};
     }
     
     /** Returns whether a move can be undertaken by this SilverGeneral.

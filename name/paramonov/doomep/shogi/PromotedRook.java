@@ -4,7 +4,7 @@ public class PromotedRook extends UnpromotablePiece {
     public PromotedRook(int x, int y, int allegiance) {
         super(x, y, allegiance);
         this.pieceName = "Promoted Rook";
-        this.doubleCharRepresentation = "R+";
+        this.doubleCharRepresentation = new String[]{"r+","R*", "R+"};
     }
     
     @Override
@@ -15,7 +15,7 @@ public class PromotedRook extends UnpromotablePiece {
         boolean validMove1 = true;
         boolean validMove2 = true;
         if (dy == 0 && dx != 0){
-            for (int i = 1; validMove1 && i*Math.signum(dx) < dx; i++) {
+            for (int i = 1; validMove1 && i < Math.abs(dx); i++) {
                 validMove1 = state.getPieceAt(this.x+i*((int)Math.signum(dx)), y) instanceof EmptyPiece;
             }
             if (validMove1) {

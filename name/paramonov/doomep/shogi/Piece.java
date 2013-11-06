@@ -44,8 +44,9 @@ public abstract class Piece {
 
     /** This piece's 2 character representation.
      * Used for Text-based IO.
+     * Stored as an array with 1 value for each possible allegiance.
      */
-    protected String doubleCharRepresentation;
+    protected String[] doubleCharRepresentation;
 
     /** Constructs a piece at a given x and y-value,
      * with the given allegiance.
@@ -215,16 +216,6 @@ public abstract class Piece {
      * @return              This piece's 2 character representation;
      */
     public String getDoubleCharRepresentation() {
-        String result = this.doubleCharRepresentation;
-        if (this.allegiance == -1) {
-            result = result.toLowerCase();
-        } else if (this.allegiance == 1) {
-            result = result.toUpperCase();
-        } else if (this instanceof EmptyPiece){
-            result = "  ";
-        } else {
-            result = "##";
-        }
-        return result;
+        return this.doubleCharRepresentation[this.allegiance+1];
     }
 }

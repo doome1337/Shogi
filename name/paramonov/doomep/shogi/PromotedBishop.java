@@ -4,7 +4,7 @@ public class PromotedBishop extends UnpromotablePiece {
     public PromotedBishop(int x, int y, int allegiance) {
         super(x, y, allegiance);
         this.pieceName = "Promoted Bishop";
-        this.doubleCharRepresentation = "B+";
+        this.doubleCharRepresentation = new String[]{"b+","B*", "B+"};
     }
 
     @Override
@@ -15,7 +15,7 @@ public class PromotedBishop extends UnpromotablePiece {
         boolean validMove1 = true;
         boolean validMove2 = true;
         if (dx*Math.signum(dx) == dy*Math.signum(dy) && dy != 0) {
-            for (int i = 1; validMove1 && i*Math.signum(dy) < dy; i++) {
+            for (int i = 1; validMove1 && i < Math.abs(dy); i++) {
                 validMove1 = state.getPieceAt(this.x+i*((int)Math.signum(dx)), this.y+i*((int)Math.signum(dy))) instanceof EmptyPiece;
             }
             if (validMove1) {
