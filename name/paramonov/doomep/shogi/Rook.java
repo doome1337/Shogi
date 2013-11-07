@@ -12,15 +12,15 @@ public class Rook extends PromotablePiece {
         //TODO: Comments.
         int dx = x - this.x; 
         int dy = y - this.y;
-        boolean validMove = true;
-        if (dy == 0 && dx != 0){
+        boolean validMove = !(x < 0 || x > 8) && !(y < 0 || y > 8);
+        if (validMove && dy == 0 && dx != 0){
             for (int i = 1; validMove && i < Math.abs(dx); i++) {
                 validMove = state.getPieceAt(this.x+i*((int)Math.signum(dx)), y) instanceof EmptyPiece;
             }
             if (validMove) {
                 validMove = state.getPieceAt(x, y).getAllegiance() != this.allegiance;
             }
-        } else if (dx == 0 && dy != 0) {
+        } else if (validMove && dx == 0 && dy != 0) {
             for (int i = 1; validMove && i < Math.abs(dy); i++) {
                 validMove = state.getPieceAt(x, this.y+i*((int)Math.signum(dy))) instanceof EmptyPiece;
             }

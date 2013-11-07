@@ -12,8 +12,8 @@ public class Bishop extends PromotablePiece {
         //TODO: Comments.
         int dx = x - this.x; 
         int dy = y - this.y;
-        boolean validMove = true;
-        if (Math.abs(dx) == Math.abs(dy) && dy != 0) {
+        boolean validMove = !(x < 0 || x > 8) && !(y < 0 || y > 8);
+        if (validMove && Math.abs(dx) == Math.abs(dy) && dy != 0) {
             for (int i = 1; validMove && i < Math.abs(dy); i++) {
                 validMove = state.getPieceAt(this.x+i*((int)Math.signum(dx)), this.y+i*((int)Math.signum(dy))) instanceof EmptyPiece;
             }
