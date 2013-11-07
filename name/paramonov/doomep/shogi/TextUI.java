@@ -4,8 +4,8 @@ import java.util.List;
 
 /** A class used for playing shogi in a text user interface.
  * Meant to be a precursor to the GUI.
- * @author       Dmitry Andreevich Paramonov
  * @author       Jiayin Huang
+ * @author       Dmitry Andreevich Paramonov
  */
 public class TextUI
 {

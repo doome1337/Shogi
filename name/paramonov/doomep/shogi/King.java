@@ -10,8 +10,12 @@ public class King extends UnpromotablePiece {
     @Override
     protected boolean isValidMove(GameState state, int x, int y) {
         boolean validMove = Math.abs(this.x-x) < 2 && Math.abs(this.y-y) < 2 
-                         && state.getPieceAt(x, y).getAllegiance() != this.allegiance 
-                        && !state.isAttacked(x, y, -this.allegiance);
+                        && !(x < 0 || x > 8)
+                        && !(y < 0 || y > 8)
+                         && state.getPieceAt(x, y).getAllegiance() != this.allegiance;
+        state.setPieceAt(this.x, this.y, new EmptyPiece(this.x, this.y));
+        validMove = validMove && !state.isAttacked(x, y, -this.allegiance);
+        state.setPieceAt(this.x, this.y, new King(this.x, this.y, this.allegiance));
         return validMove;
     }
     
