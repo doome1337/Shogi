@@ -70,8 +70,8 @@ public class TextUI
      */
     static GameState state = new GameState ();
     
-    /** Main program.
-     * <Insert description here>
+    /**
+     * The main program.
      */
     public static void main (String[] args)
     {
@@ -100,7 +100,10 @@ public class TextUI
 
     } // main method
 
-
+    /**
+     * Parses the input and acts upon it.
+     * @param input - The inputed String. 
+     */
     public static void parseInput (String input)
     {
         boolean found = false;
@@ -111,7 +114,9 @@ public class TextUI
         }
     }
 
-
+    /**
+     * Prints the welcome message.
+     */
     public static void printInit ()
     {
         System.out.println ("Welcome to Shogi Text UI(" + version + ")");
@@ -119,15 +124,14 @@ public class TextUI
         System.out.println ("Input 'help' to display the list of commands.");       
         parseInput ("board");
     }
-
-
-    // Commands
-    
-    //TODO: add more TODOS.
+         
     //TODO: annotate more.
     
+    /**     
+     * Prints the current state of the board.
+     */
     static class Board implements Command
-    {
+    {    	
     	public void execute (String command)
     	{
     		List<Piece> d1 = state.getDropTable1();
@@ -143,10 +147,9 @@ public class TextUI
     		for (int i = 8; i >= 0; i--) 
     		{
     			System.out.print(i + "|");
-    			for (int j = 0; j < 9; j++) 
-    			{    				
+    			for (int j = 0; j < 9; j++)     			  				
     				System.out.print(state.getPieceAt(j, i).getDoubleCharRepresentation());
-    			}
+    			
             System.out.println("|"+i);
     		}    		
     		System.out.println("  0 1 2 3 4 5 6 7 8");
@@ -156,10 +159,12 @@ public class TextUI
     		}    		
         }
     }
-
-
+    
+    /**
+	 * Drops the selected piece onto the table.
+	 */
     static class Drop implements Command
-    {
+    {    	
         public void execute (String command)
         {
             String[] parameters = command.split (" ");
@@ -178,9 +183,11 @@ public class TextUI
         }
     }
 
-
+    /**
+	 * Prints a list of all valid commands.
+	 */
     static class Help implements Command
-    {
+    {    	
         public void execute (String command)
         { 
             System.out.println ("Shogi Text UI " + version);
@@ -190,9 +197,11 @@ public class TextUI
         }
     }
 
-
+    /**
+	 * Moves the piece at (x1,y1) to (x2,y2), if valid.
+	 */
     static class Move implements Command
-    {
+    {    	
         public void execute (String command)
         {
         	int x1 = Character.getNumericValue (command.charAt (5));
@@ -209,9 +218,11 @@ public class TextUI
         }        
     }
 
-
+    /**
+	 * Promotes the piece at (x,y).
+	 */
     static class Promote implements Command
-    {
+    {    	
         public void execute (String command)
         {
             int x = Character.getNumericValue (command.charAt (8));
@@ -225,18 +236,22 @@ public class TextUI
         }
     }
     
-    
+    /**
+	 * Stops the program.
+	 */
     static class Quit implements Command
-    {
+    {    	
         public void execute (String command)
         {
             running = false;
         }
     }
 
-
+    /**
+	 * Resets the board.
+	 */
     static class Reset implements Command
-    {
+    {    	
         public void execute (String command)
         {
         	state = new GameState ();
