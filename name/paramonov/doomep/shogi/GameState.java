@@ -171,6 +171,38 @@ public class GameState {
         }
         return isAttacked;
     }
+    
+    /** Returns whether a King of a given allegiance is being attacked.
+     * @param defendingAllegiance
+     *                      The allegiance which we are checking for check.
+     * @return              Whether the King of defendingAllegiance is under check.
+     */
+    public boolean isKingInCheck(int defendingAllegiance) {
+        boolean tested = false;
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (this.getPieceAt(i, j).getCheckmatable() && this.getPieceAt(i, j).getAllegiance() == defendingAllegiance) {
+                    tested = this.isAttacked(i, j, -defendingAllegiance);
+                }
+            }
+        }
+        return tested;
+    }
+    
+    /** Returns whether a move by a given Piece would put the King of that allegiance in check. 
+     * @param x             The x-value of the tile to which we're trying to move movingPiece.
+     * @param y             The y-value of the tile to which we're trying to move movingPiece.
+     * @param movingPiece   The Piece we are moving. 
+     * @return              Whether the given move would cause check for the moving Piece.
+     */
+    public boolean willKingBeInCheck(int x, int y, Piece movingPiece) {
+        this.setPieceAt(x, y, movingPiece);
+        this.setPieceAt(movingPiece.x, movingPiece.y, new EmptyPiece(movingPiece.x, movingPiece.y));
+        boolean tested = this.isKingInCheck(movingPiece.getAllegiance());
+        this.setPieceAt(movingPiece.x, movingPiece.y, movingPiece);
+        this.setPieceAt(x, y, new EmptyPiece(x, y));
+        return tested;
+    }
 
     /** Sets this board to be the default starting configuration of Shogi.
      */

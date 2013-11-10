@@ -47,6 +47,11 @@ public abstract class Piece {
      * Stored as an array with 1 value for each possible allegiance.
      */
     protected String[] doubleCharRepresentation;
+    
+    /** Whether this piece can be checkmated.
+     * Used for verification in check.
+     */
+    protected boolean checkmatable; 
 
     /** Constructs a piece at a given x and y-value,
      * with the given allegiance.
@@ -58,6 +63,7 @@ public abstract class Piece {
         this.x = x;
         this.y = y;
         this.allegiance = allegiance;
+        this.checkmatable = false;
     }
     
     /** Generates all possible moves for this piece.
@@ -217,5 +223,9 @@ public abstract class Piece {
      */
     public String getDoubleCharRepresentation() {
         return this.doubleCharRepresentation[this.allegiance+1];
+    }
+
+    public boolean getCheckmatable() {
+        return this.checkmatable;
     }
 }
