@@ -195,12 +195,29 @@ public class GameState {
      * @param movingPiece   The Piece we are moving. 
      * @return              Whether the given move would cause check for the moving Piece.
      */
-    public boolean willKingBeInCheck(int x, int y, Piece movingPiece) {
+    public boolean willKingBeInCheckAfterMove(int x, int y, Piece movingPiece) {
         this.setPieceAt(x, y, movingPiece);
         this.setPieceAt(movingPiece.x, movingPiece.y, new EmptyPiece(movingPiece.x, movingPiece.y));
         boolean tested = this.isKingInCheck(movingPiece.getAllegiance());
         this.setPieceAt(movingPiece.x, movingPiece.y, movingPiece);
         this.setPieceAt(x, y, new EmptyPiece(x, y));
+        return tested;
+    }
+    
+    /** Whether a drop of a piece would put the opposing king in check.
+     * Used solely for pawn dropping.
+     * @param x             The x-value of the tile to which we're dropping the piece.
+     * @param y             The y-value of the tile to which we're dropping the piece.
+     * @param droppingAllegiance
+     *                      The allegiance that is dropping the Piece.
+     * @param numberOfPieceToDrop
+     *                      The number of the piece in the drop table.
+     * @return              Whether this drop would put the enemy king in check.
+     */
+    public boolean willKingBeInCheckAfterDrop(int x, int y, int droppingAllegiance, int numberOfPieceToDrop) {
+        this.dropPieceFromTable(droppingAllegiance, x, y, numberOfPieceToDrop);
+        boolean tested = this.isKingInCheck(-droppingAllegiance);
+        this.addPieceToDropTable(droppingAllegiance, this.getPieceAt(x, y));
         return tested;
     }
 
