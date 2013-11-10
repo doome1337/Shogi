@@ -101,7 +101,11 @@ public class PieceTest {
                 int x = Integer.parseInt(input.substring(input.indexOf(" ")+1, input.indexOf(" ")+2));
                 input = input.substring(input.indexOf(" ")+1);
                 int y = Integer.parseInt(input.substring(input.indexOf(" ")+1, input.indexOf(" ")+2));
-                if (state.getPieceAt(x, y) instanceof EmptyPiece && !(state.willKingBeInCheckAfterDrop(x, y, a, p) && state.getCorrectDropTable(a).get(p) instanceof Pawn)) {
+                boolean pawnInColumn = false;
+                for (int i = 0; !pawnInColumn && i < 9; i++) {
+                    pawnInColumn = state.getPieceAt(x, i) instanceof Pawn; 
+                }
+                if (state.getPieceAt(x, y) instanceof EmptyPiece && !((state.willKingBeInCheckAfterDrop(x, y, a, p) || pawnInColumn) && state.getCorrectDropTable(a).get(p) instanceof Pawn)) {
                     state.dropPieceFromTable(a, x, y, p);
                 }
             } else if (input.startsWith("c_")) {
