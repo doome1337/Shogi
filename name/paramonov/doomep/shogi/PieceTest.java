@@ -75,7 +75,9 @@ public class PieceTest {
         boolean quit = false;
         int playerTurn = 1;
         while (!quit) {
-            display(state, playerTurn);
+            if (!input.startsWith("s")) {
+                display(state, playerTurn);
+            }
             input = new Scanner(System.in).nextLine().toLowerCase();
             if (input.startsWith("m")) {
                 int x1 = Integer.parseInt(input.substring(input.indexOf(" ")+1, input.indexOf(" ")+2));
@@ -98,7 +100,7 @@ public class PieceTest {
                     playerTurn = -playerTurn;
                 }
             } else if (input.startsWith("d")) {
-                int a = Integer.parseInt(input.substring(input.indexOf(" ")+1, input.indexOf(" ")+2));
+                int a = Integer.parseInt(input.substring(input.indexOf(" ")+1, input.substring(input.indexOf(" ")+1).indexOf(" ")+input.indexOf(" ")+1));
                 input = input.substring(input.indexOf(" ")+1);
                 int p = Integer.parseInt(input.substring(input.indexOf(" ")+1, input.indexOf(" ")+2));
                 input = input.substring(input.indexOf(" ")+1);
@@ -107,12 +109,14 @@ public class PieceTest {
                 int y = Integer.parseInt(input.substring(input.indexOf(" ")+1, input.indexOf(" ")+2));
                 boolean pawnInColumn = false;
                 for (int i = 0; !pawnInColumn && i < 9; i++) {
-                    pawnInColumn = state.getPieceAt(x, i) instanceof Pawn; 
+                    pawnInColumn = state.getPieceAt(x, i) instanceof Pawn && state.getPieceAt(x, i).getAllegiance() == state.getCorrectDropTable(a).get(p).getAllegiance(); 
                 }
                 if (a == playerTurn && state.getPieceAt(x, y) instanceof EmptyPiece && !((state.willKingBeInCheckAfterDrop(x, y, a, p) || pawnInColumn) && state.getCorrectDropTable(a).get(p) instanceof Pawn)) {
                     state.dropPieceFromTable(a, x, y, p);
                     playerTurn = -playerTurn;
                 }
+            } else if (input.startsWith("s")) {
+                display(state);
             } else if (input.startsWith("c_")) {
                 input = input.substring(2);
                 if (input.startsWith("zopper")) {
