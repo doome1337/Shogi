@@ -151,7 +151,7 @@ public class GameState {
      * @param x             The x-value of the piece that is being promoted.
      * @param y             The y-value of the piece that is being promoted.
      */
-    protected void promotedPieceAt (int x, int y) {
+    protected void promotePieceAt (int x, int y) {
         this.setPieceAt(x, y, this.getPieceAt(x, y).promote());
     }
 

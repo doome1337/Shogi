@@ -94,7 +94,7 @@ public class PieceTest {
                 input = input.substring(input.indexOf(" ")+1);
                 int y = Integer.parseInt(input.substring(input.indexOf(" ")+1, input.indexOf(" ")+2));
                 if (state.getPieceAt(x, y).getAllegiance() == playerTurn && state.getPieceAt(x, y).isPromotable()) {
-                    state.promotedPieceAt(x, y);
+                    state.promotePieceAt(x, y);
                     playerTurn = -playerTurn;
                 }
             } else if (input.startsWith("d")) {

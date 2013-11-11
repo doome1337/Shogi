@@ -205,9 +205,9 @@ public class TextUI
 						if (canMoveHere[j][i])
 						{
 							if (state.getPieceAt(j, i) instanceof EmptyPiece)
-								System.out.print("• ");
+								System.out.print("^ ");
 							else
-								System.out.print("© ");
+								System.out.print("* ");
 						}
 						else 
 							System.out.print(state.getPieceAt(j, i).getDoubleCharRepresentation());
@@ -315,7 +315,7 @@ public class TextUI
 			{
 				if (state.getPieceAt(x, y).isPromotable())
 				{					
-					state.promotedPieceAt(x, y);
+					state.promotePieceAt(x, y);
 					player *= -1;
 					parseInput ("board");
 				}
