@@ -19,6 +19,16 @@ public class BoardPanel extends JPanel
 	 * I don't know why Eclipse wants this.
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private static final Color dropTableColor = new Color (192, 192, 192);
+	private static final Color boardColor = new Color (196, 144, 0);	
+	private static final Color highlightColor = Color.green;
+
+	private static final Point boardOffset = new Point (30, 30);	
+	private static final Point dropOffset1 = new Point (390, 30);
+	private static final Point dropOffset2 = new Point (390, 230);
+	private static final Dimension zone = new Dimension (40, 40);	
+	private static final Dimension dropTable = new Dimension (120, 160);
 
 	/**
 	 * The board. 
@@ -28,13 +38,6 @@ public class BoardPanel extends JPanel
 	//TODO: Annotation.
 	//TODO: Clean up code.
 	//TODO: Add drop table, player turns, and all of the other functions.
-
-	static final Color boardColor = new Color (196, 144, 0);	
-	static final Color highlightColor = Color.green;
-
-	static int xOffset = 30;	
-	static int yOffset = 30;	
-	static Dimension zone = new Dimension (40, 40);	
 
 	static boolean isPieceSelected = false;
 	static Piece selectedPiece;
@@ -65,8 +68,18 @@ public class BoardPanel extends JPanel
 	@Override	
 	public void paintComponent (Graphics g)
 	{       
-		super.paintComponent(g);   	
+		super.paintComponent(g);
+		
+		drawBoard (g);
+		drawDropTables (g);	
+		
+		if (mouseIsOnDropTable ())
+			g.drawString("Mouse over drop table", 420, 210);
 
+	}
+	
+	private void drawBoard (Graphics g)
+	{
 		for (int i = 0; i < 9; i++)
 		{
 			for (int j = 0; j < 9; j++)
@@ -78,8 +91,7 @@ public class BoardPanel extends JPanel
 				drawZone (g, boardColor, Color.black, x, y);
 
 				if (!(isPieceSelected && state.getPieceAt (i,j).equals(selectedPiece)))				
-					drawPiece (g, state.getPieceAt(i, j), x, y);				
-
+					drawPiece (g, state.getPieceAt(i, j), x, y);		
 			}        
 		}  		
 
@@ -87,20 +99,34 @@ public class BoardPanel extends JPanel
 
 		if (mouseIsOnBoard ())
 		{
-			Point point = getLocationOnBoard (mouse);
+			Point board = getLocationOnBoard (mouse);
 
-			if (!(state.getPieceAt(point.x, point.y) instanceof EmptyPiece))
-			{			
-				point = getLocationOnPanel (point);
-				outlineZone (g, highlightColor, point.x, point.y);
+			if (!(state.getPieceAt(board.x, board.y) instanceof EmptyPiece))
+			{
+				if (!isPieceSelected)
+				{
+					Point mouse = getLocationOnPanel (board);
+					drawZone (g, highlightColor, Color.black, mouse.x, mouse.y);
+					drawPiece (g, state.getPieceAt(board.x, board.y), mouse.x, mouse.y);
+				}
 			}
 		}
 
 		// Draw selected piece
 
 		if (isPieceSelected)
-			drawPiece (g, selectedPiece, mouse.x - zone.width / 2, mouse.y - zone.height / 2);		
-
+			drawPiece (g, selectedPiece, mouse.x - zone.width / 2, mouse.y - zone.height / 2);
+	}
+	
+	private void drawDropTables (Graphics g)
+	{
+		g.setColor(dropTableColor);
+		g.fillRect (dropOffset1.x, dropOffset1.y, dropTable.width, dropTable.height);
+		g.fillRect (dropOffset2.x, dropOffset2.y, dropTable.width, dropTable.height);
+		
+		g.setColor(Color.black);
+		g.drawRect (dropOffset1.x, dropOffset1.y, dropTable.width, dropTable.height);
+		g.drawRect (dropOffset2.x, dropOffset2.y, dropTable.width, dropTable.height);
 	}
 
 	private void drawZone (Graphics g, Color back, Color fore, int x, int y)
@@ -125,15 +151,15 @@ public class BoardPanel extends JPanel
 
 	private void drawPiece (Graphics g, Piece p, int x, int y)
 	{
-		g.drawString(p.getDoubleCharRepresentation(), x + 10, y + 30);
+		g.drawString(p.getDoubleCharRepresentation(), x + 20, y + 20);
 	}
 
 	private Point getLocationOnBoard (Point mouse)
 	{
 		Point coordinates = new Point ();
 
-		coordinates.x = (int) Math.floor (((mouse.getX () - xOffset) / zone.width));
-		coordinates.y = (int) ((8 - Math.floor ((mouse.getY () - yOffset) / zone.height)));
+		coordinates.x = (int) Math.floor (((mouse.getX () - boardOffset.x) / zone.width));
+		coordinates.y = (int) ((8 - Math.floor ((mouse.getY () - boardOffset.y) / zone.height)));
 
 		return coordinates;
 	}
@@ -142,8 +168,8 @@ public class BoardPanel extends JPanel
 	{
 		Point coordinates = new Point ();
 
-		coordinates.x = board.x * zone.width + xOffset;
-		coordinates.y = (8 - board.y) * zone.height + yOffset;
+		coordinates.x = board.x * zone.width + boardOffset.x;
+		coordinates.y = (8 - board.y) * zone.height + boardOffset.y ;
 
 		return coordinates;
 	}
@@ -159,6 +185,32 @@ public class BoardPanel extends JPanel
 				mouseIsOnBoard = true;					
 
 		return mouseIsOnBoard;
+	}
+	
+	private boolean mouseIsOnDropTable ()
+	{
+		return mouseIsOnDropTable (-1) || mouseIsOnDropTable (1);
+	}
+	
+	private boolean mouseIsOnDropTable (int allegiance)
+	{
+		boolean mouseIsOnDropTable = false;
+		
+		
+		if (allegiance == 1)
+		{
+			if (mouse.x >= dropOffset1.x && mouse.x <= dropOffset1.x + dropTable.width)
+				if (mouse.y >= dropOffset1.y && mouse.y <= dropOffset1.y + dropTable.height)
+					mouseIsOnDropTable = true;
+		}
+		else if (allegiance == -1)
+		{
+			if (mouse.x >= dropOffset2.x && mouse.x <= dropOffset2.x + dropTable.width)
+				if (mouse.y >= dropOffset2.y && mouse.y <= dropOffset2.y + dropTable.height)
+					mouseIsOnDropTable = true;
+		}
+				
+		return mouseIsOnDropTable;
 	}
 
 
@@ -199,7 +251,6 @@ public class BoardPanel extends JPanel
 
 		if (button == MouseEvent.BUTTON1 && isPieceSelected)
 		{		
-
 			releasePiece (selectedPiece);					
 		}
 	}
@@ -216,7 +267,6 @@ public class BoardPanel extends JPanel
 				isPieceSelected = true;		
 				selectedPiece = piece;
 			}
-
 		}
 	}
 

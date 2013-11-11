@@ -90,7 +90,7 @@ public class GraphicUI extends JFrame
 		return content;
 	}
 
-	class QuitListener implements ActionListener
+	private class QuitListener implements ActionListener
 	{
 		@Override
 		public void actionPerformed (ActionEvent e)
@@ -100,7 +100,7 @@ public class GraphicUI extends JFrame
 		}
 	}
 
-	class NewGameListener implements ActionListener
+	private class NewGameListener implements ActionListener
 	{
 		@Override
 		public void actionPerformed(ActionEvent e) 
@@ -109,7 +109,7 @@ public class GraphicUI extends JFrame
 		}	
 	}
 
-	class CursorAdapter extends MouseAdapter 
+	private class CursorAdapter extends MouseAdapter 
 	{
 		@Override
 		public void mouseMoved (MouseEvent e)
