@@ -151,7 +151,7 @@ public class GameState {
      * @param x             The x-value of the piece that is being promoted.
      * @param y             The y-value of the piece that is being promoted.
      */
-    protected void promotedPieceAt (int x, int y) {
+    protected void promotePieceAt (int x, int y) {
         this.setPieceAt(x, y, this.getPieceAt(x, y).promote());
     }
 
@@ -196,11 +196,12 @@ public class GameState {
      * @return              Whether the given move would cause check for the moving Piece.
      */
     public boolean willKingBeInCheckAfterMove(int x, int y, Piece movingPiece) {
+        Piece temp = this.getPieceAt(x, y);
         this.setPieceAt(x, y, movingPiece);
         this.setPieceAt(movingPiece.x, movingPiece.y, new EmptyPiece(movingPiece.x, movingPiece.y));
         boolean tested = this.isKingInCheck(movingPiece.getAllegiance());
         this.setPieceAt(movingPiece.x, movingPiece.y, movingPiece);
-        this.setPieceAt(x, y, new EmptyPiece(x, y));
+        this.setPieceAt(x, y, temp);
         return tested;
     }
     
@@ -218,6 +219,7 @@ public class GameState {
         this.dropPieceFromTable(droppingAllegiance, x, y, numberOfPieceToDrop);
         boolean tested = this.isKingInCheck(-droppingAllegiance);
         this.addPieceToDropTable(droppingAllegiance, this.getPieceAt(x, y));
+        this.setPieceAt(x, y, new EmptyPiece(x, y));
         return tested;
     }
 
