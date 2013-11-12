@@ -19,7 +19,7 @@ public class BoardPanel extends JPanel
 	 * I don't know why Eclipse wants this.
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private static final Color dropTableColor = new Color (192, 192, 192);
 	private static final Color boardColor = new Color (196, 144, 0);	
 	private static final Color highlightColor = Color.green;
@@ -28,7 +28,7 @@ public class BoardPanel extends JPanel
 	private static final Point dropOffset1 = new Point (390, 30);
 	private static final Point dropOffset2 = new Point (390, 230);
 	private static final Dimension zone = new Dimension (40, 40);	
-	private static final Dimension dropTable = new Dimension (120, 160);
+	private static final Dimension dropTable = new Dimension (120, 160);	
 
 	/**
 	 * The board. 
@@ -69,90 +69,119 @@ public class BoardPanel extends JPanel
 	public void paintComponent (Graphics g)
 	{       
 		super.paintComponent(g);
-		
+
 		drawBoard (g);
 		drawDropTables (g);	
-		
-		if (mouseIsOnDropTable ())
-			g.drawString("Mouse over drop table", 420, 210);
-
+		drawHighlight (g);
 	}
-	
+
 	private void drawBoard (Graphics g)
 	{
 		for (int i = 0; i < 9; i++)
 		{
 			for (int j = 0; j < 9; j++)
-			{
-				Point point = getLocationOnPanel (new Point (i, j));
-				int x = point.x;
-				int y = point.y;
+			{				
+				Piece piece = state.getPieceAt(i, j);
+				Point point = getLocationOnPanel (i, j);
 
-				drawZone (g, boardColor, Color.black, x, y);
-
-				if (!(isPieceSelected && state.getPieceAt (i,j).equals(selectedPiece)))				
-					drawPiece (g, state.getPieceAt(i, j), x, y);		
+				drawZone (g, boardColor, Color.black, point);								
+				drawPiece (g, piece, point);		
 			}        
-		}  		
+		}  	
+	}
 
+	private void drawHighlight (Graphics g)
+	{		
 		// Draw hover outline
 
 		if (mouseIsOnBoard ())
 		{
-			Point board = getLocationOnBoard (mouse);
+			Point boardCoords = getLocationOnBoard (mouse);	
+			Point point = getLocationOnPanel (boardCoords);
 
-			if (!(state.getPieceAt(board.x, board.y) instanceof EmptyPiece))
+			if (isPieceSelected)
+			{				
+				Point start = new Point (selectedPiece.x, selectedPiece.y);
+				start = getLocationOnPanel (start);
+				drawZone (g, boardColor, Color.black, start);
+
+				drawPossibleMoves (g, selectedPiece);
+				drawPiece (g, selectedPiece, mouse.x - zone.width / 2, mouse.y - zone.height / 2);
+			}
+			else
 			{
-				if (!isPieceSelected)
+				if (!(state.getPieceAt(boardCoords.x, boardCoords.y) instanceof EmptyPiece))
+				{	
+					Piece piece = state.getPieceAt(boardCoords.x, boardCoords.y);
+
+					drawZone (g, highlightColor, Color.black, point);
+					drawPiece (g, piece, point);
+				}				
+			}
+		}	
+		else if (mouseIsOnDropTable ())
+		{
+			
+		}
+	}
+
+	private void drawPossibleMoves (Graphics g, Piece piece)
+	{
+		boolean [][] moves = piece.generateMoves(state);
+
+		for (int i = 0; i < 9; i++)
+		{
+			for (int j = 0; j < 9; j++)
+			{
+				if (moves [j][i])
 				{
-					Point mouse = getLocationOnPanel (board);
-					drawZone (g, highlightColor, Color.black, mouse.x, mouse.y);
-					drawPiece (g, state.getPieceAt(board.x, board.y), mouse.x, mouse.y);
+					Point point = getLocationOnPanel (new Point (j, i));
+					drawZone (g, highlightColor, Color.black, point.x, point.y);
+					drawPiece (g, state.getPieceAt(j, i), point.x, point.y);
 				}
 			}
 		}
-
-		// Draw selected piece
-
-		if (isPieceSelected)
-			drawPiece (g, selectedPiece, mouse.x - zone.width / 2, mouse.y - zone.height / 2);
 	}
-	
+
 	private void drawDropTables (Graphics g)
 	{
 		g.setColor(dropTableColor);
 		g.fillRect (dropOffset1.x, dropOffset1.y, dropTable.width, dropTable.height);
 		g.fillRect (dropOffset2.x, dropOffset2.y, dropTable.width, dropTable.height);
-		
+
 		g.setColor(Color.black);
 		g.drawRect (dropOffset1.x, dropOffset1.y, dropTable.width, dropTable.height);
 		g.drawRect (dropOffset2.x, dropOffset2.y, dropTable.width, dropTable.height);
 	}
 
-	private void drawZone (Graphics g, Color back, Color fore, int x, int y)
+	private void drawZone (Graphics g, Color back, Color fore, Point p)
 	{
-		fillZone (g, back, x, y);
-		outlineZone (g, fore, x, y);		
+		drawZone (g, back, fore, p.x, p.y);
 	}
 
-	private void fillZone (Graphics g, Color back, int x, int y)
+	private void drawZone (Graphics g, Color back, Color fore, int x, int y)
 	{
+		// Fill
 		g.setColor (back);
 		g.fillRect (x, y, zone.width, zone.height);
 		g.setColor (Color.black);
-	}
 
-	private void outlineZone (Graphics g, Color fore, int x, int y)
-	{
+		// Outline
 		g.setColor (fore);
 		g.drawRect (x, y, zone.width, zone.height);
 		g.setColor (Color.black);
+	}	
+
+	private void drawPiece (Graphics g, Piece p, Point point)
+	{
+		drawPiece (g, p, point.x, point.y);
 	}
 
 	private void drawPiece (Graphics g, Piece p, int x, int y)
 	{
 		g.drawString(p.getDoubleCharRepresentation(), x + 20, y + 20);
 	}
+
 
 	private Point getLocationOnBoard (Point mouse)
 	{
@@ -162,6 +191,11 @@ public class BoardPanel extends JPanel
 		coordinates.y = (int) ((8 - Math.floor ((mouse.getY () - boardOffset.y) / zone.height)));
 
 		return coordinates;
+	}
+
+	private Point getLocationOnPanel (int x, int y)
+	{
+		return getLocationOnPanel (new Point (x, y));
 	}
 
 	private Point getLocationOnPanel (Point board)
@@ -186,17 +220,16 @@ public class BoardPanel extends JPanel
 
 		return mouseIsOnBoard;
 	}
-	
+
 	private boolean mouseIsOnDropTable ()
 	{
 		return mouseIsOnDropTable (-1) || mouseIsOnDropTable (1);
 	}
-	
+
 	private boolean mouseIsOnDropTable (int allegiance)
 	{
 		boolean mouseIsOnDropTable = false;
-		
-		
+
 		if (allegiance == 1)
 		{
 			if (mouse.x >= dropOffset1.x && mouse.x <= dropOffset1.x + dropTable.width)
@@ -209,7 +242,7 @@ public class BoardPanel extends JPanel
 				if (mouse.y >= dropOffset2.y && mouse.y <= dropOffset2.y + dropTable.height)
 					mouseIsOnDropTable = true;
 		}
-				
+
 		return mouseIsOnDropTable;
 	}
 
@@ -296,7 +329,7 @@ public class BoardPanel extends JPanel
 		{
 			int result = JOptionPane.showConfirmDialog(this, "Promote piece?", "", JOptionPane.YES_NO_OPTION);
 			if (result == JOptionPane.YES_OPTION)
-				state.promotedPieceAt (selectedPiece.x, selectedPiece.y);					
+				state.promotePieceAt (selectedPiece.x, selectedPiece.y);					
 		}
 	}
 
