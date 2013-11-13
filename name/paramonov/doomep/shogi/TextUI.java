@@ -9,10 +9,9 @@ import java.util.List;
  */
 public class TextUI
 {
-	/** 
-	 * An array of valid inputs in regex format.
+	/** An array of valid inputs in regex format.
 	 */
-	static final String[] regex =
+	public static final String[] regex =
 		{
 		"^board$",
 		"^choices \\d\\d$",
@@ -26,10 +25,9 @@ public class TextUI
 		}
 	;
 
-	/**
-	 * An array of valid inputs in user-friendly format.
+	/** An array of valid inputs in user-friendly format.
 	 */
-	static final String[] commands =
+	public static final String[] commands =
 		{
 		" board",
 		" choices [int x][int y]",
@@ -46,7 +44,7 @@ public class TextUI
 	/** An array of objects with an execute method
 	 * corresponding with the command in the commands array.      
 	 */
-	static final Command[] faire =
+	public static final Command[] faire =
 		{
 		new Board (),
 		new Choices (),
@@ -61,28 +59,22 @@ public class TextUI
 	;
 
 	/** The current text UI version.
-	 * Version format (yyyy.mm.dd.hhmm) temporary. 
-	 * Might change to something like (0.x).
 	 */
-	static final String version = "version 2013.11.10.1946";
+	public static final String version = "version 2013.11.10.1946";
 
-	/**
-	 * Whether this text UI is still running
+	/** Whether this text UI is still running
 	 */
-	static boolean running = true;
+	private static boolean running = true;
 
-	/**
-	 * Whose turn it is to play.
+	/** Whose turn it is to play.
 	 */
-	static int player = 1;
+	protected static int player = 1;
 
-	/**
-	 * The board. 
+	/** The board. 
 	 */
-	static GameState state = new GameState ();
+	protected static GameState state = new GameState ();
 
-	/**
-	 * The main program.
+	/** The main program.
 	 */
 	public static void main (String[] args)
 	{
@@ -111,9 +103,9 @@ public class TextUI
 
 	} // main method
 
-	/**
-	 * Parses the input and acts upon it.
-	 * @param input - The inputed String. 
+	/** Parses the input and acts upon it.
+	 * 
+	 * @param input 	the inputed String 
 	 */
 	public static void parseInput (String input)
 	{
@@ -125,8 +117,7 @@ public class TextUI
 		}
 	}
 
-	/**
-	 * Prints the welcome message.
+	/** Prints the welcome message.
 	 */
 	public static void printInit ()
 	{
@@ -136,10 +127,9 @@ public class TextUI
 		parseInput ("board");
 	}
 
-	/**     
-	 * Prints the current state of the board.
+	/** Prints the current state of the board.
 	 */
-	static class Board implements Command
+	private static class Board implements Command
 	{    	
 		@Override
 		public void execute (String command)
@@ -172,11 +162,10 @@ public class TextUI
 				System.out.print(i+":"+d1.get(i).getDoubleCharRepresentation()+"; ");			
 		}
 	}
-	/**
-	 * Prints all of the possible moves available to the piece 
+	/** Prints all of the possible moves available to the piece 
 	 * at the given coordinates.
 	 */
-	static class Choices implements Command
+	private static class Choices implements Command
 	{
 		@Override
 		public void execute(String command) 
@@ -221,10 +210,9 @@ public class TextUI
 		}    	
 	}
 
-	/**
-	 * Drops the selected piece onto the table.
+	/** Drops the selected piece onto the table.
 	 */
-	static class Drop implements Command
+	private static class Drop implements Command
 	{   
 		@Override
 		public void execute (String command)
@@ -253,10 +241,9 @@ public class TextUI
 		}
 	}
 
-	/**
-	 * Prints a list of all valid commands.
+	/** Prints a list of all valid commands.
 	 */
-	static class Help implements Command
+	private static class Help implements Command
 	{    
 		@Override
 		public void execute (String command)
@@ -268,10 +255,9 @@ public class TextUI
 		}
 	}
 
-	/**
-	 * Moves the piece at (x1,y1) to (x2,y2), if valid.
+	/** Moves the piece at (x1,y1) to (x2,y2), if valid.
 	 */
-	static class Move implements Command
+	private static class Move implements Command
 	{    	
 		@Override
 		public void execute (String command)
@@ -300,10 +286,9 @@ public class TextUI
 		}        
 	}
 
-	/**
-	 * Promotes the piece at (x,y).
+	/** Promotes the piece at (x,y).
 	 */
-	static class Promote implements Command
+	private static class Promote implements Command
 	{    
 		@Override
 		public void execute (String command)
@@ -328,10 +313,9 @@ public class TextUI
 		}
 	}
 
-	/**
-	 * Stops the program.
+	/** Stops the program.
 	 */
-	static class Quit implements Command
+	private static class Quit implements Command
 	{    	
 		@Override
 		public void execute (String command)
@@ -340,10 +324,9 @@ public class TextUI
 		}
 	}
 
-	/**
-	 * Resets the board.
+	/** Resets the board.
 	 */
-	static class Reset implements Command
+	private static class Reset implements Command
 	{    
 		@Override
 		public void execute (String command)
@@ -354,7 +337,9 @@ public class TextUI
 		}
 	}
 
-	static class Who implements Command
+	/** Prints whose turn it is.
+	 */
+	private static class Who implements Command
 	{
 		@Override
 		public void execute (String command)
@@ -366,7 +351,7 @@ public class TextUI
 } // TextUI class
 
 /** 
- * This interface acts upon an input using polymorphism.
+ * This interface acts upon a text input using polymorphism.
  */
 interface Command
 {

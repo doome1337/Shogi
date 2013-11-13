@@ -116,10 +116,10 @@ public class GameState {
     /** Drops a piece from the drop table onto the board.
      * Removes the piece from the drop table, 
      * and places it on the board.
-     * @param allegiance    The allegiance of the drop table we're dropping from.
-     * @param x             The x-value at which we're dropping the piece.
-     * @param y             The y-value at which we're dropping the piece.
-     * @param piece         The piece we're dropping.
+     * @param allegiance    				The allegiance of the drop table we're dropping from.
+     * @param x             				The x-value at which we're dropping the piece.
+     * @param y             				The y-value at which we're dropping the piece.
+     * @param pieceNumberInDropTable        The piece we're dropping.
      */
     protected void dropPieceFromTable (int allegiance, int x, int y, int pieceNumberInDropTable) {
         this.setPieceAt(x, y, this.getCorrectDropTable(allegiance).get(pieceNumberInDropTable));
