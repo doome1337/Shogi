@@ -11,13 +11,11 @@ import java.awt.event.*;
  */
 public class GraphicUI extends JFrame
 {		
-	/**
-	 * I don't know why Eclipse wants this variable.
+	/** Eclipse wants this variable for some reason. 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * The component representing the shogi board.
+	/** The component representing the shogi board.
 	 */
 	protected BoardPanel board = new BoardPanel ();
 
@@ -27,11 +25,10 @@ public class GraphicUI extends JFrame
 		new GraphicUI (640, 480);
 	}
 
-	/**
-	 * Constructs a new GraphicUI.
+	/** Constructs a new GraphicUI.
 	 * 
-	 * @param width - The width of the JFrame window.
-	 * @param height - The height of the JFrame window.
+	 * @param width 	the width of the JFrame window
+	 * @param height	the height of the JFrame window
 	 */
 	public GraphicUI (int width, int height)
 	{
@@ -45,10 +42,9 @@ public class GraphicUI extends JFrame
 		setVisible(true);
 	}
 
-	/**
-	 * Creates the menu bar for the GUI.
+	/** Creates the menu bar for the GUI.
 	 * 
-	 * @return The JMenuBar with everything added to it.
+	 * @return the JMenuBar with everything added to it
 	 */
 	private JMenuBar createMenuBar ()
 	{		
@@ -74,10 +70,9 @@ public class GraphicUI extends JFrame
 		return menuBar;
 	}
 
-	/**
-	 * Creates the content to go inside the JFrame.
+	/** Creates the content to go inside the JFrame. 
 	 * 
-	 * @return The JPanel with everything added to it.
+	 * @return the JPanel with everything added to it
 	 */
 	private JPanel createContent ()
 	{
@@ -90,6 +85,8 @@ public class GraphicUI extends JFrame
 		return content;
 	}
 
+	/** Listener for quit button in file menu.	 
+	 */
 	private class QuitListener implements ActionListener
 	{
 		@Override
@@ -99,7 +96,9 @@ public class GraphicUI extends JFrame
 			dispose ();
 		}
 	}
-
+	
+	/** Listener for new game button in file menu.	 
+	 */
 	private class NewGameListener implements ActionListener
 	{
 		@Override
@@ -109,6 +108,8 @@ public class GraphicUI extends JFrame
 		}	
 	}
 
+	/** Mouse adapter for shogi board.
+	 */
 	private class CursorAdapter extends MouseAdapter 
 	{
 		@Override
