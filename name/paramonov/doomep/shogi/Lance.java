@@ -42,7 +42,7 @@ public class Lance extends PromotablePiece {
     
     /** Returns the Piece this lance promotes to.
      * Creates a PromotedLance with the same allegiance 
-     * and location as this pawn.
+     * and location as this lance.
      * @return              The PromotedLance equivalent of this Lance.
      */
     @Override
@@ -54,7 +54,7 @@ public class Lance extends PromotablePiece {
         }
     }
 
-    /** Returns the piece this Lawn demotes to.
+    /** Returns the piece this Lance demotes to.
      * As lances are not a promoted piece, 
      * demoting them has no effect.
      * @return              This Lance.
