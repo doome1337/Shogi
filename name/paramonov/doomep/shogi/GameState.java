@@ -69,6 +69,13 @@ public class GameState {
         return this.dropTable2;
     }
 
+    /** Returns the drop table of a given player.
+     * @param allegiance    The allegiance of the player
+     *                      whose drop table we are looking for.
+     *                      Either 1 or -1.
+     * @return              The List&lt;Piece&gt;
+     * that represents the given player's drop table.
+     */
     public List<Piece> getCorrectDropTable(int allegiance) {
         if (allegiance == 1) {
             return this.dropTable1;
@@ -119,7 +126,8 @@ public class GameState {
      * @param allegiance    The allegiance of the drop table we're dropping from.
      * @param x             The x-value at which we're dropping the piece.
      * @param y             The y-value at which we're dropping the piece.
-     * @param piece         The piece we're dropping.
+     * @param pieceNumberInDropTable         
+     *                      The index of the piece we're dropping in the drop table.
      */
     protected void dropPieceFromTable (int allegiance, int x, int y, int pieceNumberInDropTable) {
         this.setPieceAt(x, y, this.getCorrectDropTable(allegiance).get(pieceNumberInDropTable));
