@@ -52,6 +52,13 @@ public abstract class Piece {
      * Used for verification in check.
      */
     protected boolean checkmatable; 
+    
+    //TODO: IMPLEMENT EVERYWHERE! ALSO, rename all image files.
+    /** The path to the image representing this piece. 
+     * Note that it will not reference any folders, 
+     * for the possibility of alternate textures. 
+     */
+    protected String imageName;
 
     /** Constructs a piece at a given x and y-value,
      * with the given allegiance.
