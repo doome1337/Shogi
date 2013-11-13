@@ -92,11 +92,11 @@ public class BoardPanel extends JPanel
 		setSquareSize (square);			
 	}
 
-	@Override
 	/** Draws everything.
 	 * 
 	 * @param g		the Graphics context in which to paint
 	 */
+	@Override	
 	public void paintComponent (Graphics g)
 	{       
 		super.paintComponent(g);
