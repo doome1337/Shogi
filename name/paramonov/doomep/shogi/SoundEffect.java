@@ -18,44 +18,31 @@ import javax.sound.sampled.DataLine;
 /**
  * Test class for sound effects. Most of it is from <http://www.oracle.com/technetwork/java/index-139508.html>
  */
-public class SoundEffects implements Runnable
+public class SoundEffect implements Runnable
 {		
 	File sound;
 	Object currentSound;
 	Sequencer sequencer;	
 	Thread thread;
 
-	public SoundEffects (File sound)
+	public SoundEffect (File sound)
 	{
 		this.sound = sound;
 	}
-
 	
-	public void playSound()
-	{	
-		if (currentSound instanceof Sequence || currentSound instanceof BufferedInputStream && thread != null) 
-		{			
-			sequencer.start();
-			while (thread != null) 
-			{
-				try {Thread.sleep(99); } catch (Exception e) {break;}
-			}
-			sequencer.stop();
-			sequencer.close();
-		} 
-		else if (currentSound instanceof Clip && thread != null) 
-		{			
-			Clip clip = (Clip) currentSound;
-			clip.start();
-			try {Thread.sleep(99); } catch (Exception e) { }
-			while (clip.isActive() && thread != null) {
-				try {Thread.sleep(99); } catch (Exception e) {break;}
-			}
-			clip.stop();
-			clip.close();
-		}	      
+	public void play ()
+	{
+		thread = new Thread (this);	
+		thread.start ();		
 	}
-
+	
+	@Override
+	public void run() 
+	{	
+		loadSound (sound);
+		playSound ();		
+	}
+	
 	public boolean loadSound(Object object) 
 	{		
 		if (object instanceof URL) 
@@ -159,17 +146,29 @@ public class SoundEffects implements Runnable
 
 		return true;
 	}
-
-	@Override
-	public void run() 
-	{	
-		loadSound (sound);
-		playSound ();		
-	}
 	
-	public void snap ()
-	{
-		thread = new Thread (this);	
-		thread.start ();		
+	public void playSound()
+	{	
+		if (currentSound instanceof Sequence || currentSound instanceof BufferedInputStream && thread != null) 
+		{			
+			sequencer.start();
+			while (thread != null) 
+			{
+				try {Thread.sleep(99); } catch (Exception e) {break;}
+			}
+			sequencer.stop();
+			sequencer.close();
+		} 
+		else if (currentSound instanceof Clip && thread != null) 
+		{			
+			Clip clip = (Clip) currentSound;
+			clip.start();
+			try {Thread.sleep(99); } catch (Exception e) { }
+			while (clip.isActive() && thread != null) {
+				try {Thread.sleep(99); } catch (Exception e) {break;}
+			}
+			clip.stop();
+			clip.close();
+		}	      
 	}
 }

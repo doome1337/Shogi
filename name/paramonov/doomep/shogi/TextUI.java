@@ -349,11 +349,3 @@ public class TextUI
 	}
 
 } // TextUI class
-
-/** 
- * This interface acts upon a text input using polymorphism.
- */
-interface Command
-{
-	void execute (String command);
-}

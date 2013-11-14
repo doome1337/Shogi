@@ -107,7 +107,7 @@ public class BoardPanel extends JPanel
 	 */
 	public boolean hardcoreMode = false;
 	
-	private SoundEffects se = new SoundEffects (new File ("../Shogi/resources/snap.wav"));
+	private SoundEffect se = new SoundEffect (new File ("../Shogi/resources/snap2.wav"));
 		
 
 	/** Creates a new BoardPanel. 
@@ -587,7 +587,7 @@ public class BoardPanel extends JPanel
 	{
 		if (piece.isValidMove (state, sq.x, sq.y))
 		{		
-			se.snap ();
+			se.play ();
 			if (piece.x == -1 && piece.y == -1)
 				state.dropPieceFromTable(piece.allegiance, sq.x, sq.y, piece);
 			else
@@ -611,7 +611,7 @@ public class BoardPanel extends JPanel
 			int result = JOptionPane.showConfirmDialog(this, "Promote piece?", "", JOptionPane.YES_NO_OPTION);
 			if (result == JOptionPane.YES_OPTION)
 			{
-				se.snap();
+				se.play();
 				state.promotePieceAt (piece.x, piece.y);
 			}
 		}
