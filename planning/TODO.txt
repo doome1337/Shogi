@@ -25,4 +25,4 @@ Documentation / user's guide, developer's guide, etc.
 
 Finish implementing all shogi rules and restrictions.
 
-Add snapping sound.
+Add invert board function.
