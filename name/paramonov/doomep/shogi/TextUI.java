@@ -8,53 +8,30 @@ import java.util.List;
  * @author       Dmitry Andreevich Paramonov
  */
 public class TextUI
-{
-	/** An array of valid inputs in regex format.
+{	
+	/** An array of objects with an execute method corresponding to the regex and detail 
+	 * Strings in each Command class instance.    
 	 */
-	public static final String[] regex =
+	public static final Command[] commands =
 		{
-		"^board$",
-		"^choices \\d\\d$",
-		"^drop \\d \\d\\d$",      
-		"^help$",
-		"^move \\d\\d \\d\\d$",
-		"^promote \\d\\d$",
-		"^quit$",
-		"^reset$",
-		"^who$"
-		}
-	;
-
-	/** An array of valid inputs in user-friendly format.
-	 */
-	public static final String[] commands =
-		{
-		" board",
-		" choices [int x][int y]",
-		" drop [int piece number] [int x][int y]",      
-		" help",
-		" move [int x1][int y1] [int x2][int y2]",
-		" promote [int x][int y]",
-		" quit",
-		" reset",
-		" who"
-		}
-	;
-
-	/** An array of objects with an execute method
-	 * corresponding with the command in the commands array.      
-	 */
-	public static final Command[] faire =
-		{
-		new Board (),
-		new Choices (),
-		new Drop (),      
-		new Help (),
-		new Move (),
-		new Promote (),
-		new Quit (),
-		new Reset (),
-		new Who ()
+		new Board ("^board$", 
+				" board"),
+		new Choices ("^choices \\d\\d$",
+				" choices [int x][int y]"),
+		new Drop ("^drop \\d \\d\\d$",
+				" drop [int piece number] [int x][int y]"),      
+		new Help ("^help$",
+				" help"),
+		new Move ("^move \\d\\d \\d\\d$",
+				" move [int x1][int y1] [int x2][int y2]"),
+		new Promote ("^promote \\d\\d$",
+				" promote [int x][int y]"),
+		new Quit ("^quit$",
+				" quit"),
+		new Reset ("^reset$",
+				" reset"),
+		new Who ("^who$",
+				" who")
 		}
 	;
 
@@ -83,8 +60,8 @@ public class TextUI
 		BufferedReader in = new BufferedReader (new InputStreamReader (System.in));
 		String input = "";
 
-		state.defaultBoardConfigure ();
-
+		state.defaultBoardConfigure ();		
+		
 		// Input
 
 		printInit ();
@@ -110,10 +87,10 @@ public class TextUI
 	public static void parseInput (String input)
 	{
 		boolean found = false;
-		for (int i = 0 ; i < regex.length && !found; i++)
+		for (int i = 0 ; i < commands.length && !found; i++)
 		{
-			if (input.matches (regex [i]))
-				faire [i].execute (input);
+			if (input.matches (commands [i].regex))
+				commands [i].execute (input);
 		}
 	}
 
@@ -129,8 +106,13 @@ public class TextUI
 
 	/** Prints the current state of the board.
 	 */
-	private static class Board implements Command
+	private static class Board extends Command
 	{    	
+		public Board(String regex, String detail) 
+		{
+			super(regex, detail);			
+		}
+
 		@Override
 		public void execute (String command)
 		{
@@ -165,8 +147,13 @@ public class TextUI
 	/** Prints all of the possible moves available to the piece 
 	 * at the given coordinates.
 	 */
-	private static class Choices implements Command
+	private static class Choices extends Command
 	{
+		public Choices(String regex, String detail) 
+		{
+			super(regex, detail);			
+		}
+
 		@Override
 		public void execute(String command) 
 		{
@@ -212,8 +199,13 @@ public class TextUI
 
 	/** Drops the selected piece onto the table.
 	 */
-	private static class Drop implements Command
-	{   
+	private static class Drop extends Command
+	{  
+		public Drop(String regex, String detail) 
+		{
+			super(regex, detail);			
+		}
+
 		@Override
 		public void execute (String command)
 		{
@@ -243,22 +235,32 @@ public class TextUI
 
 	/** Prints a list of all valid commands.
 	 */
-	private static class Help implements Command
+	private static class Help extends Command
 	{    
+		public Help(String regex, String detail) 
+		{
+			super(regex, detail);			
+		}
+
 		@Override
 		public void execute (String command)
 		{ 
 			System.out.println ("Shogi Text UI " + version);
 			System.out.println ();
 			for (int i = 0 ; i < commands.length ; i++)
-				System.out.println (" " + commands [i]);
+				System.out.println (" " + commands [i].detail);
 		}
 	}
 
 	/** Moves the piece at (x1,y1) to (x2,y2), if valid.
 	 */
-	private static class Move implements Command
+	private static class Move extends Command
 	{    	
+		public Move(String regex, String detail) 
+		{
+			super(regex, detail);			
+		}
+
 		@Override
 		public void execute (String command)
 		{
@@ -288,8 +290,13 @@ public class TextUI
 
 	/** Promotes the piece at (x,y).
 	 */
-	private static class Promote implements Command
+	private static class Promote extends Command
 	{    
+		public Promote(String regex, String detail) 
+		{
+			super(regex, detail);			
+		}
+
 		@Override
 		public void execute (String command)
 		{
@@ -315,8 +322,13 @@ public class TextUI
 
 	/** Stops the program.
 	 */
-	private static class Quit implements Command
+	private static class Quit extends Command
 	{    	
+		public Quit(String regex, String detail) 
+		{
+			super(regex, detail);			
+		}
+
 		@Override
 		public void execute (String command)
 		{
@@ -326,8 +338,13 @@ public class TextUI
 
 	/** Resets the board.
 	 */
-	private static class Reset implements Command
+	private static class Reset extends Command
 	{    
+		public Reset(String regex, String detail) 
+		{
+			super(regex, detail);			
+		}
+
 		@Override
 		public void execute (String command)
 		{
@@ -339,8 +356,13 @@ public class TextUI
 
 	/** Prints whose turn it is.
 	 */
-	private static class Who implements Command
+	private static class Who extends Command
 	{
+		public Who(String regex, String detail) 
+		{
+			super(regex, detail);			
+		}
+
 		@Override
 		public void execute (String command)
 		{

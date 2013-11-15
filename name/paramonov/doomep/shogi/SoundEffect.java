@@ -43,7 +43,7 @@ public class SoundEffect implements Runnable
 		playSound ();		
 	}
 	
-	public boolean loadSound(Object object) 
+	private boolean loadSound(Object object) 
 	{		
 		if (object instanceof URL) 
 		{				
@@ -147,7 +147,7 @@ public class SoundEffect implements Runnable
 		return true;
 	}
 	
-	public void playSound()
+	private void playSound()
 	{	
 		if (currentSound instanceof Sequence || currentSound instanceof BufferedInputStream && thread != null) 
 		{			

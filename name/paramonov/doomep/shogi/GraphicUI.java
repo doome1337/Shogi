@@ -58,7 +58,7 @@ public class GraphicUI extends JFrame
 		button = new JMenuItem ("New Game");
 		button.addActionListener(this.new NewGameListener ());
 		file.add(button);
-
+		
 		button = new JMenuItem ("Quit");
 		button.addActionListener (this.new QuitListener ());
 		file.add(button);
@@ -78,23 +78,11 @@ public class GraphicUI extends JFrame
 	{
 		JPanel content = new JPanel (new BorderLayout ());
 
-		content.add(board);
+		content.add(board, "Center");
 		board.addMouseListener(this.new CursorAdapter ());
-		board.addMouseMotionListener(this.new CursorAdapter ());
+		board.addMouseMotionListener(this.new CursorAdapter ());		
 
 		return content;
-	}
-
-	/** Listener for quit button in file menu.	 
-	 */
-	private class QuitListener implements ActionListener
-	{
-		@Override
-		public void actionPerformed (ActionEvent e)
-		{
-			setVisible (false);
-			dispose ();
-		}
 	}
 	
 	/** Listener for new game button in file menu.	 
@@ -106,8 +94,20 @@ public class GraphicUI extends JFrame
 		{
 			board.reset();			
 		}	
-	}
+	}	
 
+	/** Listener for quit button in file menu.	 
+	 */
+	private class QuitListener implements ActionListener
+	{
+		@Override
+		public void actionPerformed (ActionEvent e)
+		{
+			setVisible (false);
+			dispose ();
+		}
+	}			
+	
 	/** Mouse adapter for shogi board.
 	 */
 	private class CursorAdapter extends MouseAdapter 
