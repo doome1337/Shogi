@@ -39,8 +39,8 @@
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../../name/paramonov/doomep/shogi/PromotablePiece.html" title="class in name.paramonov.doomep.shogi"><span class="strong">Prev Class</span></a></li>
-<li><a href="../../../../name/paramonov/doomep/shogi/PromotedKnight.html" title="class in name.paramonov.doomep.shogi"><span class="strong">Next Class</span></a></li>
+<li><a href="../../../../name/paramonov/doomep/shogi/PromotablePiece.html" title="class in mgci.jhdap.shogi"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../../../name/paramonov/doomep/shogi/PromotedKnight.html" title="class in mgci.jhdap.shogi"><span class="strong">Next Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../index.html?name/paramonov/doomep/shogi/PromotedBishop.html" target="_top">Frames</a></li>
@@ -82,7 +82,7 @@
 <!-- ========= END OF TOP NAVBAR ========= -->
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="subTitle">name.paramonov.doomep.shogi</div>
+<div class="subTitle">mgci.jhdap.shogi</div>
 <h2 title="Class PromotedBishop" class="title">Class PromotedBishop</h2>
 </div>
 <div class="contentContainer">
@@ -90,13 +90,13 @@
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
-<li><a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in name.paramonov.doomep.shogi">name.paramonov.doomep.shogi.Piece</a></li>
+<li><a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in mgci.jhdap.shogi">mgci.jhdap.shogi.Piece</a></li>
 <li>
 <ul class="inheritance">
-<li><a href="../../../../name/paramonov/doomep/shogi/UnpromotablePiece.html" title="class in name.paramonov.doomep.shogi">name.paramonov.doomep.shogi.UnpromotablePiece</a></li>
+<li><a href="../../../../name/paramonov/doomep/shogi/UnpromotablePiece.html" title="class in mgci.jhdap.shogi">mgci.jhdap.shogi.UnpromotablePiece</a></li>
 <li>
 <ul class="inheritance">
-<li>name.paramonov.doomep.shogi.PromotedBishop</li>
+<li>mgci.jhdap.shogi.PromotedBishop</li>
 </ul>
 </li>
 </ul>
@@ -110,7 +110,7 @@
 <hr>
 <br>
 <pre>public class <span class="strong">PromotedBishop</span>
-extends <a href="../../../../name/paramonov/doomep/shogi/UnpromotablePiece.html" title="class in name.paramonov.doomep.shogi">UnpromotablePiece</a></pre>
+extends <a href="../../../../name/paramonov/doomep/shogi/UnpromotablePiece.html" title="class in mgci.jhdap.shogi">UnpromotablePiece</a></pre>
 <div class="block">A Class representing a promoted bishop in a game of shogi.</div>
 </li>
 </ul>
@@ -128,7 +128,7 @@ extends <a href="../../../../name/paramonov/doomep/shogi/UnpromotablePiece.html"
 <li class="blockList"><a name="fields_inherited_from_class_name.paramonov.doomep.shogi.Piece">
 <!--   -->
 </a>
-<h3>Fields inherited from class&nbsp;name.paramonov.doomep.shogi.<a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in name.paramonov.doomep.shogi">Piece</a></h3>
+<h3>Fields inherited from class&nbsp;mgci.jhdap.shogi.<a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in mgci.jhdap.shogi">Piece</a></h3>
 <code><a href="../../../../name/paramonov/doomep/shogi/Piece.html#allegiance">allegiance</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#checkmatable">checkmatable</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#doubleCharRepresentation">doubleCharRepresentation</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#pieceName">pieceName</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#x">x</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#y">y</a></code></li>
 </ul>
 </li>
@@ -168,14 +168,14 @@ extends <a href="../../../../name/paramonov/doomep/shogi/UnpromotablePiece.html"
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>protected <a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in name.paramonov.doomep.shogi">Piece</a></code></td>
+<td class="colFirst"><code>protected <a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in mgci.jhdap.shogi">Piece</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../name/paramonov/doomep/shogi/PromotedBishop.html#demote()">demote</a></strong>()</code>
 <div class="block">Returns the piece this promoted bishop demotes to.</div>
 </td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>protected boolean</code></td>
-<td class="colLast"><code><strong><a href="../../../../name/paramonov/doomep/shogi/PromotedBishop.html#isValidMove(name.paramonov.doomep.shogi.GameState, int, int)">isValidMove</a></strong>(<a href="../../../../name/paramonov/doomep/shogi/GameState.html" title="class in name.paramonov.doomep.shogi">GameState</a>&nbsp;state,
+<td class="colLast"><code><strong><a href="../../../../name/paramonov/doomep/shogi/PromotedBishop.html#isValidMove(mgci.jhdap.shogi.GameState, int, int)">isValidMove</a></strong>(<a href="../../../../name/paramonov/doomep/shogi/GameState.html" title="class in mgci.jhdap.shogi">GameState</a>&nbsp;state,
            int&nbsp;x,
            int&nbsp;y)</code>
 <div class="block">Checks whether this PromotedBishop can move to a given location.</div>
@@ -186,15 +186,15 @@ extends <a href="../../../../name/paramonov/doomep/shogi/UnpromotablePiece.html"
 <li class="blockList"><a name="methods_inherited_from_class_name.paramonov.doomep.shogi.UnpromotablePiece">
 <!--   -->
 </a>
-<h3>Methods inherited from class&nbsp;name.paramonov.doomep.shogi.<a href="../../../../name/paramonov/doomep/shogi/UnpromotablePiece.html" title="class in name.paramonov.doomep.shogi">UnpromotablePiece</a></h3>
+<h3>Methods inherited from class&nbsp;mgci.jhdap.shogi.<a href="../../../../name/paramonov/doomep/shogi/UnpromotablePiece.html" title="class in mgci.jhdap.shogi">UnpromotablePiece</a></h3>
 <code><a href="../../../../name/paramonov/doomep/shogi/UnpromotablePiece.html#isPromotable()">isPromotable</a>, <a href="../../../../name/paramonov/doomep/shogi/UnpromotablePiece.html#promote()">promote</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods_inherited_from_class_name.paramonov.doomep.shogi.Piece">
 <!--   -->
 </a>
-<h3>Methods inherited from class&nbsp;name.paramonov.doomep.shogi.<a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in name.paramonov.doomep.shogi">Piece</a></h3>
-<code><a href="../../../../name/paramonov/doomep/shogi/Piece.html#generateMoves(name.paramonov.doomep.shogi.GameState)">generateMoves</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#getAllegiance()">getAllegiance</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#getCheckmatable()">getCheckmatable</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#getDoubleCharRepresentation()">getDoubleCharRepresentation</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#getX()">getX</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#getY()">getY</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#isUncheckedMove(name.paramonov.doomep.shogi.GameState, int, int)">isUncheckedMove</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#move(name.paramonov.doomep.shogi.GameState, int, int)">move</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#setAllegiance(int)">setAllegiance</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#setPosition(int, int)">setPosition</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#setX(int)">setX</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#setY(int)">setY</a></code></li>
+<h3>Methods inherited from class&nbsp;mgci.jhdap.shogi.<a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in mgci.jhdap.shogi">Piece</a></h3>
+<code><a href="../../../../name/paramonov/doomep/shogi/Piece.html#generateMoves(mgci.jhdap.shogi.GameState)">generateMoves</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#getAllegiance()">getAllegiance</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#getCheckmatable()">getCheckmatable</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#getDoubleCharRepresentation()">getDoubleCharRepresentation</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#getX()">getX</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#getY()">getY</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#isUncheckedMove(mgci.jhdap.shogi.GameState, int, int)">isUncheckedMove</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#move(mgci.jhdap.shogi.GameState, int, int)">move</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#setAllegiance(int)">setAllegiance</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#setPosition(int, int)">setPosition</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#setX(int)">setX</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#setY(int)">setY</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods_inherited_from_class_java.lang.Object">
@@ -239,19 +239,19 @@ extends <a href="../../../../name/paramonov/doomep/shogi/UnpromotablePiece.html"
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a name="isValidMove(name.paramonov.doomep.shogi.GameState, int, int)">
+<a name="isValidMove(mgci.jhdap.shogi.GameState, int, int)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>isValidMove</h4>
-<pre>protected&nbsp;boolean&nbsp;isValidMove(<a href="../../../../name/paramonov/doomep/shogi/GameState.html" title="class in name.paramonov.doomep.shogi">GameState</a>&nbsp;state,
+<pre>protected&nbsp;boolean&nbsp;isValidMove(<a href="../../../../name/paramonov/doomep/shogi/GameState.html" title="class in mgci.jhdap.shogi">GameState</a>&nbsp;state,
                   int&nbsp;x,
                   int&nbsp;y)</pre>
 <div class="block">Checks whether this PromotedBishop can move to a given location.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../../name/paramonov/doomep/shogi/UnpromotablePiece.html#isValidMove(name.paramonov.doomep.shogi.GameState, int, int)">isValidMove</a></code>&nbsp;in class&nbsp;<code><a href="../../../../name/paramonov/doomep/shogi/UnpromotablePiece.html" title="class in name.paramonov.doomep.shogi">UnpromotablePiece</a></code></dd>
+<dd><code><a href="../../../../name/paramonov/doomep/shogi/UnpromotablePiece.html#isValidMove(mgci.jhdap.shogi.GameState, int, int)">isValidMove</a></code>&nbsp;in class&nbsp;<code><a href="../../../../name/paramonov/doomep/shogi/UnpromotablePiece.html" title="class in mgci.jhdap.shogi">UnpromotablePiece</a></code></dd>
 <dt><span class="strong">Parameters:</span></dt><dd><code>state</code> - The state of the game at this time.</dd><dd><code>x</code> - The x-value of the target tile.</dd><dd><code>y</code> - The y-value of the target tile.</dd>
 <dt><span class="strong">Returns:</span></dt><dd>Whether or not this PromotedBishop can move to the target tile.</dd></dl>
 </li>
@@ -262,13 +262,13 @@ extends <a href="../../../../name/paramonov/doomep/shogi/UnpromotablePiece.html"
 <ul class="blockListLast">
 <li class="blockList">
 <h4>demote</h4>
-<pre>protected&nbsp;<a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in name.paramonov.doomep.shogi">Piece</a>&nbsp;demote()</pre>
+<pre>protected&nbsp;<a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in mgci.jhdap.shogi">Piece</a>&nbsp;demote()</pre>
 <div class="block">Returns the piece this promoted bishop demotes to.
  In this case, this is a bishop with the same x and y values, 
  and the same allegiance.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../../name/paramonov/doomep/shogi/UnpromotablePiece.html#demote()">demote</a></code>&nbsp;in class&nbsp;<code><a href="../../../../name/paramonov/doomep/shogi/UnpromotablePiece.html" title="class in name.paramonov.doomep.shogi">UnpromotablePiece</a></code></dd>
+<dd><code><a href="../../../../name/paramonov/doomep/shogi/UnpromotablePiece.html#demote()">demote</a></code>&nbsp;in class&nbsp;<code><a href="../../../../name/paramonov/doomep/shogi/UnpromotablePiece.html" title="class in mgci.jhdap.shogi">UnpromotablePiece</a></code></dd>
 <dt><span class="strong">Returns:</span></dt><dd>The bishop equivalent of this promoted bishop.</dd></dl>
 </li>
 </ul>
@@ -297,8 +297,8 @@ extends <a href="../../../../name/paramonov/doomep/shogi/UnpromotablePiece.html"
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../../name/paramonov/doomep/shogi/PromotablePiece.html" title="class in name.paramonov.doomep.shogi"><span class="strong">Prev Class</span></a></li>
-<li><a href="../../../../name/paramonov/doomep/shogi/PromotedKnight.html" title="class in name.paramonov.doomep.shogi"><span class="strong">Next Class</span></a></li>
+<li><a href="../../../../name/paramonov/doomep/shogi/PromotablePiece.html" title="class in mgci.jhdap.shogi"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../../../name/paramonov/doomep/shogi/PromotedKnight.html" title="class in mgci.jhdap.shogi"><span class="strong">Next Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../index.html?name/paramonov/doomep/shogi/PromotedBishop.html" target="_top">Frames</a></li>

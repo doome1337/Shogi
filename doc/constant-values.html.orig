@@ -79,7 +79,7 @@
 <ul class="blockList">
 <li class="blockList">
 <table border="0" cellpadding="3" cellspacing="0" summary="Constant Field Values table, listing constant fields, and values">
-<caption><span>name.paramonov.doomep.shogi.<a href="name/paramonov/doomep/shogi/TextUI.html" title="class in name.paramonov.doomep.shogi">TextUI</a></span><span class="tabEnd">&nbsp;</span></caption>
+<caption><span>mgci.jhdap.shogi.<a href="name/paramonov/doomep/shogi/TextUI.html" title="class in mgci.jhdap.shogi">TextUI</a></span><span class="tabEnd">&nbsp;</span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th scope="col">Constant Field</th>
@@ -87,7 +87,7 @@
 </tr>
 <tbody>
 <tr class="altColor">
-<td class="colFirst"><a name="name.paramonov.doomep.shogi.TextUI.version">
+<td class="colFirst"><a name="mgci.jhdap.shogi.TextUI.version">
 <!--   -->
 </a><code>public&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
 <td><code><a href="name/paramonov/doomep/shogi/TextUI.html#version">version</a></code></td>

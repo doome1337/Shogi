@@ -69,7 +69,7 @@
 <h1 class="title">Hierarchy For All Packages</h1>
 <span class="strong">Package Hierarchies:</span>
 <ul class="horizontal">
-<li><a href="name/paramonov/doomep/shogi/package-tree.html">name.paramonov.doomep.shogi</a></li>
+<li><a href="name/paramonov/doomep/shogi/package-tree.html">mgci.jhdap.shogi</a></li>
 </ul>
 </div>
 <div class="contentContainer">
@@ -85,7 +85,7 @@
 <ul>
 <li type="circle">javax.swing.JPanel (implements javax.accessibility.Accessible)
 <ul>
-<li type="circle">name.paramonov.doomep.shogi.<a href="name/paramonov/doomep/shogi/BoardPanel.html" title="class in name.paramonov.doomep.shogi"><span class="strong">BoardPanel</span></a></li>
+<li type="circle">mgci.jhdap.shogi.<a href="name/paramonov/doomep/shogi/BoardPanel.html" title="class in mgci.jhdap.shogi"><span class="strong">BoardPanel</span></a></li>
 </ul>
 </li>
 </ul>
@@ -96,7 +96,7 @@
 <ul>
 <li type="circle">javax.swing.JFrame (implements javax.accessibility.Accessible, javax.swing.RootPaneContainer, javax.swing.WindowConstants)
 <ul>
-<li type="circle">name.paramonov.doomep.shogi.<a href="name/paramonov/doomep/shogi/GraphicUI.html" title="class in name.paramonov.doomep.shogi"><span class="strong">GraphicUI</span></a></li>
+<li type="circle">mgci.jhdap.shogi.<a href="name/paramonov/doomep/shogi/GraphicUI.html" title="class in mgci.jhdap.shogi"><span class="strong">GraphicUI</span></a></li>
 </ul>
 </li>
 </ul>
@@ -107,42 +107,42 @@
 </li>
 </ul>
 </li>
-<li type="circle">name.paramonov.doomep.shogi.<a href="name/paramonov/doomep/shogi/GameState.html" title="class in name.paramonov.doomep.shogi"><span class="strong">GameState</span></a></li>
-<li type="circle">name.paramonov.doomep.shogi.<a href="name/paramonov/doomep/shogi/Piece.html" title="class in name.paramonov.doomep.shogi"><span class="strong">Piece</span></a>
+<li type="circle">mgci.jhdap.shogi.<a href="name/paramonov/doomep/shogi/GameState.html" title="class in mgci.jhdap.shogi"><span class="strong">GameState</span></a></li>
+<li type="circle">mgci.jhdap.shogi.<a href="name/paramonov/doomep/shogi/Piece.html" title="class in mgci.jhdap.shogi"><span class="strong">Piece</span></a>
 <ul>
-<li type="circle">name.paramonov.doomep.shogi.<a href="name/paramonov/doomep/shogi/EmptyPiece.html" title="class in name.paramonov.doomep.shogi"><span class="strong">EmptyPiece</span></a></li>
-<li type="circle">name.paramonov.doomep.shogi.<a href="name/paramonov/doomep/shogi/PromotablePiece.html" title="class in name.paramonov.doomep.shogi"><span class="strong">PromotablePiece</span></a>
+<li type="circle">mgci.jhdap.shogi.<a href="name/paramonov/doomep/shogi/EmptyPiece.html" title="class in mgci.jhdap.shogi"><span class="strong">EmptyPiece</span></a></li>
+<li type="circle">mgci.jhdap.shogi.<a href="name/paramonov/doomep/shogi/PromotablePiece.html" title="class in mgci.jhdap.shogi"><span class="strong">PromotablePiece</span></a>
 <ul>
-<li type="circle">name.paramonov.doomep.shogi.<a href="name/paramonov/doomep/shogi/Bishop.html" title="class in name.paramonov.doomep.shogi"><span class="strong">Bishop</span></a></li>
-<li type="circle">name.paramonov.doomep.shogi.<a href="name/paramonov/doomep/shogi/Knight.html" title="class in name.paramonov.doomep.shogi"><span class="strong">Knight</span></a></li>
-<li type="circle">name.paramonov.doomep.shogi.<a href="name/paramonov/doomep/shogi/Lance.html" title="class in name.paramonov.doomep.shogi"><span class="strong">Lance</span></a></li>
-<li type="circle">name.paramonov.doomep.shogi.<a href="name/paramonov/doomep/shogi/Pawn.html" title="class in name.paramonov.doomep.shogi"><span class="strong">Pawn</span></a></li>
-<li type="circle">name.paramonov.doomep.shogi.<a href="name/paramonov/doomep/shogi/Rook.html" title="class in name.paramonov.doomep.shogi"><span class="strong">Rook</span></a></li>
-<li type="circle">name.paramonov.doomep.shogi.<a href="name/paramonov/doomep/shogi/SilverGeneral.html" title="class in name.paramonov.doomep.shogi"><span class="strong">SilverGeneral</span></a></li>
+<li type="circle">mgci.jhdap.shogi.<a href="name/paramonov/doomep/shogi/Bishop.html" title="class in mgci.jhdap.shogi"><span class="strong">Bishop</span></a></li>
+<li type="circle">mgci.jhdap.shogi.<a href="name/paramonov/doomep/shogi/Knight.html" title="class in mgci.jhdap.shogi"><span class="strong">Knight</span></a></li>
+<li type="circle">mgci.jhdap.shogi.<a href="name/paramonov/doomep/shogi/Lance.html" title="class in mgci.jhdap.shogi"><span class="strong">Lance</span></a></li>
+<li type="circle">mgci.jhdap.shogi.<a href="name/paramonov/doomep/shogi/Pawn.html" title="class in mgci.jhdap.shogi"><span class="strong">Pawn</span></a></li>
+<li type="circle">mgci.jhdap.shogi.<a href="name/paramonov/doomep/shogi/Rook.html" title="class in mgci.jhdap.shogi"><span class="strong">Rook</span></a></li>
+<li type="circle">mgci.jhdap.shogi.<a href="name/paramonov/doomep/shogi/SilverGeneral.html" title="class in mgci.jhdap.shogi"><span class="strong">SilverGeneral</span></a></li>
 </ul>
 </li>
-<li type="circle">name.paramonov.doomep.shogi.<a href="name/paramonov/doomep/shogi/UnpromotablePiece.html" title="class in name.paramonov.doomep.shogi"><span class="strong">UnpromotablePiece</span></a>
+<li type="circle">mgci.jhdap.shogi.<a href="name/paramonov/doomep/shogi/UnpromotablePiece.html" title="class in mgci.jhdap.shogi"><span class="strong">UnpromotablePiece</span></a>
 <ul>
-<li type="circle">name.paramonov.doomep.shogi.<a href="name/paramonov/doomep/shogi/GoldGeneral.html" title="class in name.paramonov.doomep.shogi"><span class="strong">GoldGeneral</span></a></li>
-<li type="circle">name.paramonov.doomep.shogi.<a href="name/paramonov/doomep/shogi/King.html" title="class in name.paramonov.doomep.shogi"><span class="strong">King</span></a></li>
-<li type="circle">name.paramonov.doomep.shogi.<a href="name/paramonov/doomep/shogi/PromotedBishop.html" title="class in name.paramonov.doomep.shogi"><span class="strong">PromotedBishop</span></a></li>
-<li type="circle">name.paramonov.doomep.shogi.<a href="name/paramonov/doomep/shogi/PromotedKnight.html" title="class in name.paramonov.doomep.shogi"><span class="strong">PromotedKnight</span></a></li>
-<li type="circle">name.paramonov.doomep.shogi.<a href="name/paramonov/doomep/shogi/PromotedLance.html" title="class in name.paramonov.doomep.shogi"><span class="strong">PromotedLance</span></a></li>
-<li type="circle">name.paramonov.doomep.shogi.<a href="name/paramonov/doomep/shogi/PromotedPawn.html" title="class in name.paramonov.doomep.shogi"><span class="strong">PromotedPawn</span></a></li>
-<li type="circle">name.paramonov.doomep.shogi.<a href="name/paramonov/doomep/shogi/PromotedRook.html" title="class in name.paramonov.doomep.shogi"><span class="strong">PromotedRook</span></a></li>
-<li type="circle">name.paramonov.doomep.shogi.<a href="name/paramonov/doomep/shogi/PromotedSilverGeneral.html" title="class in name.paramonov.doomep.shogi"><span class="strong">PromotedSilverGeneral</span></a></li>
+<li type="circle">mgci.jhdap.shogi.<a href="name/paramonov/doomep/shogi/GoldGeneral.html" title="class in mgci.jhdap.shogi"><span class="strong">GoldGeneral</span></a></li>
+<li type="circle">mgci.jhdap.shogi.<a href="name/paramonov/doomep/shogi/King.html" title="class in mgci.jhdap.shogi"><span class="strong">King</span></a></li>
+<li type="circle">mgci.jhdap.shogi.<a href="name/paramonov/doomep/shogi/PromotedBishop.html" title="class in mgci.jhdap.shogi"><span class="strong">PromotedBishop</span></a></li>
+<li type="circle">mgci.jhdap.shogi.<a href="name/paramonov/doomep/shogi/PromotedKnight.html" title="class in mgci.jhdap.shogi"><span class="strong">PromotedKnight</span></a></li>
+<li type="circle">mgci.jhdap.shogi.<a href="name/paramonov/doomep/shogi/PromotedLance.html" title="class in mgci.jhdap.shogi"><span class="strong">PromotedLance</span></a></li>
+<li type="circle">mgci.jhdap.shogi.<a href="name/paramonov/doomep/shogi/PromotedPawn.html" title="class in mgci.jhdap.shogi"><span class="strong">PromotedPawn</span></a></li>
+<li type="circle">mgci.jhdap.shogi.<a href="name/paramonov/doomep/shogi/PromotedRook.html" title="class in mgci.jhdap.shogi"><span class="strong">PromotedRook</span></a></li>
+<li type="circle">mgci.jhdap.shogi.<a href="name/paramonov/doomep/shogi/PromotedSilverGeneral.html" title="class in mgci.jhdap.shogi"><span class="strong">PromotedSilverGeneral</span></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li type="circle">name.paramonov.doomep.shogi.<a href="name/paramonov/doomep/shogi/PieceTest.html" title="class in name.paramonov.doomep.shogi"><span class="strong">PieceTest</span></a></li>
-<li type="circle">name.paramonov.doomep.shogi.<a href="name/paramonov/doomep/shogi/TextUI.html" title="class in name.paramonov.doomep.shogi"><span class="strong">TextUI</span></a></li>
+<li type="circle">mgci.jhdap.shogi.<a href="name/paramonov/doomep/shogi/PieceTest.html" title="class in mgci.jhdap.shogi"><span class="strong">PieceTest</span></a></li>
+<li type="circle">mgci.jhdap.shogi.<a href="name/paramonov/doomep/shogi/TextUI.html" title="class in mgci.jhdap.shogi"><span class="strong">TextUI</span></a></li>
 </ul>
 </li>
 </ul>
 <h2 title="Interface Hierarchy">Interface Hierarchy</h2>
 <ul>
-<li type="circle">name.paramonov.doomep.shogi.<a href="name/paramonov/doomep/shogi/Command.html" title="interface in name.paramonov.doomep.shogi"><span class="strong">Command</span></a></li>
+<li type="circle">mgci.jhdap.shogi.<a href="name/paramonov/doomep/shogi/Command.html" title="interface in mgci.jhdap.shogi"><span class="strong">Command</span></a></li>
 </ul>
 </div>
 <!-- ======= START OF BOTTOM NAVBAR ====== -->

@@ -27,4 +27,4 @@ Finish implementing all shogi rules and restrictions.
 
 Add invert board function.
 
-Change package path "name.paramonov.doomep.shogi" to something else.
+Change package path "mgci.jhdap.shogi" to something else.

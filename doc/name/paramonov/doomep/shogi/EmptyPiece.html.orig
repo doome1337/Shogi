@@ -40,11 +40,11 @@
 <div class="subNav">
 <ul class="navList">
 <<<<<<< HEAD:name/paramonov/doomep/shogi/EmptyPiece.html
-<li><a href="../../../../name/paramonov/doomep/shogi/BoardPanel.html" title="class in name.paramonov.doomep.shogi"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../../../name/paramonov/doomep/shogi/BoardPanel.html" title="class in mgci.jhdap.shogi"><span class="strong">Prev Class</span></a></li>
 =======
-<li><a href="../../../../name/paramonov/doomep/shogi/Command.html" title="interface in name.paramonov.doomep.shogi"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../../../name/paramonov/doomep/shogi/Command.html" title="interface in mgci.jhdap.shogi"><span class="strong">Prev Class</span></a></li>
 >>>>>>> 1358db3cc2635b86208b55a04753a88356c4422a:doc/name/paramonov/doomep/shogi/EmptyPiece.html
-<li><a href="../../../../name/paramonov/doomep/shogi/GameState.html" title="class in name.paramonov.doomep.shogi"><span class="strong">Next Class</span></a></li>
+<li><a href="../../../../name/paramonov/doomep/shogi/GameState.html" title="class in mgci.jhdap.shogi"><span class="strong">Next Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../index.html?name/paramonov/doomep/shogi/EmptyPiece.html" target="_top">Frames</a></li>
@@ -86,7 +86,7 @@
 <!-- ========= END OF TOP NAVBAR ========= -->
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="subTitle">name.paramonov.doomep.shogi</div>
+<div class="subTitle">mgci.jhdap.shogi</div>
 <h2 title="Class EmptyPiece" class="title">Class EmptyPiece</h2>
 </div>
 <div class="contentContainer">
@@ -94,10 +94,10 @@
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
-<li><a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in name.paramonov.doomep.shogi">name.paramonov.doomep.shogi.Piece</a></li>
+<li><a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in mgci.jhdap.shogi">mgci.jhdap.shogi.Piece</a></li>
 <li>
 <ul class="inheritance">
-<li>name.paramonov.doomep.shogi.EmptyPiece</li>
+<li>mgci.jhdap.shogi.EmptyPiece</li>
 </ul>
 </li>
 </ul>
@@ -109,7 +109,7 @@
 <hr>
 <br>
 <pre>public class <span class="strong">EmptyPiece</span>
-extends <a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in name.paramonov.doomep.shogi">Piece</a></pre>
+extends <a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in mgci.jhdap.shogi">Piece</a></pre>
 <div class="block">A class representing a tile on which there is no piece.</div>
 <dl><dt><span class="strong">Author:</span></dt>
   <dd>Dmitry Andreevich Paramonov, Jiayin Huang</dd></dl>
@@ -129,7 +129,7 @@ extends <a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="clas
 <li class="blockList"><a name="fields_inherited_from_class_name.paramonov.doomep.shogi.Piece">
 <!--   -->
 </a>
-<h3>Fields inherited from class&nbsp;name.paramonov.doomep.shogi.<a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in name.paramonov.doomep.shogi">Piece</a></h3>
+<h3>Fields inherited from class&nbsp;mgci.jhdap.shogi.<a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in mgci.jhdap.shogi">Piece</a></h3>
 <code><a href="../../../../name/paramonov/doomep/shogi/Piece.html#allegiance">allegiance</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#checkmatable">checkmatable</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#doubleCharRepresentation">doubleCharRepresentation</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#pieceName">pieceName</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#x">x</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#y">y</a></code></li>
 </ul>
 </li>
@@ -167,7 +167,7 @@ extends <a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="clas
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>protected <a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in name.paramonov.doomep.shogi">Piece</a></code></td>
+<td class="colFirst"><code>protected <a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in mgci.jhdap.shogi">Piece</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../name/paramonov/doomep/shogi/EmptyPiece.html#demote()">demote</a></strong>()</code>
 <div class="block">Returns the piece this piece is demoted from.</div>
 </td>
@@ -180,14 +180,14 @@ extends <a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="clas
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>protected boolean</code></td>
-<td class="colLast"><code><strong><a href="../../../../name/paramonov/doomep/shogi/EmptyPiece.html#isValidMove(name.paramonov.doomep.shogi.GameState, int, int)">isValidMove</a></strong>(<a href="../../../../name/paramonov/doomep/shogi/GameState.html" title="class in name.paramonov.doomep.shogi">GameState</a>&nbsp;state,
+<td class="colLast"><code><strong><a href="../../../../name/paramonov/doomep/shogi/EmptyPiece.html#isValidMove(mgci.jhdap.shogi.GameState, int, int)">isValidMove</a></strong>(<a href="../../../../name/paramonov/doomep/shogi/GameState.html" title="class in mgci.jhdap.shogi">GameState</a>&nbsp;state,
            int&nbsp;x,
            int&nbsp;y)</code>
 <div class="block">Returns whether or not this EmptyPiece can move to a given tile.</div>
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code>protected <a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in name.paramonov.doomep.shogi">Piece</a></code></td>
+<td class="colFirst"><code>protected <a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in mgci.jhdap.shogi">Piece</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../name/paramonov/doomep/shogi/EmptyPiece.html#promote()">promote</a></strong>()</code>
 <div class="block">Returns the Piece this EmptyPiece promotes to.</div>
 </td>
@@ -197,8 +197,8 @@ extends <a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="clas
 <li class="blockList"><a name="methods_inherited_from_class_name.paramonov.doomep.shogi.Piece">
 <!--   -->
 </a>
-<h3>Methods inherited from class&nbsp;name.paramonov.doomep.shogi.<a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in name.paramonov.doomep.shogi">Piece</a></h3>
-<code><a href="../../../../name/paramonov/doomep/shogi/Piece.html#generateMoves(name.paramonov.doomep.shogi.GameState)">generateMoves</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#getAllegiance()">getAllegiance</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#getCheckmatable()">getCheckmatable</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#getDoubleCharRepresentation()">getDoubleCharRepresentation</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#getX()">getX</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#getY()">getY</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#isUncheckedMove(name.paramonov.doomep.shogi.GameState, int, int)">isUncheckedMove</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#move(name.paramonov.doomep.shogi.GameState, int, int)">move</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#setAllegiance(int)">setAllegiance</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#setPosition(int, int)">setPosition</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#setX(int)">setX</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#setY(int)">setY</a></code></li>
+<h3>Methods inherited from class&nbsp;mgci.jhdap.shogi.<a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in mgci.jhdap.shogi">Piece</a></h3>
+<code><a href="../../../../name/paramonov/doomep/shogi/Piece.html#generateMoves(mgci.jhdap.shogi.GameState)">generateMoves</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#getAllegiance()">getAllegiance</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#getCheckmatable()">getCheckmatable</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#getDoubleCharRepresentation()">getDoubleCharRepresentation</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#getX()">getX</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#getY()">getY</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#isUncheckedMove(mgci.jhdap.shogi.GameState, int, int)">isUncheckedMove</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#move(mgci.jhdap.shogi.GameState, int, int)">move</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#setAllegiance(int)">setAllegiance</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#setPosition(int, int)">setPosition</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#setX(int)">setX</a>, <a href="../../../../name/paramonov/doomep/shogi/Piece.html#setY(int)">setY</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods_inherited_from_class_java.lang.Object">
@@ -243,13 +243,13 @@ extends <a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="clas
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a name="isValidMove(name.paramonov.doomep.shogi.GameState, int, int)">
+<a name="isValidMove(mgci.jhdap.shogi.GameState, int, int)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>isValidMove</h4>
-<pre>protected&nbsp;boolean&nbsp;isValidMove(<a href="../../../../name/paramonov/doomep/shogi/GameState.html" title="class in name.paramonov.doomep.shogi">GameState</a>&nbsp;state,
+<pre>protected&nbsp;boolean&nbsp;isValidMove(<a href="../../../../name/paramonov/doomep/shogi/GameState.html" title="class in mgci.jhdap.shogi">GameState</a>&nbsp;state,
                   int&nbsp;x,
                   int&nbsp;y)</pre>
 <div class="block">Returns whether or not this EmptyPiece can move to a given tile.
@@ -257,7 +257,7 @@ extends <a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="clas
  this means that this always returns false.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../../name/paramonov/doomep/shogi/Piece.html#isValidMove(name.paramonov.doomep.shogi.GameState, int, int)">isValidMove</a></code>&nbsp;in class&nbsp;<code><a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in name.paramonov.doomep.shogi">Piece</a></code></dd>
+<dd><code><a href="../../../../name/paramonov/doomep/shogi/Piece.html#isValidMove(mgci.jhdap.shogi.GameState, int, int)">isValidMove</a></code>&nbsp;in class&nbsp;<code><a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in mgci.jhdap.shogi">Piece</a></code></dd>
 <dt><span class="strong">Parameters:</span></dt><dd><code>state</code> - The state of the board before the move.</dd><dd><code>x</code> - The x-value of the tile to which this EmptyPiece is trying to move.</dd><dd><code>y</code> - The y-value of the tile to which this EmptyPiece is trying to move.</dd>
 <dt><span class="strong">Returns:</span></dt><dd>Whether this EmptyPiece can move to a given tile,
  which is always false.</dd></dl>
@@ -273,7 +273,7 @@ extends <a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="clas
 <div class="block">Returns whether or not this EmptyPiece can promote</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../../name/paramonov/doomep/shogi/Piece.html#isPromotable()">isPromotable</a></code>&nbsp;in class&nbsp;<code><a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in name.paramonov.doomep.shogi">Piece</a></code></dd>
+<dd><code><a href="../../../../name/paramonov/doomep/shogi/Piece.html#isPromotable()">isPromotable</a></code>&nbsp;in class&nbsp;<code><a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in mgci.jhdap.shogi">Piece</a></code></dd>
 <dt><span class="strong">Returns:</span></dt><dd>Whether or not this EmptyPiece can promote, 
  which is always false.</dd></dl>
 </li>
@@ -284,12 +284,12 @@ extends <a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="clas
 <ul class="blockList">
 <li class="blockList">
 <h4>promote</h4>
-<pre>protected&nbsp;<a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in name.paramonov.doomep.shogi">Piece</a>&nbsp;promote()</pre>
+<pre>protected&nbsp;<a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in mgci.jhdap.shogi">Piece</a>&nbsp;promote()</pre>
 <div class="block">Returns the Piece this EmptyPiece promotes to.
  As EmptyPieces don't promote, returns itself.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../../name/paramonov/doomep/shogi/Piece.html#promote()">promote</a></code>&nbsp;in class&nbsp;<code><a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in name.paramonov.doomep.shogi">Piece</a></code></dd>
+<dd><code><a href="../../../../name/paramonov/doomep/shogi/Piece.html#promote()">promote</a></code>&nbsp;in class&nbsp;<code><a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in mgci.jhdap.shogi">Piece</a></code></dd>
 <dt><span class="strong">Returns:</span></dt><dd>The Piece this EmptyPiece promotes to,
  which is itself.</dd></dl>
 </li>
@@ -300,7 +300,7 @@ extends <a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="clas
 <ul class="blockListLast">
 <li class="blockList">
 <h4>demote</h4>
-<pre>protected&nbsp;<a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in name.paramonov.doomep.shogi">Piece</a>&nbsp;demote()</pre>
+<pre>protected&nbsp;<a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in mgci.jhdap.shogi">Piece</a>&nbsp;demote()</pre>
 <div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../name/paramonov/doomep/shogi/Piece.html#demote()">Piece</a></code></strong></div>
 <div class="block">Returns the piece this piece is demoted from.
  Each piece demotes to a different piece,
@@ -308,7 +308,7 @@ extends <a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="clas
  This method is mostly used only in capturing, as you cannot demote normally.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../../name/paramonov/doomep/shogi/Piece.html#demote()">demote</a></code>&nbsp;in class&nbsp;<code><a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in name.paramonov.doomep.shogi">Piece</a></code></dd>
+<dd><code><a href="../../../../name/paramonov/doomep/shogi/Piece.html#demote()">demote</a></code>&nbsp;in class&nbsp;<code><a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in mgci.jhdap.shogi">Piece</a></code></dd>
 <dt><span class="strong">Returns:</span></dt><dd>The piece this piece demotes to.</dd></dl>
 </li>
 </ul>
@@ -338,11 +338,11 @@ extends <a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="clas
 <div class="subNav">
 <ul class="navList">
 <<<<<<< HEAD:name/paramonov/doomep/shogi/EmptyPiece.html
-<li><a href="../../../../name/paramonov/doomep/shogi/BoardPanel.html" title="class in name.paramonov.doomep.shogi"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../../../name/paramonov/doomep/shogi/BoardPanel.html" title="class in mgci.jhdap.shogi"><span class="strong">Prev Class</span></a></li>
 =======
-<li><a href="../../../../name/paramonov/doomep/shogi/Command.html" title="interface in name.paramonov.doomep.shogi"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../../../name/paramonov/doomep/shogi/Command.html" title="interface in mgci.jhdap.shogi"><span class="strong">Prev Class</span></a></li>
 >>>>>>> 1358db3cc2635b86208b55a04753a88356c4422a:doc/name/paramonov/doomep/shogi/EmptyPiece.html
-<li><a href="../../../../name/paramonov/doomep/shogi/GameState.html" title="class in name.paramonov.doomep.shogi"><span class="strong">Next Class</span></a></li>
+<li><a href="../../../../name/paramonov/doomep/shogi/GameState.html" title="class in mgci.jhdap.shogi"><span class="strong">Next Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../index.html?name/paramonov/doomep/shogi/EmptyPiece.html" target="_top">Frames</a></li>

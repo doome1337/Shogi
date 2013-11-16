@@ -39,8 +39,8 @@
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../../name/paramonov/doomep/shogi/EmptyPiece.html" title="class in name.paramonov.doomep.shogi"><span class="strong">Prev Class</span></a></li>
-<li><a href="../../../../name/paramonov/doomep/shogi/GoldGeneral.html" title="class in name.paramonov.doomep.shogi"><span class="strong">Next Class</span></a></li>
+<li><a href="../../../../name/paramonov/doomep/shogi/EmptyPiece.html" title="class in mgci.jhdap.shogi"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../../../name/paramonov/doomep/shogi/GoldGeneral.html" title="class in mgci.jhdap.shogi"><span class="strong">Next Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../index.html?name/paramonov/doomep/shogi/GameState.html" target="_top">Frames</a></li>
@@ -82,7 +82,7 @@
 <!-- ========= END OF TOP NAVBAR ========= -->
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="subTitle">name.paramonov.doomep.shogi</div>
+<div class="subTitle">mgci.jhdap.shogi</div>
 <h2 title="Class GameState" class="title">Class GameState</h2>
 </div>
 <div class="contentContainer">
@@ -90,7 +90,7 @@
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
-<li>name.paramonov.doomep.shogi.GameState</li>
+<li>mgci.jhdap.shogi.GameState</li>
 </ul>
 </li>
 </ul>
@@ -145,8 +145,8 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>protected void</code></td>
-<td class="colLast"><code><strong><a href="../../../../name/paramonov/doomep/shogi/GameState.html#addPieceToDropTable(int, name.paramonov.doomep.shogi.Piece)">addPieceToDropTable</a></strong>(int&nbsp;allegiance,
-                   <a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in name.paramonov.doomep.shogi">Piece</a>&nbsp;piece)</code>
+<td class="colLast"><code><strong><a href="../../../../name/paramonov/doomep/shogi/GameState.html#addPieceToDropTable(int, mgci.jhdap.shogi.Piece)">addPieceToDropTable</a></strong>(int&nbsp;allegiance,
+                   <a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in mgci.jhdap.shogi">Piece</a>&nbsp;piece)</code>
 <div class="block">Adds a piece to the drop table of a given player.</div>
 </td>
 </tr>
@@ -167,39 +167,39 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>protected void</code></td>
-<td class="colLast"><code><strong><a href="../../../../name/paramonov/doomep/shogi/GameState.html#dropPieceFromTable(int, int, int, name.paramonov.doomep.shogi.Piece)">dropPieceFromTable</a></strong>(int&nbsp;allegiance,
+<td class="colLast"><code><strong><a href="../../../../name/paramonov/doomep/shogi/GameState.html#dropPieceFromTable(int, int, int, mgci.jhdap.shogi.Piece)">dropPieceFromTable</a></strong>(int&nbsp;allegiance,
                   int&nbsp;x,
                   int&nbsp;y,
-                  <a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in name.paramonov.doomep.shogi">Piece</a>&nbsp;piece)</code>
+                  <a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in mgci.jhdap.shogi">Piece</a>&nbsp;piece)</code>
 <div class="block">Drops a piece from the drop table onto the board.</div>
 </td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>java.util.List&lt;java.util.List&lt;<a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in name.paramonov.doomep.shogi">Piece</a>&gt;&gt;</code></td>
+<td class="colFirst"><code>java.util.List&lt;java.util.List&lt;<a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in mgci.jhdap.shogi">Piece</a>&gt;&gt;</code></td>
 <td class="colLast"><code><strong><a href="../../../../name/paramonov/doomep/shogi/GameState.html#getBoard()">getBoard</a></strong>()</code>
 <div class="block">Returns the board at a given point in time.</div>
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code>java.util.List&lt;<a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in name.paramonov.doomep.shogi">Piece</a>&gt;</code></td>
+<td class="colFirst"><code>java.util.List&lt;<a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in mgci.jhdap.shogi">Piece</a>&gt;</code></td>
 <td class="colLast"><code><strong><a href="../../../../name/paramonov/doomep/shogi/GameState.html#getCorrectDropTable(int)">getCorrectDropTable</a></strong>(int&nbsp;allegiance)</code>
 <div class="block">Returns the drop table of a given player.</div>
 </td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>java.util.List&lt;<a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in name.paramonov.doomep.shogi">Piece</a>&gt;</code></td>
+<td class="colFirst"><code>java.util.List&lt;<a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in mgci.jhdap.shogi">Piece</a>&gt;</code></td>
 <td class="colLast"><code><strong><a href="../../../../name/paramonov/doomep/shogi/GameState.html#getDropTable1()">getDropTable1</a></strong>()</code>
 <div class="block">Return the drop table of player 1 at a given point in time.</div>
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code>java.util.List&lt;<a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in name.paramonov.doomep.shogi">Piece</a>&gt;</code></td>
+<td class="colFirst"><code>java.util.List&lt;<a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in mgci.jhdap.shogi">Piece</a>&gt;</code></td>
 <td class="colLast"><code><strong><a href="../../../../name/paramonov/doomep/shogi/GameState.html#getDropTable2()">getDropTable2</a></strong>()</code>
 <div class="block">Return the drop table of player 1 at a given point in time.</div>
 </td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code><a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in name.paramonov.doomep.shogi">Piece</a></code></td>
+<td class="colFirst"><code><a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in mgci.jhdap.shogi">Piece</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../name/paramonov/doomep/shogi/GameState.html#getPieceAt(int, int)">getPieceAt</a></strong>(int&nbsp;x,
           int&nbsp;y)</code>
 <div class="block">Obtains the Piece at a point on the board.</div>
@@ -228,9 +228,9 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>protected void</code></td>
-<td class="colLast"><code><strong><a href="../../../../name/paramonov/doomep/shogi/GameState.html#setPieceAt(int, int, name.paramonov.doomep.shogi.Piece)">setPieceAt</a></strong>(int&nbsp;x,
+<td class="colLast"><code><strong><a href="../../../../name/paramonov/doomep/shogi/GameState.html#setPieceAt(int, int, mgci.jhdap.shogi.Piece)">setPieceAt</a></strong>(int&nbsp;x,
           int&nbsp;y,
-          <a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in name.paramonov.doomep.shogi">Piece</a>&nbsp;piece)</code>
+          <a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in mgci.jhdap.shogi">Piece</a>&nbsp;piece)</code>
 <div class="block">Places a Piece on a given tile of the board.</div>
 </td>
 </tr>
@@ -245,9 +245,9 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><strong><a href="../../../../name/paramonov/doomep/shogi/GameState.html#willKingBeInCheckAfterMove(int, int, name.paramonov.doomep.shogi.Piece)">willKingBeInCheckAfterMove</a></strong>(int&nbsp;x,
+<td class="colLast"><code><strong><a href="../../../../name/paramonov/doomep/shogi/GameState.html#willKingBeInCheckAfterMove(int, int, mgci.jhdap.shogi.Piece)">willKingBeInCheckAfterMove</a></strong>(int&nbsp;x,
                           int&nbsp;y,
-                          <a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in name.paramonov.doomep.shogi">Piece</a>&nbsp;movingPiece)</code>
+                          <a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in mgci.jhdap.shogi">Piece</a>&nbsp;movingPiece)</code>
 <div class="block">Returns whether a move by a given Piece would put the King of that allegiance in check.</div>
 </td>
 </tr>
@@ -300,7 +300,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getBoard</h4>
-<pre>public&nbsp;java.util.List&lt;java.util.List&lt;<a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in name.paramonov.doomep.shogi">Piece</a>&gt;&gt;&nbsp;getBoard()</pre>
+<pre>public&nbsp;java.util.List&lt;java.util.List&lt;<a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in mgci.jhdap.shogi">Piece</a>&gt;&gt;&nbsp;getBoard()</pre>
 <div class="block">Returns the board at a given point in time.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>The List&lt;List&lt;Piece&gt;&gt; 
  that represents the game board.</dd></dl>
@@ -312,7 +312,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getDropTable1</h4>
-<pre>public&nbsp;java.util.List&lt;<a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in name.paramonov.doomep.shogi">Piece</a>&gt;&nbsp;getDropTable1()</pre>
+<pre>public&nbsp;java.util.List&lt;<a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in mgci.jhdap.shogi">Piece</a>&gt;&nbsp;getDropTable1()</pre>
 <div class="block">Return the drop table of player 1 at a given point in time.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>The List&lt;Piece&gt;
  that represents the first player's drop table.</dd></dl>
@@ -324,7 +324,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getDropTable2</h4>
-<pre>public&nbsp;java.util.List&lt;<a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in name.paramonov.doomep.shogi">Piece</a>&gt;&nbsp;getDropTable2()</pre>
+<pre>public&nbsp;java.util.List&lt;<a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in mgci.jhdap.shogi">Piece</a>&gt;&nbsp;getDropTable2()</pre>
 <div class="block">Return the drop table of player 1 at a given point in time.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>The List&lt;Piece&gt;
  that represents the first player's drop table.</dd></dl>
@@ -336,7 +336,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getCorrectDropTable</h4>
-<pre>public&nbsp;java.util.List&lt;<a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in name.paramonov.doomep.shogi">Piece</a>&gt;&nbsp;getCorrectDropTable(int&nbsp;allegiance)</pre>
+<pre>public&nbsp;java.util.List&lt;<a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in mgci.jhdap.shogi">Piece</a>&gt;&nbsp;getCorrectDropTable(int&nbsp;allegiance)</pre>
 <div class="block">Returns the drop table of a given player.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>allegiance</code> - The allegiance of the player
                       whose drop table we are looking for.
@@ -345,21 +345,21 @@ extends java.lang.Object</pre>
  that represents the given player's drop table.</dd></dl>
 </li>
 </ul>
-<a name="addPieceToDropTable(int, name.paramonov.doomep.shogi.Piece)">
+<a name="addPieceToDropTable(int, mgci.jhdap.shogi.Piece)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>addPieceToDropTable</h4>
 <pre>protected&nbsp;void&nbsp;addPieceToDropTable(int&nbsp;allegiance,
-                       <a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in name.paramonov.doomep.shogi">Piece</a>&nbsp;piece)</pre>
+                       <a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in mgci.jhdap.shogi">Piece</a>&nbsp;piece)</pre>
 <div class="block">Adds a piece to the drop table of a given player.
  Appends a Piece to the List that represents 
  the drop table with the given allegiance.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>allegiance</code> - The drop table to be added to. Either 1 or -1.</dd><dd><code>piece</code> - The piece to be added to the drop table.</dd></dl>
 </li>
 </ul>
-<a name="dropPieceFromTable(int, int, int, name.paramonov.doomep.shogi.Piece)">
+<a name="dropPieceFromTable(int, int, int, mgci.jhdap.shogi.Piece)">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -368,7 +368,7 @@ extends java.lang.Object</pre>
 <pre>protected&nbsp;void&nbsp;dropPieceFromTable(int&nbsp;allegiance,
                       int&nbsp;x,
                       int&nbsp;y,
-                      <a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in name.paramonov.doomep.shogi">Piece</a>&nbsp;piece)</pre>
+                      <a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in mgci.jhdap.shogi">Piece</a>&nbsp;piece)</pre>
 <div class="block">Drops a piece from the drop table onto the board.
  Removes the piece from the drop table, 
  and places it on the board.</div>
@@ -401,7 +401,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getPieceAt</h4>
-<pre>public&nbsp;<a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in name.paramonov.doomep.shogi">Piece</a>&nbsp;getPieceAt(int&nbsp;x,
+<pre>public&nbsp;<a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in mgci.jhdap.shogi">Piece</a>&nbsp;getPieceAt(int&nbsp;x,
                int&nbsp;y)</pre>
 <div class="block">Obtains the Piece at a point on the board.
  Returns the Piece at the given (x, y) value pair, on the board.</div>
@@ -409,7 +409,7 @@ extends java.lang.Object</pre>
 <dt><span class="strong">Returns:</span></dt><dd>The Piece at the given x and y values.</dd></dl>
 </li>
 </ul>
-<a name="setPieceAt(int, int, name.paramonov.doomep.shogi.Piece)">
+<a name="setPieceAt(int, int, mgci.jhdap.shogi.Piece)">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -417,7 +417,7 @@ extends java.lang.Object</pre>
 <h4>setPieceAt</h4>
 <pre>protected&nbsp;void&nbsp;setPieceAt(int&nbsp;x,
               int&nbsp;y,
-              <a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in name.paramonov.doomep.shogi">Piece</a>&nbsp;piece)</pre>
+              <a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in mgci.jhdap.shogi">Piece</a>&nbsp;piece)</pre>
 <div class="block">Places a Piece on a given tile of the board.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>x</code> - The x-value at which we're placing the Piece.</dd><dd><code>y</code> - The y-value at which we're placing the Piece.</dd><dd><code>piece</code> - The Piece to place on the board.</dd></dl>
 </li>
@@ -460,7 +460,7 @@ extends java.lang.Object</pre>
 <dt><span class="strong">Returns:</span></dt><dd>Whether the King of defendingAllegiance is under check.</dd></dl>
 </li>
 </ul>
-<a name="willKingBeInCheckAfterMove(int, int, name.paramonov.doomep.shogi.Piece)">
+<a name="willKingBeInCheckAfterMove(int, int, mgci.jhdap.shogi.Piece)">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -468,7 +468,7 @@ extends java.lang.Object</pre>
 <h4>willKingBeInCheckAfterMove</h4>
 <pre>public&nbsp;boolean&nbsp;willKingBeInCheckAfterMove(int&nbsp;x,
                                  int&nbsp;y,
-                                 <a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in name.paramonov.doomep.shogi">Piece</a>&nbsp;movingPiece)</pre>
+                                 <a href="../../../../name/paramonov/doomep/shogi/Piece.html" title="class in mgci.jhdap.shogi">Piece</a>&nbsp;movingPiece)</pre>
 <div class="block">Returns whether a move by a given Piece would put the King of that allegiance in check.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>x</code> - The x-value of the tile to which we're trying to move movingPiece.</dd><dd><code>y</code> - The y-value of the tile to which we're trying to move movingPiece.</dd><dd><code>movingPiece</code> - The Piece we are moving.</dd>
 <dt><span class="strong">Returns:</span></dt><dd>Whether the given move would cause check for the moving Piece.</dd></dl>
@@ -525,8 +525,8 @@ extends java.lang.Object</pre>
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../../name/paramonov/doomep/shogi/EmptyPiece.html" title="class in name.paramonov.doomep.shogi"><span class="strong">Prev Class</span></a></li>
-<li><a href="../../../../name/paramonov/doomep/shogi/GoldGeneral.html" title="class in name.paramonov.doomep.shogi"><span class="strong">Next Class</span></a></li>
+<li><a href="../../../../name/paramonov/doomep/shogi/EmptyPiece.html" title="class in mgci.jhdap.shogi"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../../../name/paramonov/doomep/shogi/GoldGeneral.html" title="class in mgci.jhdap.shogi"><span class="strong">Next Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../index.html?name/paramonov/doomep/shogi/GameState.html" target="_top">Frames</a></li>
