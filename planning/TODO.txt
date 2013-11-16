@@ -26,3 +26,5 @@ Documentation / user's guide, developer's guide, etc.
 Finish implementing all shogi rules and restrictions.
 
 Add invert board function.
+
+Change package path "name.paramonov.doomep.shogi" to something else.
