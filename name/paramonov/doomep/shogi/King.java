@@ -36,7 +36,7 @@ public class King extends UnpromotablePiece {
                          && state.getPieceAt(x, y).getAllegiance() != this.allegiance;
         state.setPieceAt(this.x, this.y, new EmptyPiece(this.x, this.y));
         validMove = validMove && !state.isAttacked(x, y, -this.allegiance);
-        state.setPieceAt(this.x, this.y, new King(this.x, this.y, this.allegiance));
+        state.setPieceAt(this.x, this.y, this);
         return validMove;
     }
     

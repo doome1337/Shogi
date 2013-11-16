@@ -14,3 +14,17 @@ Decide whether to have a separate class for PromotedPawn, that's equivalent in a
 Figure out how to implement demotion upon capture. And how it will work with the above ideas. Note that this mandates the existance of a PromotedPawn class. Or a promotedFrom field in GoldenGeneral.
 
 Finish the setPieceAt method in GameState.java. Also, add a setX and setY method to Piece.java. We need to be able to set those in order to dropTable effectively. Make them package-private.
+
+2013-11-14:
+
+Add drop validation to the isValidMove() method for all non-promoted pieces. Maybe set the coordinates of a piece in the drop table depending on which drop table it is (i.e. (-1,-1) for drop table 1, (-1,9) for drop table 2) so that it is easier for the isValidMove method to differentiate between drop tables?
+
+Images etc.
+
+Documentation / user's guide, developer's guide, etc.
+
+Finish implementing all shogi rules and restrictions.
+
+Add invert board function.
+
+Change package path "name.paramonov.doomep.shogi" to something else.

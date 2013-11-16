@@ -22,8 +22,10 @@ public class GraphicUI extends JFrame
 
 	public static void main(String[] args) 
 	{
-		new GraphicUI (640, 480);
+		new GraphicUI (640, 480);		
 	}
+	
+	protected boolean consoleIsOpen = false;
 
 	/** Constructs a new GraphicUI.
 	 * 
@@ -56,12 +58,16 @@ public class GraphicUI extends JFrame
 		file = new JMenu ("File");
 
 		button = new JMenuItem ("New Game");
-		button.addActionListener(this.new NewGameListener ());
-		file.add(button);
+		button.addActionListener(this.new MenuListener ());
+		file.add(button);		
 
-		button = new JMenuItem ("Quit");
-		button.addActionListener (this.new QuitListener ());
-		file.add(button);
+		button = new JMenuItem ("Debug Console");
+		button.addActionListener(this.new MenuListener ());
+		file.add (button);		
+
+		button = new JMenuItem ("Exit");
+		button.addActionListener (this.new MenuListener ());
+		file.add(button);		
 
 		// Add All Menus        
 		menuBar.add (file);
@@ -78,35 +84,51 @@ public class GraphicUI extends JFrame
 	{
 		JPanel content = new JPanel (new BorderLayout ());
 
-		content.add(board);
+		content.add(board, "Center");
 		board.addMouseListener(this.new CursorAdapter ());
-		board.addMouseMotionListener(this.new CursorAdapter ());
+		board.addMouseMotionListener(this.new CursorAdapter ());		
 
 		return content;
 	}
 
-	/** Listener for quit button in file menu.	 
+	/** Listener for menu buttons	 
 	 */
-	private class QuitListener implements ActionListener
-	{
-		@Override
-		public void actionPerformed (ActionEvent e)
-		{
-			setVisible (false);
-			dispose ();
-		}
-	}
-	
-	/** Listener for new game button in file menu.	 
-	 */
-	private class NewGameListener implements ActionListener
+	private class MenuListener implements ActionListener
 	{
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
-			board.reset();			
-		}	
+			Object parent = e.getSource();
+
+			if (parent instanceof JMenuItem)
+			{
+				JMenuItem button = (JMenuItem) parent;
+				String name = button.getText ();
+
+				if (name.equals("New Game"))
+				{
+					board.reset();					
+				}
+				else if (name.equals ("Debug Console"))
+				{
+					if (!consoleIsOpen)
+					{
+						board.c = new ShogiConsole (GraphicUI.this, "Console");
+						board.log = true;
+						consoleIsOpen = true;					
+					}
+				}
+				else if (name.equals("Exit"))
+				{
+					setVisible (false);
+					if (consoleIsOpen)
+						board.c.dispose ();
+					dispose ();
+				}			
+			}			
+		}		
 	}
+
 
 	/** Mouse adapter for shogi board.
 	 */
@@ -115,29 +137,25 @@ public class GraphicUI extends JFrame
 		@Override
 		public void mouseMoved (MouseEvent e)
 		{
-			board.moveMouse (e.getPoint ());
-			GraphicUI.this.repaint ();
+			board.moveMouse (e.getPoint ());			
 		}
 
 		@Override
 		public void mousePressed (MouseEvent e)
 		{
-			board.pressMouse (e.getButton(), e.getPoint ());
-			GraphicUI.this.repaint ();
+			board.pressMouse (e.getButton(), e.getPoint ());			
 		}
 
 		@Override
 		public void mouseReleased (MouseEvent e)
 		{
-			board.releaseMouse (e.getButton());
-			GraphicUI.this.repaint ();
+			board.releaseMouse (e.getButton());			
 		}
 
 		@Override
 		public void mouseDragged (MouseEvent e)
 		{
-			board.moveMouse (e.getPoint ());
-			GraphicUI.this.repaint ();
+			board.moveMouse (e.getPoint ());			
 		}			
 	}
 }

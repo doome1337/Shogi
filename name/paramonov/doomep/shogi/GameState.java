@@ -93,13 +93,14 @@ public class GameState {
      * @param   piece       The piece to be added to the drop table.
      */
     protected void addPieceToDropTable (int allegiance, Piece piece) {
+    	piece.setAllegiance(allegiance);
+        piece = piece.demote();
+        piece.setPosition(-1, -1);
         switch (allegiance) {
             case 1:     dropTable1.add(piece); break;
             case -1:    dropTable2.add(piece); break;
         }
-        piece.setAllegiance(allegiance);
-        piece.demote();
-        piece.setPosition(-1, -1);
+        
         //TODO: Finish this.
         //TODO: Is this finished? Look back over plans and decide.
         //TODO: Pretty sure this is finished nao.
