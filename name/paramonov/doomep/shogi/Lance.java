@@ -13,6 +13,7 @@ public class Lance extends PromotablePiece {
         super(x, y, allegiance);
         this.pieceName = "Lance";
         this.doubleCharRepresentation = new String[]{"l ","L#", "L "};
+        this.imageNames = new String[]{"dLance.png", "nLance.png", "uLance.png"};
     }
         
     /** Checks whether this Lance can move to a given location.

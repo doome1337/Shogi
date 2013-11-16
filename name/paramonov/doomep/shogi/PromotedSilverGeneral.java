@@ -13,6 +13,7 @@ public class PromotedSilverGeneral extends UnpromotablePiece {
         super(x, y, allegiance);
         this.pieceName = "Promoted Silver General";
         this.doubleCharRepresentation = new String[]{"s+","S*", "S+"};
+        this.imageNames = new String[]{"dPSilver.png", "nPSilver.png", "uPSilver.png"};
     }
 
     /** Returns whether a move can be undertaken by this PromotedSilverGeneral.

@@ -58,7 +58,7 @@ public abstract class Piece {
      * Note that it will not reference any folders, 
      * for the possibility of alternate textures. 
      */
-    protected String imageName;
+    protected String[] imageNames;
 
     /** Constructs a piece at a given x and y-value,
      * with the given allegiance.

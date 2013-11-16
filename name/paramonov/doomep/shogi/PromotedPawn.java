@@ -12,6 +12,7 @@ public class PromotedPawn extends UnpromotablePiece {
         super(x, y, allegiance);
         this.pieceName = "Promoted Pawn";
         this.doubleCharRepresentation = new String[]{"p+","P*", "P+"};
+        this.imageNames = new String[]{"dPPawn.png", "nPPawn.png", "uPpawn.png"};
 	}
     
     /** Returns whether a move can be undertaken by this PromotedPawn.

@@ -13,6 +13,7 @@ public class PromotedBishop extends UnpromotablePiece {
         super(x, y, allegiance);
         this.pieceName = "Promoted Bishop";
         this.doubleCharRepresentation = new String[]{"b+","B*", "B+"};
+        this.imageNames = new String[]{"dPBishop.png", "nPBishop.png", "uPBishop.png"};
     }
 
     /** Checks whether this PromotedBishop can move to a given location.

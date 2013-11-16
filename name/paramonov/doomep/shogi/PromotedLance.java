@@ -12,6 +12,7 @@ public class PromotedLance extends UnpromotablePiece {
         super(x, y, allegiance);
         this.pieceName = "Promoted Lance";
         this.doubleCharRepresentation = new String[]{"l+","L*", "L+"};
+        this.imageNames = new String[]{"dPLance.png", "nPLance.png", "uPLance.png"};
     }
     
     /** Returns whether a move can be undertaken by this PromotedLance.

@@ -13,6 +13,7 @@ public class Bishop extends PromotablePiece {
         super(x, y, allegiance);
         this.pieceName = "Bishop";
         this.doubleCharRepresentation = new String[]{"b ","B#", "B "};
+        this.imageNames = new String[]{"dBishop.png", "nBishop.png", "uBishop.png"};
     }
 
     /** Checks whether this Bishop can move to a given location.

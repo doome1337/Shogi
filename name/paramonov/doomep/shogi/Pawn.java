@@ -13,6 +13,7 @@ public class Pawn extends PromotablePiece {
         super(x, y, allegiance);
         this.pieceName = "Pawn";
         this.doubleCharRepresentation = new String[]{"p ","P#", "P "};
+        this.imageNames = new String[]{"dPawn.png", "nPawn.png", "uPawn.png"};
     }
 
     /** Returns whether a move can be undertaken by this Pawn.

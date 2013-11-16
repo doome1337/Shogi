@@ -13,6 +13,7 @@ public class PromotedRook extends UnpromotablePiece {
         super(x, y, allegiance);
         this.pieceName = "Promoted Rook";
         this.doubleCharRepresentation = new String[]{"r+","R*", "R+"};
+        this.imageNames = new String[]{"dPRook.png", "nPRook.png", "uPRook.png"};
     }
     
     /** Checks whether this PromotedRook can move to a given location.

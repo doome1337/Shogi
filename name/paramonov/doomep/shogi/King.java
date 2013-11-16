@@ -13,6 +13,7 @@ public class King extends UnpromotablePiece {
         super(x, y, allegiance);
         this.pieceName = "King";
         this.doubleCharRepresentation = new String[]{"k ","K#", "K "};
+        this.imageNames = new String[]{"dKing.png", "nKing.png", "uKing.png"};
         this.checkmatable = true;
     }
     

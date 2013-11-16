@@ -15,6 +15,7 @@ public class EmptyPiece extends Piece {
         super(x, y, 0);
         this.pieceName = "Empty Tile";
         this.doubleCharRepresentation = new String[]{". ",". ", ". "};
+        this.imageNames = new String[]{"dEmpty.png", "nEmpty.png", "uEmpty.png"};
     }
 
     /** Returns whether or not this EmptyPiece can move to a given tile.

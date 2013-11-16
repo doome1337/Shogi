@@ -12,6 +12,7 @@ public class Knight extends PromotablePiece {
         super(x, y, allegiance);
         this.pieceName = "Knight";
         this.doubleCharRepresentation = new String[]{"n ","N#", "N "};
+        this.imageNames = new String[]{"dKnight.png", "nKnight.png", "uKnight.png"};
     }
     
     /** Returns whether a move can be undertaken by this Knight.
