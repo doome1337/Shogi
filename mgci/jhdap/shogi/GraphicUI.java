@@ -22,7 +22,7 @@ public class GraphicUI extends JFrame
 
 	public static void main(String[] args) 
 	{
-		new GraphicUI (640, 480);		
+		new GraphicUI (720, 535);		
 	}
 	
 	protected boolean consoleIsOpen = false;
@@ -34,14 +34,14 @@ public class GraphicUI extends JFrame
 	 */
 	public GraphicUI (int width, int height)
 	{
-		super ("GUI Test");
+		super ("Shogi");		
 
-		setJMenuBar (createMenuBar());
-		setContentPane (createContent ());
-
-		setSize(width, height);
-		setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
-		setVisible(true);
+		setJMenuBar (createMenuBar());		
+		setContentPane (createContent ());		
+		
+		setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);	
+		setSize(width, height);	
+		setVisible(true);	
 	}
 
 	/** Creates the menu bar for the GUI.
@@ -51,26 +51,52 @@ public class GraphicUI extends JFrame
 	private JMenuBar createMenuBar ()
 	{		
 		JMenuBar menuBar = new JMenuBar ();
-		JMenu file;
+		JMenu file, help;
 		JMenuItem button;
 
 		// "File" Menu        
 		file = new JMenu ("File");
+		file.setMnemonic('f');
 
-		button = new JMenuItem ("New Game");
+		button = new JMenuItem ("New Game"); // new game button
+		button.setMnemonic('n');
+		button.setAccelerator(KeyStroke.getKeyStroke (
+				KeyEvent.VK_N, KeyEvent.CTRL_MASK));
 		button.addActionListener(this.new MenuListener ());
 		file.add(button);		
 
-		button = new JMenuItem ("Debug Console");
+		button = new JMenuItem ("Developer Console"); // developer console button
+		button.setMnemonic('d');
+		button.setAccelerator(KeyStroke.getKeyStroke ('`'));
 		button.addActionListener(this.new MenuListener ());
 		file.add (button);		
 
-		button = new JMenuItem ("Exit");
+		button = new JMenuItem ("Exit"); // exit button
+		button.setMnemonic('x');
+		button.setAccelerator(KeyStroke.getKeyStroke (
+				KeyEvent.VK_X, KeyEvent.CTRL_MASK));
 		button.addActionListener (this.new MenuListener ());
-		file.add(button);		
+		file.add(button);
+		
+		// "Help" Menu
+		help = new JMenu ("Help");
+		help.setMnemonic('h');
+		
+		button = new JMenuItem ("Ha ha, no help yet.");
+		help.add (button);
+				
+		button = new JMenuItem ("No User's Guide at all.");
+		help.add (button);
+						
+		button = new JMenuItem ("About"); // about button
+		button.setMnemonic('a');
+		button.addActionListener (this.new MenuListener ());
+		help.add(button);
+		
 
 		// Add All Menus        
 		menuBar.add (file);
+		menuBar.add (help);
 
 		// Return        
 		return menuBar;
@@ -109,14 +135,18 @@ public class GraphicUI extends JFrame
 				{
 					board.reset();					
 				}
-				else if (name.equals ("Debug Console"))
+				else if (name.equals ("Developer Console"))
 				{
 					if (!consoleIsOpen)
 					{
-						board.c = new ShogiConsole (GraphicUI.this, "Console");
+						GraphicUI.this.setTitle("Opening Console...");
+						board.c = new ShogiConsole (GraphicUI.this, "Console", 640, 535);
 						board.log = true;
-						consoleIsOpen = true;					
+						consoleIsOpen = true;
+						GraphicUI.this.setTitle("Shogi");
 					}
+					else
+						board.c._input.requestFocus();
 				}
 				else if (name.equals("Exit"))
 				{
@@ -124,7 +154,12 @@ public class GraphicUI extends JFrame
 					if (consoleIsOpen)
 						board.c.dispose ();
 					dispose ();
-				}			
+				}	
+				else if (name.equals("About"))
+				{
+					if (consoleIsOpen)
+						board.c.println ("A JDialog box would open at this point.");
+				}
 			}			
 		}		
 	}

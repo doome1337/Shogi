@@ -14,36 +14,50 @@ public class ShogiConsole extends CommandLineInterface
 	private GraphicUI gui;
 	private int notation = 0;
 
-	public ShogiConsole(GraphicUI gui, String title) 
+	public ShogiConsole(GraphicUI gui, String title, int width, int height) 
 	{
-		super(title, 640, 480);
+		super(title, width, height);
 		setLocationRelativeTo (gui);
-		setLocation (640, 0);
+		setLocation (gui.getWidth(), 0);
 		this.gui = gui;
 		printInit ();
 	}
 	@Override
 	public void initCommands() 
-	{
+	{		
+		commands.add(new BoardOffset ("^b os( \\d+ \\d+)?$", 
+				"b os\t\tsets the board offset relative to the top left corner of JPanel"));
+		
 		commands.add(new Choices ("^choices \\d[a-i\\d]$", 
 				"choices\t\tdraws all possible moves of the piece at XY"
-						+"\n\t\tNote: there is currently a strange bug where the" 
-						+"\n\t\tsquares don't show up the first time."));
+						+"\n\t\tNote: there is currently a strange bug where" 
+						+"\n\t\tthe squares don't show up the first time."));
 
 		commands.add(new Close ("^close$", 
-				"close\t\tcloses console"));
+				"close\t\tcloses console"));				
 
 		commands.add(new ConfigLog ("^config log ?[01]?$", 
-				"config log\tenables or disables GUI log"));		
+				"config log\tenables or disables GUI log"
+						+"\n\t\t0 = disabled"
+						+"\n\t\t1 = enabled"));
 
 		commands.add(new ConfigNotation ("^config notation ?[01]?$", 
-				"config notation\tsets notation format: 0 = GameState xy ; 1 = shogi standard"));
+				"config notation\tsets notation format for console"
+						+"\n\t\t0 = GameState xy"
+						+"\n\t\t1 = shogi standard"));
+				
+		commands.add(new ConfigTexturePack ("^config textures( [\\w\\p{Punct}]+)?$", 
+				"config textures\tsets the path of the texture pack"
+						+ "\n\t\tpath is relative to the parent directory (\"Shogi/\")"));
 
 		commands.add(new Drop ("^drop -?1 \\w+ \\d[a-i\\d]$", 
 				"drop\t\tdrops indicated piece from indicated drop table onto board at XY"));
+		
+		commands.add(new DropTableSize ("^dt size( \\d+ \\d+)?$", 
+				"dt size\t\tsets the size of the drop tables"));		
 
-		commands.add(new DumpPiece ("^dump (-?1 (\\w+\\d)|\\d[a-i\\d])$", 
-				"dump\t\tcalls the toString() method of the Piece at the given location"));
+		commands.add(new DumpPiece ("^dump piece (-?1 (\\w+)|\\d[a-i\\d])$", 
+				"dump piece\tcalls the toString() method of the Piece at the given location"));
 
 		commands.add(new DumpState ("^dump state$", 
 				"dump state\tcalls the toString() method of this GameState"));	
@@ -55,20 +69,35 @@ public class ShogiConsole extends CommandLineInterface
 				"help\t\tlists all commands"));
 
 		commands.add(new HelpDetail ("^help( [\\w\\p{Punct}]+)+$", 
-				"help <command>\tprints the help for the specified command"));	
+				"help <command>\tprints specific details about the given command"));	
 
 		commands.add(new Move ("^move \\d[a-i\\d] \\d[a-i\\d]$", 
 				"move\t\tmoves piece at xy to XY"));
 
 		commands.add(new Param ("^param$", 
 				"param\t\tlists the regex format of all valid commands"));
+		
+		commands.add(new PieceSize ("^p size( \\d+ \\d+)?$", 
+				"p size\t\tsets the size of the shogi pieces"));
 
-		commands.add(new ProMode ("^pro_mode ?[01]?$", 
-				"pro_mode\t\tenables or disables pro mode"
-						+ "\n\t\tDisables tile highlighting."));
+		commands.add(new ProMode ("^pro_mode( [01])?$", 
+				"pro_mode\t\tenables or disables pro mode"						
+						+ "\n\t\tDisables tile highlighting."
+						+"\n\t\t0 = disabled"
+						+"\n\t\t1 = enabled"));
+
+		commands.add(new ReloadTextures ("^reload textures$", 
+				"reload textures\treloads the textures"
+						+"\n\t\tboardOffset, dropTableOffsets, dropTableSize, pieceSize,"
+						+"\n\t\tpieceOffset, and tileSize are all calculated based on the"
+						+"\n\t\timages, so running this command would reset those fields."
+						+"\n\t\tto their default values."));
 
 		commands.add(new Reset ("^reset$", 
-				"reset\t\tresets shogi board"));
+				"reset\t\tresets shogi board"));	
+		
+		commands.add(new TileSize ("^t size( \\d+ \\d+)?$", 
+				"t size\t\tsets the size of the 9x9 tiles"));
 	}
 
 	public void printInit ()
@@ -77,21 +106,58 @@ public class ShogiConsole extends CommandLineInterface
 		println ("Run 'help' to list commands.");
 	}
 
-	public void logValidMove (Piece p, Tile from, Tile to)
+
+
+
+	public void logConfig (String config, String newValue)
+	{
+		println ("Set " + config + " to " + newValue + ".");
+	}
+
+	public void logDeselectPiece (Piece p)
 	{		
-		println ("Moved piece \"" + p + "\" at " + from.getCode (notation)
-				+ " to " + to.getCode (notation));
+		Tile location = new Tile (p.x, p.y);
+		println ("Deselected piece \"" + p + "\" at " + location.getCode (notation));
+	}
+
+	public void logDropTable404 (String pieceName, int allegiance)
+	{
+		println ("Could not find \"" + pieceName + "\" piece in drop table " + allegiance + ".");
+	}	
+
+	public void logError (Exception e)
+	{
+		logError (e.toString ());
+	}
+
+	public void logError (String e)
+	{
+		setTextColor (Color.red);
+		println (e);
+		setTextColor (null);		
+	}
+
+	public void logInvalidCoordinates (String tile)
+	{
+		println ("Invalid coordinates \"" + tile + "\".");
+	}
+
+	public void logInvalidDrop (int allegiance, Piece p, Tile location)
+	{
+		println ("Invalid drop location for drop from table " + allegiance 
+				+ " a " + p + " at " + location.getCode (notation) + " ");
 	}
 
 	public void logInvalidMove (Piece p, Tile from, Tile to)
 	{	
 		println ("Could not move piece \"" + p + "\" at " + from.getCode (notation)
 				+ " to " + to.getCode (notation));
-	}
+	}	
 
-	public void logInvalidCoordinates (String tile)
+	public void logPossibleMoves (Piece p)
 	{
-		println ("Invalid coordinates \"" + tile + "\".");
+		Tile location = new Tile (p.x, p.y);
+		println ("Drew possible moves for piece \"" + p + "\" at " + location.getCode (notation));
 	}
 
 	public void logPromote (Piece p)
@@ -103,23 +169,6 @@ public class ShogiConsole extends CommandLineInterface
 	public void logReset ()
 	{
 		println ("Board reset.");
-	}
-
-	public void logDropTable404 (String pieceName, int allegiance)
-	{
-		println ("Could not find \"" + pieceName + "\" piece in drop table " + allegiance + ".");
-	}
-
-	public void logValidDrop (int allegiance, Piece p, Tile location)
-	{
-		println ("From table " + allegiance + ": Dropped a \"" + p 
-				+ "\" piece at " + location.getCode (notation) + ".");
-	}
-
-	public void logInvalidDrop (int allegiance, Piece p, Tile location)
-	{
-		println ("Invalid drop location for drop from table " + allegiance 
-				+ " a " + p + " at " + location.getCode (notation) + " ");
 	}
 
 	public void logSelectPiece (Piece p)
@@ -134,35 +183,43 @@ public class ShogiConsole extends CommandLineInterface
 		println (action + " " + toggle + ".");
 	}
 
-	public void logDeselectPiece (Piece p)
+	public void logValidDrop (int allegiance, Piece p, Tile location)
+	{
+		println ("From table " + allegiance + ": Dropped a \"" + p 
+				+ "\" piece at " + location.getCode (notation) + ".");
+	}
+
+	public void logValidMove (Piece p, Tile from, Tile to)
 	{		
-		Tile location = new Tile (p.x, p.y);
-		println ("Deselected piece \"" + p + "\" at " + location.getCode (notation));
+		println ("Moved piece \"" + p + "\" at " + from.getCode (notation)
+				+ " to " + to.getCode (notation));
 	}
 
-	public void logError (Exception e)
+
+	
+	private class BoardOffset extends Command
 	{
-		logError (e.toString ());
-	}
+		public BoardOffset(String regex, String detail) {
+			super(regex, detail);
+		}
 
-	public void logError (String e)
-	{
-		setTextColor (Color.red);
-		println (e);
-		setTextColor (null);		
-	}
+		@Override
+		void execute(String command) 
+		{
+			String[] parameters = command.split (" ");
 
-	public void logPossibleMoves (Piece p)
-	{
-		Tile location = new Tile (p.x, p.y);
-		println ("Drew possible moves for piece \"" + p + "\" at " + location.getCode (notation));
+			if (parameters.length == 4)
+			{
+				int x = Integer.parseInt(parameters[2]);
+				int y = Integer.parseInt(parameters[3]);
+				gui.board.setBoardOffset (x, y);
+				logConfig("board offset", parameters[2] + "," + parameters[3]);
+			}
+			else
+				println ("board offset = " + gui.board.getBoardOffset());
+		}		
 	}
-
-	public void logConfig (String newValue, String config)
-	{
-		println ("Set " + config + " to " + newValue + ".");
-	}
-
+	
 
 	private class Choices extends Command 
 	{
@@ -205,6 +262,10 @@ public class ShogiConsole extends CommandLineInterface
 		}		
 	}
 
+	
+
+	
+
 	private class ConfigLog extends Command
 	{
 		public ConfigLog(String regex, String detail) {
@@ -241,14 +302,35 @@ public class ShogiConsole extends CommandLineInterface
 			if (parameters.length == 3)
 			{
 				notation = Integer.parseInt(parameters[2]);
-				logConfig (parameters[2], "notation format");
+				logConfig ("notation format", parameters[2]);
 			}
 			else			
 				println ("notation = " + notation);
 		}		
 	}
+			
 
+	private class ConfigTexturePack extends Command
+	{
+		public ConfigTexturePack(String regex, String detail) {
+			super(regex, detail);
+		}
 
+		@Override
+		void execute(String command) 
+		{
+			String[] parameters = command.split(" ");
+			if (parameters.length == 3)
+			{				
+				gui.board.texturePath = parameters[2];
+				logConfig ("texture path", parameters[2]);
+				println ("Reload textures for changes to take effect.");
+			}
+			else
+				println ("texture path = " + gui.board.texturePath);
+		}
+
+	}	
 
 	private class Drop extends Command
 	{
@@ -287,6 +369,68 @@ public class ShogiConsole extends CommandLineInterface
 				logDropTable404 (pieceName, allegiance);			
 		}		
 	}	
+	
+	private class DropTableSize extends Command
+	{
+		public DropTableSize(String regex, String detail) {
+			super(regex, detail);
+		}
+
+		@Override
+		void execute(String command) 
+		{
+			String[] parameters = command.split(" ");
+
+			if (parameters.length == 4)
+			{
+				int w = Integer.parseInt (parameters[2]);
+				int h = Integer.parseInt (parameters[3]);
+				gui.board.setDropTableSize(w, h);
+				logConfig("drop table size", parameters[2] + "," + parameters[3]);
+			}
+			else
+				println ("drop table size = " + gui.board.getDropTableSize());
+		}		
+	}
+	
+	private class DumpPiece extends Command
+	{
+		public DumpPiece(String regex, String detail) {
+			super(regex, detail);
+		}
+
+		@Override
+		void execute(String command) 
+		{
+			String[] parameters = command.split (" ");
+			Piece p = null;
+
+			if (parameters.length == 4) // piece is in drop table
+			{
+				int allegiance = Integer.parseInt (parameters[2]);	
+
+				p = gui.board.getDropTablePieceAt (allegiance, parameters[3]);	
+
+				if (p == null)
+					logDropTable404 (parameters[3], allegiance);
+			}
+			else // piece is on board
+			{
+				Tile tile = new Tile (parameters[2]);
+				if (tile.isValid())
+					p = gui.board.state.getPieceAt(tile.x, tile.y);
+				else
+					logInvalidCoordinates (parameters[2]);
+			}
+
+			if (p != null)
+			{
+				setTextColor (Color.yellow);
+				println (p.toString ());
+				setTextColor (null);
+			}
+		}		
+	}
 
 	private class DumpState extends Command
 	{
@@ -301,42 +445,7 @@ public class ShogiConsole extends CommandLineInterface
 			setTextColor (null);
 		}		
 	}
-
-	private class DumpPiece extends Command
-	{
-		public DumpPiece(String regex, String detail) {
-			super(regex, detail);
-		}
-
-		@Override
-		void execute(String command) 
-		{
-			String[] parameters = command.split (" ");
-			Piece p;
-
-			if (parameters.length == 3) // piece is in drop table
-			{
-				int allegiance = Integer.parseInt (parameters[1]);	
-
-				p = gui.board.getDropTablePieceAt (allegiance, parameters[2]);	
-
-				if (p == null)
-					logDropTable404 (parameters[2], allegiance);
-			}
-			else // piece is on board
-			{
-				Tile tile = new Tile (parameters[1]);
-				p = gui.board.state.getPieceAt(tile.x, tile.y);				
-			}
-
-			if (p != null)
-			{
-				setTextColor (Color.yellow);
-				println (p.toString ());
-				setTextColor (null);
-			}
-		}		
-	}
+	
 
 	private class Exit extends Command
 	{
@@ -388,7 +497,7 @@ public class ShogiConsole extends CommandLineInterface
 				if (commands.get(i).detail.split ("\t")[0].equals(command))
 				{
 					println (" " + commands.get(i).detail);
-					println ("      " + commands.get(i).regex);
+					println ("\t      " + commands.get(i).regex);
 					found = true;
 				}
 
@@ -440,6 +549,29 @@ public class ShogiConsole extends CommandLineInterface
 			setTextColor (null);
 		}
 	}
+	
+	private class PieceSize extends Command
+	{
+		public PieceSize(String regex, String detail) {
+			super(regex, detail);
+		}
+
+		@Override
+		void execute(String command) 
+		{
+			String[] parameters = command.split(" ");
+
+			if (parameters.length == 4)
+			{
+				int w = Integer.parseInt (parameters[2]);
+				int h = Integer.parseInt (parameters[3]);
+				gui.board.setPieceSize(w, h);
+				logConfig("piece size", parameters[2] + "," + parameters[3]);
+			}
+			else
+				println ("piece size = " + gui.board.getPieceSize());
+		}
+	}
 
 	private class ProMode extends Command
 	{
@@ -476,6 +608,43 @@ public class ShogiConsole extends CommandLineInterface
 			gui.board.reset ();
 		}		
 	}	
+
+	private class ReloadTextures extends Command
+	{
+		public ReloadTextures(String regex, String detail) {
+			super(regex, detail);
+		}
+
+		@Override
+		void execute(String command) 
+		{
+			gui.board.loadImages();
+			println ("Reloaded texture pack at: " + gui.board.texturePath);
+		}		
+	}
+	
+	private class TileSize extends Command
+	{
+		public TileSize(String regex, String detail) {
+			super(regex, detail);
+		}
+
+		@Override
+		void execute(String command) 
+		{
+			String[] parameters = command.split(" ");
+
+			if (parameters.length == 4)
+			{
+				int w = Integer.parseInt (parameters[2]);
+				int h = Integer.parseInt (parameters[3]);
+				gui.board.setTileSize(w, h);
+				logConfig("tile size", parameters[2] + "," + parameters[3]);
+			}
+			else
+				println ("tile size = " + gui.board.getTileSize());
+		}
+	}
 
 	@Override
 	public void dispose ()

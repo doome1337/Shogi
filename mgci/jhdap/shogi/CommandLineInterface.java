@@ -91,16 +91,16 @@ public abstract class CommandLineInterface extends JFrame
 	 */
 	public CommandLineInterface (String title, int width, int height)
 	{
-		super (title);
-		setContentPane (createContent());
-		initTextPanes ();	
-		initCommands ();
-
-		setDefaultCloseOperation (JFrame.DISPOSE_ON_CLOSE);
-		setSize (width, height);		
-		setVisible (true);	
-
-		_input.requestFocusInWindow ();
+		super (title);		
+		setContentPane (createContent());		
+		initTextPanes ();		
+								
+		setDefaultCloseOperation (JFrame.DISPOSE_ON_CLOSE);	
+		setSize (width, height);
+		setVisible (true);
+				
+		initCommands ();		
+		_input.requestFocus ();		
 	}
 
 	/** Creates the content meant to be added to the JFrame. This
