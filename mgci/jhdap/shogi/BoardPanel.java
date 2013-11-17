@@ -4,14 +4,22 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Dimension;
+import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-/** The JPanel for the shogi board. Work in progress.
+/** The JPanel for the shogi board. Handles all of the drawing and sound.
+ * Updates based on invocations of its moveMouse (Point), pressMouse (int, Point),
+ * and releaseMouse (int) methods.
+ * 
  * @author                  Jiayin Huang
  * @author                  Dmitry Andreevich Paramonov 
  */
@@ -21,73 +29,39 @@ public class BoardPanel extends JPanel
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Color backgroundColor = new Color (206, 192, 122);	
-	public Color dropTableColor = new Color (211, 211, 223);	
-	public Color boardColor = new Color (223, 180, 114);
-	public Color highlightColor = Color.green;
+	/** The default background color for the entire panel. 
+	 */
+	public Color backgroundColor = new Color (206, 192, 122);	
+
+
+	// Offset and size fields
 
 	/** The x,y coordinates of the top left corner of the shogi board. 
 	 */
-	private Point boardOffset;	
-
+	private Point boardOffset = new Point ();
 	/** The x,y coordinates of the top left corner of the bottom drop table.
 	 */
-	private Point dropOffset1;
-
+	private Point dropTableOffset1 = new Point ();
 	/** The x,y coordinates of the top left corner of the top drop table.
 	 */
-	private Point dropOffset2;
-
-	/** The dimensions of a shogi board square. 
+	private Point dropTableOffset2 = new Point ();
+	/** The offset for drawing a piece in x,y coordinates relative to the
+	 * top left corner of a tile. This is to ensure that the piece is always
+	 * drawn at the center of a shogi board square.
 	 */
-	private Dimension tile;
-
-	/** The dimensions of a drop table.
+	private Point pieceOffset = new Point ();	
+	/** The width,height dimensions of a drop table. 
 	 */
-	private Dimension dropTable;	
-
-	/** The board. 
+	private Dimension dropTableSize = new Dimension ();
+	/** The width,height dimensions of a shogi piece. 
 	 */
-	protected GameState state = new GameState ();
-
-	/** The relationship between shogi pieces and their positioning
-	 * on the drop table, with (0,0) being at the top left of the drop table. 
+	private Dimension pieceSize = new Dimension ();
+	/** The width,height dimensions of a square on the board. 
 	 */
-	protected static final Map<String,Point> pieceToDropTable;
-	static
-	{
-		Map<String,Point> temp = new HashMap<String,Point>();
-		temp.put("Pawn", new Point (0,0));		
-		temp.put("Lance", new Point (0,1));
-		temp.put("Knight", new Point (1,1));
-		temp.put("Silver General", new Point (0,2));
-		temp.put("Gold General", new Point (1,2));
-		temp.put("Bishop", new Point (0,3));
-		temp.put("Rook", new Point (1,3));
-		pieceToDropTable = Collections.unmodifiableMap(temp);
-	}	
+	private Dimension tileSize = new Dimension ();	
 
-	/** The relationship between shogi pieces and their positioning
-	 * on the drop table, with (0,0) being at the top left of the drop table. 
-	 */
-	protected static final Map<Point,String> dropTableToPiece;
-	static
-	{
-		Map<Point,String> temp1 = new HashMap<Point,String>();
 
-		for (Entry<String, Point> entry : pieceToDropTable.entrySet()) 		
-			temp1.put(entry.getValue(), entry.getKey());
-
-		dropTableToPiece = Collections.unmodifiableMap(temp1);		
-	}
-
-	/** Whether a shogi piece is currently selected or not. 
-	 */
-	protected boolean pieceIsSelected = false;
-
-	/** The selected shogi piece. 
-	 */
-	protected Piece selectedPiece;
+	// Mouse fields
 
 	/** The location of the cursor when the corresponding mouse button was pressed. 
 	 */
@@ -101,38 +75,113 @@ public class BoardPanel extends JPanel
 	 */	
 	protected boolean [] mousePressed = new boolean [4];
 
-	/** Whether hardcore mode is active or not. If hardcore mode is active,
-	 * all of the possible moves of a piece are not displayed. 
+
+	// Configuration (boolean) fields
+
+	/** If true, pro_mode mode is active. This would mean that
+	 *  all of the possible moves of a piece are not displayed. 
 	 */
 	public boolean proMode = false;
 
-	/** Whether to draw the board coordinate labels (e.g. 1a, 2a, 2b) or not. 
+	/** If true, this panel draws the board coordinate labels (e.g. 1a, 2a, 2b). 
 	 */
 	public boolean showBoardLabels = true;
 
+	/** If true, the previous move is indicated. 
+	 */
+	public boolean showLastMove = true;
+
+	/** If true, the console (if open) logs every single little action 
+	 */
 	public boolean log = false;
 
-	/** The sound that plays when a piece is moved or promoted.
+	/** If true, the cursor is currently holding a piece. 
 	 */
-	private SoundEffect snap = new SoundEffect (new File ("../Shogi/resources/snap.wav"));
+	protected boolean pieceIsSelected = false;	
 
-	protected ShogiConsole c = null;
+	/** The selected piece. 
+	 */
+	protected Piece selectedPiece;
+
+	/** The location of the last move. 
+	 */
+	protected Tile lastMoved = null;
+
+
+	// Other fields
+
+	/** The relationship between shogi pieces and their positioning
+	 * on the drop table, with (0,0) being at the top left of the drop table. 
+	 */
+	public static final Map<String,Point> pieceToDropTable;
+	static
+	{
+		Map<String,Point> temp = new HashMap<String,Point>();
+		temp.put("Pawn", new Point (0,0));		
+		temp.put("Lance", new Point (0,1));
+		temp.put("Knight", new Point (1,1));
+		temp.put("Silver General", new Point (0,2));
+		temp.put("Gold General", new Point (1,2));
+		temp.put("Bishop", new Point (0,3));
+		temp.put("Rook", new Point (1,3));
+		pieceToDropTable = Collections.unmodifiableMap(temp);
+	}	
+	/** The relationship between shogi pieces and their positioning
+	 * on the drop table, with (0,0) being at the top left of the drop table. 
+	 */
+	public static final Map<Point,String> dropTableToPiece;
+	static
+	{
+		Map<Point,String> temp1 = new HashMap<Point,String>();
+
+		for (Entry<String, Point> entry : pieceToDropTable.entrySet()) 		
+			temp1.put(entry.getValue(), entry.getKey());
+
+		dropTableToPiece = Collections.unmodifiableMap(temp1);		
+	}
+
+
+	/** The path to the active texture pack. 
+	 */
+	public String texturePath = "resources/stdTextures/";
+
+	/** The HashMap storing the image IDs with their equivalent BufferedImages. 
+	 */
+	private static Map<String,BufferedImage> imageHash;	
+
+	/** The sound that plays whenever a piece is moved or promoted.
+	 */
+	private SoundEffect snap = new SoundEffect (new File ("resources/snap.wav"));
+
+	/** The debug console. 
+	 */
+	protected ShogiConsole c = null;	
+
+	/** The GameState object representing the shogi board. 
+	 */
+	protected GameState state = new GameState ();
+
 
 	/** Creates a new BoardPanel. 
 	 */
 	public BoardPanel ()
 	{			
 		setBackground (backgroundColor);
-		reset ();		
-
-		boardOffset = new Point (30, 30);
-		tile = new Dimension (40, 40);
-
-		setBoardOffset (boardOffset);	
-		setTileSize (tile);				
+		loadImages ();	
+		reset ();			
 	}
 
-	/** Draws everything.
+	/** Draws everything on the BoardPanel in the following order:
+	 * <ul>
+	 * <li> The board, including tiles and pieces.
+	 * <li> The board labels. (e.g. 1b, 5i)
+	 * <li> The drop tables.
+	 * <li> The tile highlights. This includes all possible moves for the piece
+	 * 		if a piece is selected, and the square the mouse is hovering over
+	 * 		if a piece is not selected.
+	 * <li> The pieces on the drop tables.
+	 * <li> The selected piece.
+	 * </ul>
 	 * 
 	 * @param g		the Graphics context in which to paint
 	 */
@@ -146,11 +195,12 @@ public class BoardPanel extends JPanel
 		drawDropTables (g);	
 		drawHighlights (g);
 		drawDropTablePieces (g);
+		drawSelectedPiece (g);
 	}
 
-	/** Draws the shogi board and all of the pieces on it. Does not
-	 * draw a piece if it is currently being selected because in this
-	 * case, it would not be technically "on" the board.
+	/** Draws all of the shogi board tiles and all of the pieces on the 
+	 * shogi board. Does not draw a piece if it is currently being selected 
+	 * because in this case, it would not be technically "on" the board.
 	 * 
 	 * @param g 	the Graphics context in which to paint
 	 */
@@ -161,8 +211,10 @@ public class BoardPanel extends JPanel
 			for (int j = 0; j < 9; j++)
 			{				
 				Piece piece = state.getPieceAt(i, j);
-				Point point = getBoardLocationOnPanel (i, j);		
-				drawTile (g, boardColor, Color.black, point);					
+				Point point = getBoardLocationOnPanel (i, j);			
+				drawTile (g, point);
+				if (new Tile (i,j).equals(lastMoved))
+					drawLastMovedTile (g, point);
 
 				// Draw the piece if it is not selected
 
@@ -196,43 +248,44 @@ public class BoardPanel extends JPanel
 				file = "" + (9 - i);
 
 				point = getBoardLocationOnPanel (i, 8);
-				point.translate (18, -5);				
+				point.translate (18, -5);		//TODO		
 				g.drawString (file, point.x, point.y);	
 
 				point = getBoardLocationOnPanel (i, 0);
-				point.translate (18, tile.height + 15);
+				point.translate (18, tileSize.height + 15); //TODO
 				g.drawString (file, point.x, point.y);	
 			}
 		}
 	}
 
-	/** Redraws a shogi board square with a highlighted background color
-	 * based on the state and positioning of the mouse. Highlights a square
-	 * if (1) the mouse is hovering over the square, (2) the square is not empty, and
-	 * (3) and the mouse is not being pressed. Also highlights all possible moves for
-	 * a selected piece if (1) the mouse is being pressed, and (2) a piece is selected.
+	/** Redraws a highlighted shogi board square on top of a normal  
+	 * shogi square based on the state and positioning of the mouse. 
+	 * Highlights a square if (1) the mouse is hovering over the 
+	 * square, (2) the square is not empty, and (3) and the mouse 
+	 * is not being pressed. Highlights all possible moves for
+	 * a selected piece if (1) the mouse is being pressed, and (2) 
+	 * a piece is selected.
 	 *  
 	 * @param g 	the Graphics context in which to paint
 	 */
 	protected void drawHighlights (Graphics g)
 	{			
-		if (pieceIsSelected)
-		{		
-			drawPossibleMoves (g, selectedPiece);
-			Point point = new Point (mouse);
-			point.translate(-tile.width / 2, -tile.height / 2);
-			drawPiece (g, selectedPiece, point);
-		}
+		if (pieceIsSelected)			
+			drawPossibleMoves (g, selectedPiece);		
 		else
 		{
 			if (mouseIsOnBoard ())			
 				drawHighlightsOnBoard (g);
-
 			else if (mouseIsOnDropTable ())
 				drawHighlightsOnDropTable (g);			
 		}			
 	}
 
+	/** Automatically called by the drawHighlights (Graphics) method.
+	 * Handles the drawing of highlighted squares on the main board.
+	 * 
+	 * @param g 	the Graphics context in which to paint
+	 */
 	private void drawHighlightsOnBoard (Graphics g)
 	{
 		Tile boardCoords = getLocationOnBoard (mouse);	
@@ -241,24 +294,29 @@ public class BoardPanel extends JPanel
 		{	
 			Piece piece = state.getPieceAt(boardCoords.x, boardCoords.y);
 			drawHighlightedTile (g, point);
-
+			if (boardCoords.equals(lastMoved))
+				drawLastMovedTile (g, point);
 			drawPiece (g, piece, point);
 		}	
 	}
 
-	private void drawHighlightsOnDropTable (Graphics g)
+	/** Automatically called by the drawHighlights (Graphics) method.
+	 * Handles the drawing of highlighted squares on the drop tables.
+	 * 
+	 * @param g 	the Graphics context in which to paint
+	 */
+	private void drawHighlightsOnDropTable (Graphics g) //TODO
 	{
 		int table = mouseIsOnDropTable (1) ? 1 : -1;
 		Point tableCoords = getLocationOnDropTable (table, mouse);				
 		Piece p = getDropTablePieceAt (table, tableCoords);	
 		if (p != null)
 		{
-			Point point = getDropTableLocationOnPanel (table, tableCoords);
-			drawTile (g, highlightColor, Color.black, point);
+			Point point = getDropTableLocationOnPanel (table, tableCoords);			
 
 			// Pawns on the drop table take up twice as much space
-			int width = p instanceof Pawn ? 3 * tile.width : (int) (1.5 * tile.width);
-			drawTile (g, highlightColor, Color.black, point, width, tile.height);
+			int width = p instanceof Pawn ? dropTableSize.width : dropTableSize.width / 2;
+			drawHighlightedTile (g, point, width, dropTableSize.height / 4);
 		}
 	}
 
@@ -269,16 +327,40 @@ public class BoardPanel extends JPanel
 	 */
 	private void drawHighlightedTile (Graphics g, Point p)
 	{
-		drawTile (g, highlightColor, Color.black, p);
+		drawHighlightedTile (g, p, tileSize.width, tileSize.height);
 	}
+
+	private void drawHighlightedTile (Graphics g, Point p, int width, int height) // TODO annotate
+	{
+		BufferedImage img = getImageHash ("TileSelected");
+		g.drawImage (img, p.x, p.y, width, height, null);
+	}
+
+	private void drawLastMovedTile (Graphics g, Point p)
+	{
+		BufferedImage img = getImageHash ("TileMoved");
+		g.drawImage (img, p.x, p.y, tileSize.width, tileSize.height, null);
+	}
+
+	private void drawSelectedPiece (Graphics g)
+	{
+		if (pieceIsSelected)
+		{
+			Point point = new Point (mouse);
+			point.translate(-pieceOffset.x - pieceSize.width / 2, -pieceOffset.y - pieceSize.height / 2);
+			drawPiece (g, selectedPiece, point);
+		}
+	}
+
 
 	/** Returns the last occurring piece that matches the type 
 	 * of piece that is located at the indicated coordinates
-	 * of the indicated drop table.
+	 * of the indicated drop table allegiance. An allegiance of
+	 * 1 indicates the bottom table; -1 indicates the top table.
 	 * 
 	 * @param table		the allegiance of the drop table
 	 * @param sq		the location on the drop table
-	 * @return			the matching piece in the drop table ; null if no match
+	 * @return the matching piece in the drop table ; null if no match
 	 */
 	private Piece getDropTablePieceAt (int table, Point sq)
 	{	
@@ -291,21 +373,22 @@ public class BoardPanel extends JPanel
 
 	/** Finds and returns the last piece on the indicated 
 	 * drop table that matches the given name. Returns null
-	 * if no match is found. 
+	 * if no match is found. (An allegiance of 1 indicates
+	 * the bottom table; -1 indicates the top table.)
 	 * 
 	 * @param table		the allegiance of the drop table
 	 * @param name		the name of the piece
-	 * @return			the matching piece in the drop table ; null if no match
+	 * @return the matching piece in the drop table ; null if no match
 	 */
-	public Piece getDropTablePieceAt (int table, String name)
+	protected Piece getDropTablePieceAt (int table, String name)
 	{
 		List<Piece> list = state.getCorrectDropTable (table);
 
 		Piece piece = null;
 		for (int i = list.size() - 1; i >= 0 && piece == null; i--)
 		{		
-			if (name.equalsIgnoreCase (list.get (i).pieceName) 
-					|| name.equalsIgnoreCase(list.get(i).doubleCharRepresentation[0].substring (0,1)))
+			if (name.equalsIgnoreCase (list.get (i).pieceName) ||
+					name.equalsIgnoreCase(list.get(i).doubleCharRepresentation[0].substring (0,1)))
 				piece = list.get(i);
 		}
 		return piece;		
@@ -313,18 +396,18 @@ public class BoardPanel extends JPanel
 
 	/** Redraws all of the shogi board squares to which it is
 	 * legally valid for the given piece to move. Redraws 
-	 * these squares with a highlighted background color. Redraws
+	 * these squares as a highlighted square. Also redraws 
 	 * the shogi pieces on these squares.
 	 * 
 	 * @param g 		the Graphics context in which to paint
 	 * @param piece 	the shogi piece
 	 */
 	public void drawPossibleMoves (Graphics g, Piece piece)
-	{
-		boolean [][] moves = piece.generateMoves(state);
-
+	{	
 		if (!proMode)
 		{
+			boolean [][] moves = piece.generateMoves(state);
+
 			for (int i = 0; i < 9; i++)
 			{
 				for (int j = 0; j < 9; j++)
@@ -332,7 +415,9 @@ public class BoardPanel extends JPanel
 					if (moves [j][i])
 					{
 						Point point = getBoardLocationOnPanel (new Tile (j, i));
-						drawHighlightedTile (g, point);						
+						drawHighlightedTile (g, point);
+						if (new Tile (j, i).equals(lastMoved))
+							drawLastMovedTile (g, point);
 						drawPiece (g, state.getPieceAt(j, i), point);
 					}
 				}
@@ -340,21 +425,30 @@ public class BoardPanel extends JPanel
 		}
 	}
 
-	/** Draws the two drop tables.
+	/** Draws both drop tables.
 	 * 
 	 * @param g 	the Graphics context in which to paint
 	 */
 	protected void drawDropTables (Graphics g)
-	{	
-		// Fill drop tables
-		g.setColor(dropTableColor);
-		g.fillRect (dropOffset1.x, dropOffset1.y, dropTable.width, dropTable.height);
-		g.fillRect (dropOffset2.x, dropOffset2.y, dropTable.width, dropTable.height);
+	{			
+		drawDropTable (g, 1);
+		drawDropTable (g, -1);
+	}
 
-		// Outline drop tables
-		g.setColor(Color.black);
-		g.drawRect (dropOffset1.x, dropOffset1.y, dropTable.width, dropTable.height);
-		g.drawRect (dropOffset2.x, dropOffset2.y, dropTable.width, dropTable.height);	
+	/** Draws the drop table of the indicated allegiance.
+	 * An allegiance of 1 indicates the bottom player; -1
+	 * indicates the top player.
+	 * 
+	 * @param g 			the Graphics context in which to paint
+	 * @param allegiance	the allegiance of the drop table to draw
+	 */
+	protected void drawDropTable (Graphics g, int allegiance)
+	{
+		Point p = allegiance == 1 ? dropTableOffset1 : dropTableOffset2;
+		Dimension s = dropTableSize;
+
+		BufferedImage img = imageHash.get("DropTable");
+		g.drawImage (img, p.x, p.y, s.width, s.height, null);		
 	}
 
 	/** Draws all of the pieces in both drop tables.
@@ -363,13 +457,15 @@ public class BoardPanel extends JPanel
 	 */
 	protected void drawDropTablePieces (Graphics g)
 	{
-		drawDropTablePieces (g, 1, state.getDropTable1());
-		drawDropTablePieces (g, -1, state.getDropTable2());
+		drawDropTablePieces (g, 1);
+		drawDropTablePieces (g, -1);
 	}
 
 	/** Draws all of the pieces in the indicated order, based 
-	 * on the given drop table ArrayList. The drop table is subdivided 
-	 * with the following arrangement, with (0,0) being at the top left:
+	 * on the drop table of the given allegiance. An allegiance of 1
+	 * indicates the bottom table; -1 indicates the top table. 
+	 * The drop table is subdivided with the following arrangement, 
+	 * with (0,0) being at the top left:
 	 * <ul>
 	 * <li> Pawns at (0,0) and (1,0)
 	 * <li> Lances at (0,1)
@@ -380,12 +476,13 @@ public class BoardPanel extends JPanel
 	 * <li> Rooks at (1,3)
 	 * </ul>
 	 *  
-	 * @param g
-	 * @param allegiance
-	 * @param pieces
+	 * @param g				the Graphics context in which to paint
+	 * @param allegiance	the allegiance of the drop table
+	 * @param pieces		the ArrayList containing the pieces on the drop table
 	 */	
-	private void drawDropTablePieces (Graphics g, int allegiance, List<Piece> pieces)
+	private void drawDropTablePieces (Graphics g, int allegiance)
 	{
+		List<Piece> pieces = state.getCorrectDropTable (allegiance);
 		int[][] pieceCounter = 
 			{
 				{0},
@@ -396,7 +493,7 @@ public class BoardPanel extends JPanel
 
 		for (int i = 0; i < pieces.size(); i++)
 		{
-			Point point = pieceToDropTable.get (pieces.get(i).pieceName.replace ("Promoted ", ""));
+			Point point = pieceToDropTable.get (pieces.get(i).pieceName);
 
 			if (point != null)
 			{
@@ -405,68 +502,47 @@ public class BoardPanel extends JPanel
 				if (!(pieceIsSelected && pieces.get(i).equals(selectedPiece)))
 				{
 					Point location = getDropTableLocationOnPanel (allegiance, point);	
-					location.x += pieceCounter [point.y][point.x] * tile.width / 5;
+					location.x += pieceCounter [point.y][point.x] * dropTableSize.width / 15;
 					drawPiece (g, pieces.get(i), location);	
 				}
 			}
-			else
-			{
+			else			
 				if (log)
-					c.logError ("Warning: Can't draw king in drop table.");
-			}
+					c.logError ("Warning: Can't draw king in drop table.");			
 		}
 	}
 
 	/** Draws a shogi board square at the indicated location.
 	 * 
-	 * @param g 		the Graphics context in which to paint
-	 * @param back 		background color of square
-	 * @param fore 		outline color of square
+	 * @param g 		the Graphics context in which to paint	
 	 * @param p 		x,y coordinates at which to draw
 	 */
-	public void drawTile (Graphics g, Color back, Color fore, Point p)
-	{
-		drawTile (g, back, fore, p, tile.width, tile.height);
-	}
-
-	/** Draws a shogi board square at the indicated location.
-	 * 
-	 * @param g 		the Graphics context in which to paint
-	 * @param back 		background color of square
-	 * @param fore 		outline color of square
-	 * @param x 		x coordinate at which to draw
-	 * @param y 		y coordinate at which to draw
-	 */
-	private void drawTile (Graphics g, Color back, Color fore, Point p, int width, int height)
-	{
-		// Fill
-		g.setColor (back);
-		g.fillRect (p.x, p.y, width, height);		
-
-		// Outline
-		g.setColor (fore);
-		g.drawRect (p.x, p.y, width, height);		
+	public void drawTile (Graphics g, Point p)
+	{	
+		BufferedImage img = getImageHash ("Tile");
+		g.drawImage (img, p.x, p.y, tileSize.width, tileSize.height, null);
 	}	
 
-
-	/** Draws the given shogi piece at the indicated location.
+	/** Draws the given shogi piece at the indicated location. This method
+	 * takes into account the pieceOffset.
 	 * 
 	 * @param g 		the Graphics context in which to paint
 	 * @param p 		the piece
 	 * @param point 	the x,y coordinates at which to draw
 	 */
 	public void drawPiece (Graphics g, Piece p, Point point)
-	{
-		int x = point.x + tile.width / 2;
-		int y = point.y + tile.height / 2;
-		g.drawString(p.getDoubleCharRepresentation(), x, y);
+	{	
+		BufferedImage img = getImageHash (p.getClass().getSimpleName() + p.allegiance);
+		int x = point.x + pieceOffset.x;
+		int y = point.y + pieceOffset.y;
+		g.drawImage (img, x, y, pieceSize.width, pieceSize.height, null);
 	}
 
 	/** Converts the x,y coordinates of a point on the panel to the
-	 * file,rank coordinates of a square on the shogi board. If the point
-	 * is on a drop table, this method returns the point (-1, -1).
-	 * If the point is on neither the board nor any drop table, this 
-	 * method returns null.
+	 * GameState file,rank coordinates of a square on the 
+	 * shogi board. If the point is on a drop table, this method 
+	 * returns the point -1,-1. If the point is on neither the 
+	 * board nor any drop table, this method returns null.
 	 * 
 	 * @param location 		the x,y coordinates of the point to be converted
 	 * 
@@ -477,8 +553,8 @@ public class BoardPanel extends JPanel
 		Tile sq = null;
 		if (mouseIsOnBoard ())
 		{
-			int x = (location.x - boardOffset.x) / tile.width;
-			int y = 8 - ((location.y - boardOffset.y) / tile.height);
+			int x = (location.x - boardOffset.x) / tileSize.width;
+			int y = 8 - ((location.y - boardOffset.y) / tileSize.height);
 			sq = new Tile (x,y);
 		}
 		else if (mouseIsOnDropTable ())		
@@ -487,11 +563,11 @@ public class BoardPanel extends JPanel
 		return sq;
 	}
 
-	/** Converts the file,rank coordinates of a square on the shogi board
-	 * to x,y coordinates of a point on the Panel.
+	/** Converts the GameState file,rank coordinates of a square 
+	 * on the shogi board to x,y coordinates of a point on the Panel.
 	 * 
-	 * @param x 	x coordinate of square
-	 * @param y 	y coordinate of square
+	 * @param x 	GameState file coordinate of square
+	 * @param y 	GameState rank coordinate of square
 	 * @return the x,y coordinates of the square relative to the source component
 	 */
 	private Point getBoardLocationOnPanel (int x, int y)
@@ -499,32 +575,32 @@ public class BoardPanel extends JPanel
 		return getBoardLocationOnPanel (new Tile (x, y));
 	}
 
-	/** Converts the file,rank coordinates of a square on the shogi board
-	 * to x,y coordinates of a point on the Panel.
+	/** Converts the GameState file,rank coordinates of a square 
+	 * on the shogi board to x,y coordinates of a point on the Panel.
 	 * 
 	 * @param sq 	the file,rank coordinates of the square to be converted
 	 * @return the x,y coordinates of the square relative to the source component
 	 */
 	private Point getBoardLocationOnPanel (Tile sq)
 	{
-		int x = sq.x * tile.width + boardOffset.x;
-		int y = (8 - sq.y) * tile.height + boardOffset.y ;	
+		int x = sq.x * tileSize.width + boardOffset.x;
+		int y = (8 - sq.y) * tileSize.height + boardOffset.y ;	
 		return new Point (x,y);
 	}
 
-	/** Converts the position coordinates of a square on the indicated
+	/** Converts the position coordinates of a tile on the indicated
 	 * drop table to x,y coordinates of a point on the Panel.
 	 * 
 	 * @param allegiance	the allegiance of the drop table
-	 * @param sq			the position coordinates of the square to be converted
-	 * @return the x,y coordinates of the square relative to the source component
+	 * @param sq			the drop table position coordinates to be converted
+	 * @return the x,y coordinates of the tile relative to the source component
 	 */
 	private Point getDropTableLocationOnPanel (int allegiance, Point sq)
 	{			
-		Point dropOffset = allegiance == 1 ? dropOffset1 : dropOffset2;			
+		Point dropOffset = allegiance == 1 ? dropTableOffset1 : dropTableOffset2;			
 
-		int x = (int)(sq.x * tile.width * 1.5) + dropOffset.x;
-		int y = sq.y * tile.height + dropOffset.y;
+		int x = sq.x * dropTableSize.width / 2 + dropOffset.x;
+		int y = sq.y * dropTableSize.height / 4 + dropOffset.y;
 
 		return new Point (x,y);
 	}
@@ -543,17 +619,41 @@ public class BoardPanel extends JPanel
 
 		if (mouseIsOnDropTable (allegiance))
 		{
-			Point dropOffset = allegiance == 1 ? dropOffset1 : dropOffset2;
-			int x = (location.x - dropOffset.x) / (int)(tile.width * 1.5);
-			int y = ((location.y - dropOffset.y) / tile.height);
+			Point dropOffset = allegiance == 1 ? dropTableOffset1 : dropTableOffset2;
+			int x = (location.x - dropOffset.x) / (dropTableSize.width / 2);
+			int y = (location.y - dropOffset.y) / (dropTableSize.height / 4);
 			sq = new Point (x,y);
 		}
 		return sq;
 	}
 
+	/** Finds the BufferedImage in the imageHash that matches
+	 * the given identifier. Returns null if no match is found.
+	 * Also automatically prints a log message in the debug
+	 * console if no match is found, if logging is enabled.
+	 * 
+	 * @param id	the image identifier
+	 * @return		the matching BufferedImage
+	 */
+	private BufferedImage getImageHash (String id)
+	{
+		BufferedImage img = null;
+		try
+		{
+			img = imageHash.get (id);
+		}
+		catch (Exception e)
+		{
+			if (log)
+				c.logError ("Could not find a match for \"" + id + "\" in preloaded images.");
+		}
 
-	/** Checks if the mouse is currently hovering
-	 * over the shogi board.
+		return img;
+	}
+
+
+	/** Checks if the mouse is currently
+	 * hovering over the shogi board.
 	 * 
 	 * @return true if the mouse is on the board; false otherwise
 	 */
@@ -561,8 +661,8 @@ public class BoardPanel extends JPanel
 	{
 		boolean mouseIsOnBoard = false;		
 
-		if (boardOffset.x <= mouse.x && mouse.x < boardOffset.x + tile.width * 9)		
-			if (boardOffset.y <= mouse.y && mouse.y < boardOffset.y + tile.height * 9)			
+		if (boardOffset.x <= mouse.x && mouse.x < boardOffset.x + tileSize.width * 9)		
+			if (boardOffset.y <= mouse.y && mouse.y < boardOffset.y + tileSize.height * 9)			
 				mouseIsOnBoard = true;		
 
 		return mouseIsOnBoard;
@@ -579,18 +679,18 @@ public class BoardPanel extends JPanel
 
 	/** Checks if the mouse is hovering over a drop table 
 	 * of the indicated allegiance. An allegiance of 1 means the
-	 * bottom player; An allegiance of -1 means the top player.
+	 * bottom player; -1 means the top player.
 	 *  
 	 * @param allegiance 	The allegiance of the drop table.
 	 * @return true if the mouse is on the indicated drop table; false otherwise
 	 */
 	private boolean mouseIsOnDropTable (int allegiance)
 	{		
-		Point dropOffset = allegiance == 1 ? dropOffset1 : dropOffset2;
+		Point dropOffset = allegiance == 1 ? dropTableOffset1 : dropTableOffset2;
 		boolean mouseIsOnDropTable = false;
 
-		if (dropOffset.x <= mouse.x && mouse.x < dropOffset.x + dropTable.width)
-			if (dropOffset.y <= mouse.y && mouse.y < dropOffset.y + dropTable.height)
+		if (dropOffset.x <= mouse.x && mouse.x < dropOffset.x + dropTableSize.width)
+			if (dropOffset.y <= mouse.y && mouse.y < dropOffset.y + dropTableSize.height)
 				mouseIsOnDropTable = true;		
 
 		return mouseIsOnDropTable;
@@ -603,7 +703,7 @@ public class BoardPanel extends JPanel
 	 */
 	protected void moveMouse (Point location)
 	{		
-		mouse = location; 		
+		mouse = location;
 		repaint ();
 	}
 
@@ -676,12 +776,14 @@ public class BoardPanel extends JPanel
 	 */
 	private void releasePiece ()
 	{
-		pieceIsSelected = false;				
-		Tile newPoint = getLocationOnBoard (mouse);
+		pieceIsSelected = false;	
+		if (mouseIsOnBoard ())
+		{
+			Tile newPoint = getLocationOnBoard (mouse);
 
-		if (!newPoint.equals(new Point (selectedPiece.x, selectedPiece.y)))		
-			move (selectedPiece, newPoint);		
-
+			if (!newPoint.equals(new Point (selectedPiece.x, selectedPiece.y)))		
+				move (selectedPiece, newPoint);	
+		}
 		if (log)
 			c.logDeselectPiece(selectedPiece);
 	}
@@ -701,10 +803,12 @@ public class BoardPanel extends JPanel
 			snap.play ();
 			if (log)
 				c.logValidMove(piece, new Tile (piece.x, piece.y), sq);
+			if (showLastMove)
+				lastMoved = sq;
 			piece.move(state, sq.x, sq.y);					
 			promote (piece);
 
-			successful = true;
+			successful = true;			
 		}		
 		else
 		{
@@ -712,6 +816,8 @@ public class BoardPanel extends JPanel
 			{
 				snap.play ();
 				state.dropPieceFromTable(piece.allegiance, sq.x, sq.y, piece);
+				if (showLastMove)
+					lastMoved = sq;
 				if (log)
 					c.logValidDrop(piece.allegiance, piece, sq);
 			}
@@ -742,52 +848,124 @@ public class BoardPanel extends JPanel
 		}
 	}
 
-	/** Sets the size of squares on the shogi board to the given
-	 * dimensions. Updates the positions of the drop tables accordingly.
-	 * 
-	 * @param width		the new width
-	 * @param height	the new height
-	 */
-	public void setTileSize (int width, int height)
+
+	public Point getBoardOffset ()
 	{
-		setTileSize (new Dimension (width, height));
+		return boardOffset;
 	}
 
-	/** Sets the size of squares on the shogi board to the given
-	 * dimensions. Updates the positions of the drop tables accordingly.
-	 * 
-	 * @param sq	the new dimensions
-	 */
-	public void setTileSize (Dimension sq)
-	{		
-		dropOffset1 = new Point (boardOffset.x + 9 * sq.width, boardOffset.y + 5 * sq.height);
-		dropOffset2 = new Point (boardOffset.x + 9 * sq.width, boardOffset.y);
-		dropTable = new Dimension (sq.width * 3, sq.height * 4);
-		tile = new Dimension (sq);
+	public Dimension getDropTableSize ()
+	{
+		return dropTableSize;
 	}
 
-	/** Sets the board offset to the given x,y coordinates. Updates the
-	 * positions of the drop tables accordingly.
+	public Point getPieceOffset ()
+	{
+		return pieceOffset;
+	}
+
+	public Dimension getPieceSize ()
+	{
+		return pieceSize;
+	}
+
+	public Dimension getTileSize ()
+	{
+		return tileSize;
+	}
+
+
+	/** Sets the board offset to the given x,y coordinates.
+	 * Recalculates the drop table offsets accordingly.
 	 * 
-	 * @param x		the new x offset
-	 * @param y		the new y offset
+	 * @param x		x coordinate of new board offset
+	 * @param y		y coordinate of new board offset
 	 */
 	public void setBoardOffset (int x, int y)
-	{
-		setBoardOffset (new Point (x,y));
+	{	
+		boardOffset = new Point (x, y);
+		recalculateDropTableOffsets ();
+		repaint ();
 	}
 
-	/** Sets the board offset to the given x,y coordinates. Updates the
-	 * positions of the drop tables accordingly.
+	/** Sets the size of the drop tables to the given
+	 * dimensions. Recalculates the drop table offsets 
+	 * accordingly.
 	 * 
-	 * @param bo	the x,y coordinates
+	 * @param width		new width of drop table
+	 * @param height	new height of drop table
 	 */
-	public void setBoardOffset (Point bo)
-	{				
-		dropOffset1 = new Point (bo.x + 9 * tile.width, bo.y + 5 * tile.height);
-		dropOffset2 = new Point (bo.x + 9 * tile.width, bo.y);
-		boardOffset = new Point (bo.x, bo.y);
+	public void setDropTableSize (int width, int height)
+	{
+		dropTableSize = new Dimension (width, height);
+		recalculateDropTableOffsets ();
+		repaint ();
 	}	
+
+
+	/** Sets the size of a shogi piece to the given dimensions.
+	 * Recalculates the piece offset accordingly.
+	 * 
+	 * @param width		new width of shogi piece
+	 * @param height	new height of shogi piece
+	 */
+	public void setPieceSize (int width, int height)
+	{						
+		pieceSize = new Dimension (width, height);
+		recalculatePieceOffset ();
+		repaint ();
+	}
+
+	/** Sets the size of squares on the shogi board to the given
+	 * dimensions. Recalculates the drop table and piece offsets
+	 * accordingly.
+	 * 
+	 * @param width		new width of shogi square
+	 * @param height	new height of shogi square
+	 */
+	public void setTileSize (int width, int height)
+	{	
+		tileSize = new Dimension (width, height);
+		recalculateDropTableOffsets ();
+		recalculatePieceOffset ();
+		repaint ();
+	}	
+
+	/** Recalculates the drop table offsets based on the 
+	 * board offset, tile size, and drop table size. Ensures that 
+	 * the top drop table meets the top edge of the board, the
+	 * bottom drop table meets the bottom edge of the board, and 
+	 * both drop tables meet the right edge of the board. 
+	 */
+	private void recalculateDropTableOffsets ()
+	{
+		if (boardOffset != null && tileSize != null && dropTableSize != null)
+		{
+			int x = boardOffset.x + 9 * tileSize.width;
+			int y = boardOffset.y + 9 * tileSize.height - dropTableSize.height;
+			dropTableOffset1 = new Point (x, y);
+			dropTableOffset2 = new Point (x, boardOffset.y);
+		}
+		else		
+			if (log)
+				c.logError("Attempted to recalculate dropTableOffset with null values.");
+	}
+
+	/** Recalculates the piece offset so that whenever a piece
+	 * is drawn, it will always be centered on the shogi square. 
+	 */
+	private void recalculatePieceOffset ()
+	{
+		if (tileSize != null)
+		{
+			int x = (tileSize.width - pieceSize.width) / 2;
+			int y = (tileSize.height - pieceSize.height) / 2;
+			pieceOffset = new Point (x,y);	
+		}
+		else		
+			if (log)
+				c.logError("Attempted to recalculate pieceOffset with null tileSize.");		
+	}
 
 	/** Resets the board to its default configuration.
 	 */
@@ -800,4 +978,109 @@ public class BoardPanel extends JPanel
 		if (log)
 			c.logReset();
 	}	
+
+	/** Loads all of the images from the indicated
+	 * texture pack path into the local HashMap imageHash 
+	 * field. Initializes the dropTableSize, tileSize,
+	 * and pieceSize fields based on the sizes of the
+	 * loaded images.
+	 */
+	public void loadImages ()
+	{
+		imageHash = new HashMap<String,BufferedImage>();
+		BufferedImage pieceImg = null;
+		BufferedImage tileImg = null;
+		BufferedImage dropImg = null;
+		String id;
+
+		// Load piece images
+
+		Piece[] pieces = 
+			{
+				new Bishop (0,0,0),
+				new EmptyPiece (0,0),
+				new GoldGeneral (0,0,0),
+				new King (0,0,0),
+				new Knight (0,0,0),
+				new Lance (0,0,0),
+				new Pawn (0,0,0),				
+				new PromotedBishop (0,0,0),
+				new PromotedKnight (0,0,0),
+				new PromotedLance (0,0,0),
+				new PromotedPawn (0,0,0),
+				new PromotedRook (0,0,0),
+				new PromotedSilverGeneral (0,0,0),
+				new Rook (0,0,0),
+				new SilverGeneral (0,0,0)		
+			}
+		;
+
+		for (int i = 0; i < pieces.length; i++)
+		{	
+			for (int j = 0; j < 3; j++)
+			{
+				pieceImg = readImage (pieces[i].imageNames[j]);
+				id = pieces[i].getClass().getSimpleName() + (j - 1);
+				imageHash.put(id, pieceImg);
+			}
+		}
+
+		// Load tiles
+
+		tileImg = readImage ("tileMoved.png");
+		id = "TileMoved";
+		imageHash.put(id, tileImg);	
+
+		tileImg = readImage ("tileSelected.png");
+		id = "TileSelected";
+		imageHash.put(id, tileImg);	
+
+		tileImg = readImage ("tile.png");
+		id = "Tile";
+		imageHash.put(id, tileImg);	
+
+		// Load drop table
+
+		dropImg = readImage ("dropTable.png");
+		id = "DropTable";
+		imageHash.put(id, dropImg);
+
+		// Initializing sizes
+
+		try
+		{
+			setPieceSize (pieceImg.getWidth(), pieceImg.getHeight());
+			setTileSize (tileImg.getWidth(), tileImg.getHeight());
+			setDropTableSize (dropImg.getWidth(), dropImg.getHeight());
+
+			int x = tileImg.getWidth() * 5 / 8;
+			int y = tileImg.getHeight() * 5 / 8;
+			setBoardOffset (x, y);
+		}
+		catch (Exception e)
+		{
+			if (log)
+			{
+				c.logError ("Could not initialize pieceSize, tileSize and dropTableSize.");
+				c.logError("Piece images, tile images, or drop table images are missing from texture pack.");
+			}
+		}
+	}
+
+	public BufferedImage readImage (String imageName)
+	{
+		File path = new File (texturePath + imageName);		
+		BufferedImage img = null;
+		try
+		{			
+			img = ImageIO.read(path);
+		}
+		catch (Exception e)
+		{			
+			if (log)
+				if (!imageName.startsWith ("n"))
+					c.logError("Texture file for " + path + " not found.");
+		}
+		return img;
+	}
 }
