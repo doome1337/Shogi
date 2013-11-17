@@ -23,7 +23,7 @@ public class Lance extends PromotablePiece {
      * @return              Whether or not this Lance can move to the target tile.
      */
     @Override
-    protected boolean isValidMove(GameState state, int x, int y) {
+    protected boolean isValidNonDropMove(GameState state, int x, int y) {
         /* First verifies if the target value is on the board, 
          * and is on the same x-column.
          * Then, loops through the tiles, moving 1 forwards,
@@ -39,6 +39,11 @@ public class Lance extends PromotablePiece {
             validMove = state.getPieceAt(x, y).getAllegiance() != this.allegiance;
         }
         return validMove;
+    }
+    
+    protected boolean isValidDrop(GameState state, int x, int y) {
+        return state.getPieceAt(x, y) instanceof EmptyPiece
+            && y != 4+4*this.allegiance;
     }
     
     /** Returns the Piece this lance promotes to.

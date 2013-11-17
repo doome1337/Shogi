@@ -22,7 +22,7 @@ public class PromotedLance extends UnpromotablePiece {
      * @return              Whether this PromotedLance can move to the given x and y values.
      */
     @Override
-    protected boolean isValidMove(GameState state, int x, int y) {
+    protected boolean isValidNonDropMove(GameState state, int x, int y) {
         /* Checks if the target tile is in front 
          * and in one of three horizontal directions, 
          * at the side, or directly behind.

@@ -23,7 +23,7 @@ public class PromotedBishop extends UnpromotablePiece {
      * @return              Whether or not this PromotedBishop can move to the target tile.
      */
     @Override
-    protected boolean isValidMove(GameState state, int x, int y) {
+    protected boolean isValidNonDropMove(GameState state, int x, int y) {
         //TODO: Doublecheck this thing. Is messy.
         /* Begins by verifying if a move is within the range of the board.
          * Then verifies if a move is on one of the diagonals (the change in x equals the change in y).

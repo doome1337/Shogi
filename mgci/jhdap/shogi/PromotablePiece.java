@@ -15,7 +15,7 @@ public abstract class PromotablePiece extends Piece {
         super(x, y, allegiance);
     }
     
-    protected abstract boolean isValidMove(GameState state, int x, int y);
+    protected abstract boolean isValidNonDropMove(GameState state, int x, int y);
 
     /** Returns whether or not this PromotablePiece can promote.
      * @return  Whether the pawn can promote 

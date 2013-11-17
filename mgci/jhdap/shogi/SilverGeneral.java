@@ -23,7 +23,7 @@ public class SilverGeneral extends PromotablePiece {
      * @return              Whether this SilverGeneral can move to the given x and y values.
      */
     @Override
-    protected boolean isValidMove(GameState state, int x, int y) {
+    protected boolean isValidNonDropMove(GameState state, int x, int y) {
         //TODO: Comment.
         return ((((y == this.y+this.allegiance) 
                && (x == this.x-1 || x == this.x || x == this.x+1)) 

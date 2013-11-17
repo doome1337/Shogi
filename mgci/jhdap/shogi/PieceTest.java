@@ -87,7 +87,7 @@ public class PieceTest {
                 int x2 = Integer.parseInt(input.substring(input.indexOf(" ")+1, input.indexOf(" ")+2));
                 input = input.substring(input.indexOf(" ")+1);
                 int y2 = Integer.parseInt(input.substring(input.indexOf(" ")+1, input.indexOf(" ")+2));
-                if (state.getPieceAt(x1, y1).getAllegiance() == playerTurn && state.getPieceAt(x1, y1).isValidMove(state, x2, y2) && !state.willKingBeInCheckAfterMove(x2, y2, state.getPieceAt(x1, y1))) {
+                if (state.getPieceAt(x1, y1).getAllegiance() == playerTurn && state.getPieceAt(x1, y1).isValidNonDropMove(state, x2, y2) && !state.willKingBeInCheckAfterMove(x2, y2, state.getPieceAt(x1, y1))) {
                     state.getPieceAt(x1, y1).move(state, x2, y2);
                     playerTurn = -playerTurn;
                 }

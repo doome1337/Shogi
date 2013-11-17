@@ -27,7 +27,7 @@ public class EmptyPiece extends Piece {
      * @return          Whether this EmptyPiece can move to a given tile,
      * which is always false.
      */
-    protected boolean isValidMove(GameState state, int x, int y) {
+    protected boolean isValidNonDropMove(GameState state, int x, int y) {
         return false;
     }
     

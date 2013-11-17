@@ -23,7 +23,7 @@ public class Rook extends PromotablePiece {
      * @return              Whether or not this Rook can move to the target tile.
      */
     @Override
-    protected boolean isValidMove(GameState state, int x, int y) {
+    protected boolean isValidNonDropMove(GameState state, int x, int y) {
         /* Begins by verifying if the target tile is with the board.
          * Then checks if the change in x or y values is 0 (same row/column).
          * Then verifies if all the tiles on the way to the target tile are empty.

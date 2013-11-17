@@ -24,7 +24,7 @@ public class King extends UnpromotablePiece {
      * @return              Whether or not this King can move to the target tile.
      */
     @Override
-    protected boolean isValidMove(GameState state, int x, int y) {
+    protected boolean isValidNonDropMove(GameState state, int x, int y) {
         /* Checks to see if the target tile is at most one tile away. 
          * Then verifies if the target tile is within the board.
          * Then checks to see if the target tile can be moved into.
@@ -52,7 +52,7 @@ public class King extends UnpromotablePiece {
      * @return              Whether or not this King can move to the target tile.
      */
     @Override
-    protected boolean isUncheckedMove(GameState state, int x, int y) {
+    protected boolean isUncheckedNonDropMove(GameState state, int x, int y) {
         /* Checks to see if the target tile is at most one tile away. 
          * Then verifies if the target tile is within the board.
          * Then checks to see if the target tile can be moved into.

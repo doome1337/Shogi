@@ -23,7 +23,7 @@ public class PromotedRook extends UnpromotablePiece {
      * @return              Whether or not this PromotedRook can move to the target tile.
      */
     @Override
-    protected boolean isValidMove(GameState state, int x, int y) {
+    protected boolean isValidNonDropMove(GameState state, int x, int y) {
         //TODO: Doublecheck this thing. Is messy.
         /* Begins by verifying if the target tile is with the board.
          * Then checks if the change in x or y values is 0 (same row/column).

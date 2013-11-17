@@ -14,7 +14,7 @@ public abstract class UnpromotablePiece extends Piece {
         super(x, y, allegiance);
     }
     
-    protected abstract boolean isValidMove(GameState state, int x, int y);
+    protected abstract boolean isValidNonDropMove(GameState state, int x, int y);
 
     /** Returns whether or not this piece can promote.
      * @return  Whether or not this piece can promote,

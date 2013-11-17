@@ -22,7 +22,7 @@ public class Pawn extends PromotablePiece {
      * @param   state       The state of the game before the piece is moved.
      * @return              Whether this Pawn can move to the given x and y values.
      */
-    protected boolean isValidMove (GameState state, int x, int y) {
+    protected boolean isValidNonDropMove (GameState state, int x, int y) {
         /*
          * Pieces with an allegiance of 1 move up the board, and up the ranks. 
          * Pieces with an allegiance of -1 move down the board, and down the ranks.
@@ -37,6 +37,23 @@ public class Pawn extends PromotablePiece {
          && !((y < 0) || (y > 8))
          && (state.getPieceAt(x, y)
                   .getAllegiance() != this.allegiance));
+    }
+    
+    protected boolean isValidDrop(GameState state, int x, int y) {
+        boolean nifu = true;
+        for (int i = 0; nifu && i < 9; i++) {
+            nifu = !(state.getPieceAt(x, y) instanceof Pawn
+                       && state.getPieceAt(x, y).getAllegiance() == this.getAllegiance()); 
+        }
+        Piece tempRep = state.getPieceAt(x, y);
+        state.dropPieceFromTable(this.allegiance, x, y, this);
+        boolean uchifuzume = state.isKingCheckmated(-this.allegiance);
+        state.addPieceToDropTable(this.allegiance, this);
+        state.setPieceAt(x, y, tempRep);
+        return nifu
+            && uchifuzume
+            && state.getPieceAt(x, y) instanceof EmptyPiece
+            && y != 4+4*this.allegiance;
     }
 
     /** Returns the Piece this pawn promotes to.

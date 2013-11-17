@@ -22,13 +22,19 @@ public class Knight extends PromotablePiece {
      * @return              Whether this Knight can move to the given x and y values.
      */
     @Override
-    protected boolean isValidMove(GameState state, int x, int y) {
+    protected boolean isValidNonDropMove(GameState state, int x, int y) {
         //TODO: Comment.
         return (((y == this.y+2*this.allegiance) 
                 && (x == this.x-1 || x == this.x+1))  
                && !(y < 0 || y > 8)
                && !(x < 0 || x > 8)
                 && (state.getPieceAt(x, y).getAllegiance() != this.allegiance));
+    }
+    
+    protected boolean isValidDrop(GameState state, int x, int y) {
+        return state.getPieceAt(x, y) instanceof EmptyPiece
+            && y != 4+4*this.allegiance
+            && y != 4+3*this.allegiance;
     }
     
     /** Returns the Piece this knight promotes to.

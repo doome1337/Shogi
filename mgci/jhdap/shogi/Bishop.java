@@ -23,7 +23,7 @@ public class Bishop extends PromotablePiece {
      * @return              Whether or not this Bishop can move to the target tile.
      */
     @Override
-    protected boolean isValidMove(GameState state, int x, int y) {
+    protected boolean isValidNonDropMove(GameState state, int x, int y) {
         /* Begins by verifying if a move is within the range of the board.
          * Then verifies if a move is on one of the diagonals (the change in x equals the change in y).
          * Then it checks to see if all tile on the way to the target tile is empty.

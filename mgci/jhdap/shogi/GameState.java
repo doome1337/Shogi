@@ -175,7 +175,8 @@ public class GameState {
         boolean isAttacked = false;
         for (int i = 0; !isAttacked && i < 9; i++) {
             for (int j = 0; !isAttacked && j < 9; j++) {
-                isAttacked = this.getPieceAt(i, j).getAllegiance() == attackingAllegiance && this.getPieceAt(i, j).isUncheckedMove(this, x, y);
+                isAttacked = this.getPieceAt(i, j).getAllegiance() == attackingAllegiance 
+                          && this.getPieceAt(i, j).isUncheckedNonDropMove(this, x, y);
             }
         }
         return isAttacked;
@@ -188,14 +189,36 @@ public class GameState {
      */
     public boolean isKingInCheck(int defendingAllegiance) {
         boolean tested = false;
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                if (this.getPieceAt(i, j).getCheckmatable() && this.getPieceAt(i, j).getAllegiance() == defendingAllegiance) {
+        for (int i = 0; !tested && i < 9; i++) {
+            for (int j = 0; !tested && j < 9; j++) {
+                if (this.getPieceAt(i, j)/*.getCheckmatable()*/ instanceof King 
+                 && this.getPieceAt(i, j).getAllegiance() == defendingAllegiance) {
                     tested = this.isAttacked(i, j, -defendingAllegiance);
                 }
             }
         }
         return tested;
+    }
+    
+    public boolean isKingCheckmated(int defendingAllegiance) {
+        boolean check = this.isKingInCheck(defendingAllegiance);
+        if (check) {
+            for (List<Piece> row: this.getBoard()) {
+                for (Piece piece: row) {
+                    if (piece.getAllegiance() == defendingAllegiance) {
+                        boolean[][] moves = piece.generateMoves(this);
+                        for (int i = 0; i < 9; i++) {
+                            for (int j = 0; j < 9; j++) {
+                                if (moves[i][j]) {
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return check;
     }
     
     /** Returns whether a move by a given Piece would put the King of that allegiance in check. 

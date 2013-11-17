@@ -798,7 +798,7 @@ public class BoardPanel extends JPanel
 	{	
 		boolean successful = pieceIsSelected = false;
 
-		if (piece.isValidMove (state, sq.x, sq.y))
+		if (piece.isValidNonDropMove (state, sq.x, sq.y))
 		{		
 			snap.play ();
 			if (log)

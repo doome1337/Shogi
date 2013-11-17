@@ -84,10 +84,18 @@ public abstract class Piece {
         boolean[][] results = new boolean[9][9];
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                results[i][j] = this.isValidMove(state, i, j);
+                results[i][j] = this.isValidNonDropMove(state, i, j);
             }
         }
         return results;
+    }
+    
+    protected boolean isValidMove(GameState state, int x, int y) {
+        if (this.x == -1 && this.y == -1) {
+            return this.isValidDrop(state, x, y);
+        } else {
+            return this.isValidNonDropMove(state, x, y) && !state.willKingBeInCheckAfterMove(x, y, this);
+        }
     }
     
     /** Returns whether a move can be undertaken by this Piece.
@@ -97,7 +105,7 @@ public abstract class Piece {
      * @param   y           The y-value to which this piece is trying to move.
      * @return              Whether this Piece can move to the given x and y values.
      */
-    protected abstract boolean isValidMove (GameState state, int x, int y); 
+    protected abstract boolean isValidNonDropMove (GameState state, int x, int y); 
     
     /** Returns whether a move can be undertaken by this Piece without verifying for check.
      * Used in order to prevent King check feedback.
@@ -106,8 +114,12 @@ public abstract class Piece {
      * @param   y           The y-value to which this piece is trying to move.
      * @return              Whether this Piece can move to the given x and y values.
      */
-    protected boolean isUncheckedMove(GameState state, int x, int y) {
-        return this.isValidMove(state, x, y);
+    protected boolean isUncheckedNonDropMove(GameState state, int x, int y) {
+        return this.isValidNonDropMove(state, x, y);
+    }
+    
+    protected boolean isValidDrop(GameState state, int x, int y) {
+        return state.getPieceAt(x, y) instanceof EmptyPiece;
     }
     
     /** Moves the piece, and captures any pieces at the target tile.
@@ -122,7 +134,7 @@ public abstract class Piece {
      * @return              The state of the game after the piece is moved.
      */
     protected GameState move (GameState state, int x, int y) {
-        if (this.isValidMove(state, x, y)) {
+        if (this.isValidNonDropMove(state, x, y)) {
             if (!(state.getPieceAt(x, y) instanceof EmptyPiece)) {
                 state.addPieceToDropTable(this.allegiance, state.getPieceAt(x, y));
             } 
