@@ -156,9 +156,10 @@ public class BoardPanel extends JPanel
 	}
 
 
-	/** The path to the active texture pack. 
+	/** The name of the folder of the active texture pack. 
+	 * All texture packs are accessed from the texturepacks/ folder.
 	 */
-	public String texturePath = "resources/stdTextures/";
+	public String texturePath = "stdTextures";
 
 	/** The HashMap storing the image IDs with their equivalent BufferedImages. This
 	 * map is accessed when drawing everything.
@@ -1184,7 +1185,7 @@ public class BoardPanel extends JPanel
 	 */
 	protected BufferedImage readImage (String imageName)
 	{
-		File path = new File (texturePath + imageName);		
+		File path = new File ("texturepacks/" + texturePath + "/" + imageName);		
 		BufferedImage img = null;
 		try
 		{			
