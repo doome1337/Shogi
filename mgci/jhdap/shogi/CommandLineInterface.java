@@ -112,9 +112,9 @@ public abstract class CommandLineInterface extends JFrame
 	private JPanel createContent ()
 	{					
 		JPanel noWrapPanel = new JPanel (new BorderLayout ());
-		noWrapPanel.add (txt);
+		noWrapPanel.add (txt);		
 		JScrollPane pane = new JScrollPane (noWrapPanel);
-
+		
 		_input.addKeyListener(new MyKeyListener ());
 
 		JPanel content = new JPanel (new BorderLayout());

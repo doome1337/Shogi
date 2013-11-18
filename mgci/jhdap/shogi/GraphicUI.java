@@ -16,7 +16,12 @@ import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
 
-/** GUI for shogi game. Work in progress.
+/** The JFrame containing all of the various JComponents
+ * that make up the shogi GUI. This includes:
+ * <ul>
+ * <li> 1 BoardPanel
+ * <li> 1 StatsPanel
+ * </ul> 
  * @author                  Jiayin Huang
  * @author                  Dmitry Andreevich Paramonov 
  */
@@ -34,10 +39,12 @@ public class GraphicUI extends JFrame
 	 */
 	protected StatsPanel stats;
 		
+	/** If true, the debug console is open. This variable
+	 * is to prevent null pointer exceptions. 
+	 */
 	protected boolean consoleIsOpen = false;	
 	
-
-	/** Constructs a new GraphicUI.
+	/** Constructs a new GraphicUI of the specified dimensions.
 	 * 
 	 * @param width 	the width of the JFrame window
 	 * @param height	the height of the JFrame window
@@ -138,6 +145,14 @@ public class GraphicUI extends JFrame
 		return content;
 	}
 	
+	/** Pops up a dialog that announces the victory
+	 * of the player with the given allegiance. (1 indicates
+	 * bottom player ; -1 indicates top player.) This method
+	 * also stops the timer, and  sets the "winner" int field 
+	 * in the board BoardPanel object to the indicated allegiance. 
+	 * 
+	 * @param winner	the allegiance of the winner
+	 */
 	public void putWinner (int winner)
 	{
 		stats.stopTimer();		
@@ -155,12 +170,16 @@ public class GraphicUI extends JFrame
 		JOptionPane.showMessageDialog(GraphicUI.this, message, "Winner!", JOptionPane.INFORMATION_MESSAGE);		
 	}
 	
+	/** Resets the board and the statistics panel. 
+	 */
 	public void reset ()
 	{
 		board.reset ();
 		stats.reset ();
 	}
 	
+	/** Stops the timer, and then closes everything. 
+	 */
 	public void close ()
 	{
 		stats.stopTimer();

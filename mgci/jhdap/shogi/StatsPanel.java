@@ -14,26 +14,56 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+/** The JPanel containing all of the statistics
+ * for the shogi GUI, including the move history,
+ * and the PlayerPanes with the timers and player names.
+ * 
+ * @author      Jiayin Huang
+ * @author      Dmitry Andreevich Paramonov
+ */
 public class StatsPanel extends JPanel implements Runnable
 {
 	private static final long serialVersionUID = 1L;
 
+	/** The player pane for player1 (the bottom player). 
+	 */
 	protected PlayerPane player1;
+	/** The player pane for player2 (the top player) 
+	 */
 	protected PlayerPane player2;
 
+	/** The JTextArea containing the move history. 
+	 */
 	protected JTextArea historyText;
+	/** The JScrollPane containing the move history text pane. 
+	 */
 	protected JScrollPane history;
-
+	
+	/** Whose turn it is: 1 = player 1 ; -1 = player 2.  
+	 */
 	private int turn = 1;
 
+	/** The thread that runs the timers. 
+	 */
 	private Thread thread;
 	
+	/** The pause button. It has to be out here
+	 * as a field variable because its text changes. 
+	 */
 	private JButton pauseButton;
 
+	/** If false, then the current player's timer is paused.
+	 */
 	public boolean timing = false;
 	
+	/** The parent GraphicUI object. 
+	 */
 	protected GraphicUI gui;
 
+	/** Creates a new StatsPanel.
+	 * 
+	 * @param parent	the parent GraphicUI object
+	 */
 	public StatsPanel (GraphicUI parent) 
 	{			
 		gui = parent;
@@ -111,6 +141,9 @@ public class StatsPanel extends JPanel implements Runnable
 		startTimer ();
 	}	
 
+	/** Initializes the move history text area,
+	 * and the two player panes.
+	 */
 	private void initComponents ()
 	{
 		historyText = new JTextArea ();
@@ -123,7 +156,8 @@ public class StatsPanel extends JPanel implements Runnable
 		player1.setPlaying ();
 	}
 	
-
+	/** Switches the current player. 
+	 */
 	public void switchTurn ()
 	{
 		PlayerPane playing;
@@ -143,11 +177,17 @@ public class StatsPanel extends JPanel implements Runnable
 		turn *= -1;
 	}
 
+	/** Adds the given move to the move history text area.
+	 * 
+	 * @param move		the Move to be added.
+	 */
 	public void addMove (Move move)
 	{
 		historyText.append (move + "\n");
 	}
 
+	/** Starts the timer for the current player. 
+	 */
 	public void startTimer ()
 	{
 		if (!timing)
@@ -161,6 +201,8 @@ public class StatsPanel extends JPanel implements Runnable
 		}
 	}	
 
+	/** Pauses the timer for the current player.
+	 */
 	public void stopTimer ()
 	{
 		timing = false;
@@ -169,6 +211,8 @@ public class StatsPanel extends JPanel implements Runnable
 		player.setNotPlaying ();
 	}
 	
+	/** Resets the timers and the move history. 
+	 */
 	public void reset ()
 	{
 		stopTimer ();
@@ -180,6 +224,8 @@ public class StatsPanel extends JPanel implements Runnable
 		startTimer ();
 	}
 
+	/** Updates the timer of the current player. 
+	 */
 	@Override
 	public void run() 
 	{			

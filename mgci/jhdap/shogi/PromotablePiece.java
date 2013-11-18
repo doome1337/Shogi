@@ -2,7 +2,7 @@ package mgci.jhdap.shogi;
 
 /** An abstract class representing a piece that can promote.
  * @author      Dmitry Andreevich Paramonov
- * @author      Jiaying Huang
+ * @author      Jiayin Huang
  */
 public abstract class PromotablePiece extends Piece {
     /** Constructs a promotable piece at a given x and y-value,
