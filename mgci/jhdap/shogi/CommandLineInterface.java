@@ -20,7 +20,8 @@ import javax.swing.text.StyledDocument;
 /**
  * An experimental command line interface.
  * 
- * @author Jiayin Huang
+ * @author 					Jiayin Huang
+ * @author                  Dmitry Andreevich Paramonov 
  */
 public abstract class CommandLineInterface extends JFrame 
 {	
@@ -46,7 +47,7 @@ public abstract class CommandLineInterface extends JFrame
 	 */
 	protected JTextField _input = new JTextField ();
 
-	/** The SimpleAttributeSet for determining the style of the test in the JTextPane. 
+	/** The SimpleAttributeSet for determining the style of the text in the txt JTextPane. 
 	 */
 	protected SimpleAttributeSet keyWord = new SimpleAttributeSet ();
 
@@ -124,7 +125,7 @@ public abstract class CommandLineInterface extends JFrame
 	}
 
 	/** Initializes the JTextPane and JTextField to their default states:
-	 * Black background, white text, and Courier 14 pt font. 
+	 * black background, white text, and Courier 14 pt font. 
 	 */
 	private void initTextPanes ()
 	{
@@ -151,7 +152,7 @@ public abstract class CommandLineInterface extends JFrame
 	/** Sets the background color of the entire panel to the indicated color. 
 	 * Any text in the panel with a custom background color will remain that way.
 	 * 
-	 * @param bg the new background color
+	 * @param bg 	the new background color
 	 */
 	public void setPaneBackground (Color bg)
 	{
@@ -163,7 +164,7 @@ public abstract class CommandLineInterface extends JFrame
 	/** Sets the text color of the entire panel to the indicated color. 
 	 * Any text in the panel with a custom text color will remain that way.
 	 * 
-	 * @param fg the new text color
+	 * @param fg 	the new text color
 	 */
 	public void setPaneForeground (Color fg)
 	{
@@ -176,9 +177,10 @@ public abstract class CommandLineInterface extends JFrame
 
 	/** Sets the text color for all subsequent text operations. 
 	 * This overrides the panel's default text color. Putting null 
-	 * as an argument resets the text color to default.
+	 * as an argument resets the text color to the panel's default 
+	 * text color.
 	 * 
-	 * @param color	the new text color
+	 * @param color		the new text color
 	 */
 	public void setTextColor (Color color)
 	{
@@ -188,10 +190,11 @@ public abstract class CommandLineInterface extends JFrame
 	}
 
 	/** Sets the text background color for all subsequent text operations.
-	 * This overrides the panel's default background color. 
-	 * Putting null as an argument resets the text background color to default.
+	 * This overrides the panel's default background color. Putting null 
+	 * as an argument resets the text background color to the panel's default
+	 * text background color.
 	 * 
-	 * @param color	the new text color
+	 * @param color	the new text background color
 	 */
 	public void setTextBackground (Color color)
 	{		
@@ -245,7 +248,7 @@ public abstract class CommandLineInterface extends JFrame
 		StyleConstants.setFontSize(keyWord, size);
 	}
 
-	/** Prints a String.
+	/** Appends the given String to the txt JTextPane.
 	 * 
 	 * @param str	the String to be printed
 	 */
@@ -259,7 +262,8 @@ public abstract class CommandLineInterface extends JFrame
 		}		
 	}
 
-	/** Prints a String and then a line break.
+	/** Appends the given String to the txt JTextPane,
+	 * followed by a line break.
 	 * 
 	 * @param str	the String to be printed.
 	 */
@@ -268,15 +272,16 @@ public abstract class CommandLineInterface extends JFrame
 		print (str + "\n");
 	}
 
-	/** Prints a line break. 
+	/** Appends a line break to the txt JTextPane. 
 	 */
 	public void println ()
 	{
 		print ("\n");
 	}
 
-	/** Prints a message. This method is called when
-	 * a command is not found.
+	/** Prints a command not found message. This method 
+	 * is automatically called by the parseInput() method 
+	 * if no input match is found. 
 	 */
 	protected void printNotFoundMessage (String command)
 	{
@@ -285,7 +290,8 @@ public abstract class CommandLineInterface extends JFrame
 
 	/** Searches through the commands list for a regex match
 	 * with the inputed String. Invokes the Command's execute()
-	 * method if a match is found. Does nothing otherwise.
+	 * method if a match is found. Calls the printNotFoundMessage()
+	 * method otherwise. 
 	 * 
 	 * @param input		the inputed String to act upon
 	 */
@@ -298,16 +304,17 @@ public abstract class CommandLineInterface extends JFrame
 				commands.get(i).execute (input);
 				found = true;
 			}
-
 		if (!found)
 			printNotFoundMessage (input);	
 	}
 
-	/** Listens to the JTextField at the bottom of the CommandLineInterface.
-	 * Calls the parseInput method with the text in the JTextField as the argument
-	 * if a KeyEvent.VK_ENTER key is inputed. Clears the JTextField after this.
+	/** Listens to the JTextField at the bottom of the 
+	 * CommandLineInterface. If a KeyEvent.VK_ENTER key 
+	 * is inputed, this method calls the parseInput method 
+	 * with the text in the JTextField as the argument, and
+	 * then clears the JTextField.
 	 */
-	private class MyKeyListener extends KeyAdapter
+	protected class MyKeyListener extends KeyAdapter
 	{
 		@Override
 		public void keyTyped (KeyEvent e)

@@ -143,7 +143,7 @@ public class BoardPanel extends JPanel
 
 	/** The path to the active texture pack. 
 	 */
-	public String texturePath = "resources/stdTextures/";
+	public String texturePath = "resources/minTextures/";
 
 	/** The HashMap storing the image IDs with their equivalent BufferedImages. 
 	 */
