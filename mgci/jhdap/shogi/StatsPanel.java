@@ -229,7 +229,7 @@ public class StatsPanel extends JPanel implements Runnable
 	@Override
 	public void run() 
 	{			
-		while (timing) // TODO
+		while (timing)
 		{			
 			PlayerPane playing = turn == 1 ? player1 : player2;
 			playing.updateTime ();		

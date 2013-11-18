@@ -183,9 +183,12 @@ public class GraphicUI extends JFrame
 	public void close ()
 	{
 		stats.stopTimer();
+		
 		if (consoleIsOpen)
 			board.c.dispose ();
 		dispose ();
+		
+		System.exit(0);		
 	}
 
 	/** Listener for menu buttons	 
