@@ -73,6 +73,13 @@ public class GraphicUI extends JFrame
 		JMenuBar menuBar = new JMenuBar ();
 		JMenu game, help;
 		JMenuItem button;
+		int menuKeyMask = KeyEvent.CTRL_MASK;
+		
+		// Attempt to make MenuShortcutKeyMask valid for multiple platforms.
+		try {
+			menuKeyMask = java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
+		} catch (Exception e) {			
+		}
 
 		// "File" Menu        
 		game = new JMenu ("Game");
@@ -81,21 +88,21 @@ public class GraphicUI extends JFrame
 		button = new JMenuItem ("New Game"); // new game button
 		button.setMnemonic('n');
 		button.setAccelerator(KeyStroke.getKeyStroke (
-				KeyEvent.VK_N, KeyEvent.CTRL_MASK));
+				KeyEvent.VK_N, menuKeyMask));
 		button.addActionListener(this.new MenuListener ());
 		game.add(button);	
 		
 		button = new JMenuItem ("Developer Console"); // developer console button
 		button.setMnemonic('d');
 		button.setAccelerator(KeyStroke.getKeyStroke (
-				KeyEvent.VK_D, KeyEvent.CTRL_MASK));
+				KeyEvent.VK_D, menuKeyMask));
 		button.addActionListener(this.new MenuListener ());
 		game.add (button);		
 
 		button = new JMenuItem ("Exit"); // exit button
 		button.setMnemonic('x');
 		button.setAccelerator(KeyStroke.getKeyStroke (
-				KeyEvent.VK_X, KeyEvent.CTRL_MASK));
+				KeyEvent.VK_X, menuKeyMask));
 		button.addActionListener (this.new MenuListener ());
 		game.add(button);
 		
