@@ -154,6 +154,10 @@ public abstract class Piece {
      */
     protected abstract boolean isPromotable ();
 
+    protected boolean mustPromoteIfMoved(GameState state, int x, int y) {
+        return false;
+    }
+    
     /** Returns the piece this piece is promoted to.
      * Each piece promotes to a different piece, 
      * and therefore is implemented individually in each subclass.

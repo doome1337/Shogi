@@ -56,6 +56,10 @@ public class Pawn extends PromotablePiece {
             && y != 4+4*this.allegiance;
     }
 
+    protected boolean mustPromotedIfMoved(GameState state, int x, int y) {
+        return y == 4+4*this.allegiance;
+    }
+    
     /** Returns the Piece this pawn promotes to.
      * Creates a PromotedPawn with the same allegiance 
      * and location as this pawn.

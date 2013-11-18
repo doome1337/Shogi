@@ -46,6 +46,10 @@ public class Lance extends PromotablePiece {
             && y != 4+4*this.allegiance;
     }
     
+    protected boolean mustPromotedIfMoved(GameState state, int x, int y) {
+        return y == 4+4*this.allegiance;
+    }
+    
     /** Returns the Piece this lance promotes to.
      * Creates a PromotedLance with the same allegiance 
      * and location as this lance.
