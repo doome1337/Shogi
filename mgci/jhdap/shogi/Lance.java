@@ -31,7 +31,9 @@ public class Lance extends PromotablePiece {
          * If the move at any point becomes illegal, 
          * the entire move is illegal.
          * */
-        boolean validMove = (x == this.x && !((y < 0) || (y > 8)));
+        boolean validMove = (x == this.x 
+                       && !((y < 0) || (y > 8)))
+                         && (this.allegiance*this.y < this.allegiance*y);
         for (int i = this.y+this.allegiance; validMove && i*this.allegiance < y*this.allegiance; i+= this.allegiance) {
             validMove = state.getPieceAt(x, i) instanceof EmptyPiece;
         }
