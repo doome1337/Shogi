@@ -95,9 +95,13 @@ public class BoardPanel extends JPanel
 	 */
 	public boolean log = false;
 
+	/** If true, the players take turns. 
+	 */
+	public boolean takeTurns = false;
+
 	/** If true, the cursor is currently holding a piece. 
 	 */
-	protected boolean pieceIsSelected = false;	
+	private boolean pieceIsSelected = false;	
 
 	/** The selected piece. 
 	 */
@@ -106,6 +110,10 @@ public class BoardPanel extends JPanel
 	/** The location of the last move. 
 	 */
 	protected Tile lastMoved = null;
+
+	/** The current player. 
+	 */
+	protected int turn = 1;
 
 
 	// Other fields
@@ -153,9 +161,15 @@ public class BoardPanel extends JPanel
 	 */
 	private SoundEffect snap = new SoundEffect (new File ("resources/snap.wav"));
 
+	protected GraphicUI gui;
+	
 	/** The debug console. 
 	 */
 	protected ShogiConsole c = null;	
+
+	/** The statistics panel. 
+	 */
+	protected StatsPanel s = null;
 
 	/** The GameState object representing the shogi board. 
 	 */
@@ -164,8 +178,9 @@ public class BoardPanel extends JPanel
 
 	/** Creates a new BoardPanel. 
 	 */
-	public BoardPanel ()
+	public BoardPanel (GraphicUI parent)
 	{			
+		gui = parent;
 		setBackground (backgroundColor);
 		loadImages ();	
 		reset ();			
@@ -290,13 +305,16 @@ public class BoardPanel extends JPanel
 	{
 		Tile boardCoords = getLocationOnBoard (mouse);	
 		Point point = getBoardLocationOnPanel (boardCoords);
-		if (!(state.getPieceAt(boardCoords.x, boardCoords.y) instanceof EmptyPiece))
+		Piece piece = state.getPieceAt(boardCoords.x, boardCoords.y);
+		if (!(piece instanceof EmptyPiece))
 		{	
-			Piece piece = state.getPieceAt(boardCoords.x, boardCoords.y);
-			drawHighlightedTile (g, point);
-			if (boardCoords.equals(lastMoved))
-				drawLastMovedTile (g, point);
-			drawPiece (g, piece, point);
+			if (takeTurns && piece.allegiance == turn || !takeTurns)
+			{			
+				drawHighlightedTile (g, point);
+				if (boardCoords.equals(lastMoved))
+					drawLastMovedTile (g, point);
+				drawPiece (g, piece, point);
+			}
 		}	
 	}
 
@@ -308,15 +326,18 @@ public class BoardPanel extends JPanel
 	private void drawHighlightsOnDropTable (Graphics g) //TODO
 	{
 		int table = mouseIsOnDropTable (1) ? 1 : -1;
-		Point tableCoords = getLocationOnDropTable (table, mouse);				
-		Piece p = getDropTablePieceAt (table, tableCoords);	
-		if (p != null)
+		if (takeTurns && table == turn || !takeTurns)
 		{
-			Point point = getDropTableLocationOnPanel (table, tableCoords);			
+			Point tableCoords = getLocationOnDropTable (table, mouse);				
+			Piece p = getDropTablePieceAt (table, tableCoords);	
+			if (p != null)
+			{
+				Point point = getDropTableLocationOnPanel (table, tableCoords);			
 
-			// Pawns on the drop table take up twice as much space
-			int width = p instanceof Pawn ? dropTableSize.width : dropTableSize.width / 2;
-			drawHighlightedTile (g, point, width, dropTableSize.height / 4);
+				// Pawns on the drop table take up twice as much space
+				int width = p instanceof Pawn ? dropTableSize.width : dropTableSize.width / 2;
+				drawHighlightedTile (g, point, width, dropTableSize.height / 4);
+			}
 		}
 	}
 
@@ -748,26 +769,32 @@ public class BoardPanel extends JPanel
 			Tile tile = getLocationOnBoard (location);			
 			Piece piece = state.getPieceAt(tile.x, tile.y);
 
-			if (! (piece instanceof EmptyPiece))
+			if (takeTurns && piece.allegiance == turn || !takeTurns)
 			{
-				pieceIsSelected = true;		
-				selectedPiece = piece;
-				if (log)
-					c.logSelectPiece(piece);
+				if (! (piece instanceof EmptyPiece))
+				{				
+					pieceIsSelected = true;		
+					selectedPiece = piece;
+					if (log)
+						c.logSelectPiece(piece);
+				}
 			}
 		}
 		else if (mouseIsOnDropTable ())
 		{
 			int table = mouseIsOnDropTable (1) ? 1 : -1;
-			Point point = getLocationOnDropTable (table, location);
-			Piece piece = getDropTablePieceAt (table, point);
-
-			if (piece != null)
+			if (takeTurns && table == turn || !takeTurns)
 			{
-				pieceIsSelected = true;
-				selectedPiece = piece;
-				if (log)
-					c.logSelectPiece(piece);
+				Point point = getLocationOnDropTable (table, location);
+				Piece piece = getDropTablePieceAt (table, point);
+
+				if (piece != null)
+				{
+					pieceIsSelected = true;
+					selectedPiece = piece;
+					if (log)
+						c.logSelectPiece(piece);
+				}
 			}
 		}
 	}
@@ -796,13 +823,15 @@ public class BoardPanel extends JPanel
 	 */
 	public boolean move (Piece piece, Tile sq)
 	{	
+		Move move = null;		
 		boolean successful = pieceIsSelected = false;
 
 		if (piece.isValidMove (state, sq.x, sq.y))
 		{		
 			snap.play ();
+			move = new Move (state, piece, sq);
 			if (piece.x == -1 && piece.y == -1)
-			{				
+			{						
 				state.dropPieceFromTable(piece.allegiance, sq.x, sq.y, piece);
 				if (showLastMove)
 					lastMoved = sq;
@@ -810,26 +839,34 @@ public class BoardPanel extends JPanel
 					c.logValidDrop(piece.allegiance, piece, sq);
 			}
 			else
-			{
+			{				
 				if (log)
 					c.logValidMove(piece, new Tile (piece.x, piece.y), sq);
 				if (showLastMove)
 					lastMoved = sq;
-				piece.move(state, sq.x, sq.y);					
-				promote (piece);
+				piece.move(state, sq.x, sq.y);
+
+				if (promote (piece))
+					move.promote();
 			}
 			successful = true;	
+			turn *= -1;
+			s.switchTurn ();
+			s.addMove(move);
 		}
 		repaint ();	
 		return successful;
 	}
+	
+	
 
 	/** Promotes the given piece, if it is valid.
 	 * 
 	 * @param piece		the piece to be promoted
 	 */
-	private void promote (Piece piece)
+	private boolean promote (Piece piece)
 	{
+		boolean promoted = false;
 		repaint ();		
 		if (piece.isPromotable())
 		{
@@ -840,11 +877,13 @@ public class BoardPanel extends JPanel
 			{
 				snap.play();
 				state.promotePieceAt (piece.x, piece.y);
+				promoted = true;
 				repaint ();	
 				if (log)
 					c.logPromote(piece);
 			}
 		}
+		return promoted;
 	}
 
 

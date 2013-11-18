@@ -1,9 +1,19 @@
 package mgci.jhdap.shogi;
 
-import javax.swing.*;
-
 import java.awt.BorderLayout;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.KeyStroke;
+
 
 /** GUI for shogi game. Work in progress.
  * @author                  Jiayin Huang
@@ -19,15 +29,12 @@ public class GraphicUI extends JFrame
 	 */
 	protected BoardPanel board;
 	
+	/** The component representing the statistics panel. 
+	 */
 	protected StatsPanel stats;
-
-
-	public static void main(String[] args) 
-	{
-		new GraphicUI (800, 535);		
-	}
+		
+	protected boolean consoleIsOpen = false;	
 	
-	protected boolean consoleIsOpen = false;
 
 	/** Constructs a new GraphicUI.
 	 * 
@@ -38,8 +45,9 @@ public class GraphicUI extends JFrame
 	{
 		super ("Shogi");	
 		
-		board = new BoardPanel ();		
-		stats = new StatsPanel (this);				
+		board = new BoardPanel (this);		
+		stats = new StatsPanel (this);	
+		board.s = stats;
 			
 		setContentPane (createContent ());	
 		setJMenuBar (createMenuBar());	
@@ -122,6 +130,13 @@ public class GraphicUI extends JFrame
 		content.add (stats, "East");
 		
 		return content;
+	}	
+	
+	public void close ()
+	{
+		if (consoleIsOpen)
+			board.c.dispose ();
+		dispose ();
 	}
 
 	/** Listener for menu buttons	 
@@ -156,11 +171,8 @@ public class GraphicUI extends JFrame
 						board.c._input.requestFocus();
 				}
 				else if (name.equals("Exit"))
-				{
-					setVisible (false);
-					if (consoleIsOpen)
-						board.c.dispose ();
-					dispose ();
+				{					
+					GraphicUI.this.close ();
 				}	
 				else if (name.equals("About"))
 				{

@@ -1,22 +1,29 @@
 package mgci.jhdap.shogi;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+//import javax.swing.JFileChooser;
+//import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+//import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class StatsPanel extends JPanel implements Runnable
 {
 	private static final long serialVersionUID = 1L;
 
-	PlayerPane player1;
-	PlayerPane player2;
+	protected PlayerPane player1;
+	protected PlayerPane player2;
 
 	protected JTextArea historyText;
 	protected JScrollPane history;
@@ -27,11 +34,17 @@ public class StatsPanel extends JPanel implements Runnable
 
 	public boolean timing = false;
 
+	protected File defaultDirectory = new File (".");
+	
+	protected GraphicUI gui;
+
 	public StatsPanel (GraphicUI parent) 
-	{	
+	{			
+		gui = parent;
 		setBorder(BorderFactory.createLineBorder(Color.black));
 		setLayout (new GridBagLayout ());			
-		GridBagConstraints c = new GridBagConstraints();		
+		GridBagConstraints c = new GridBagConstraints();	
+		setPreferredSize (new Dimension (160, 160));
 
 		initComponents ();
 
@@ -41,7 +54,7 @@ public class StatsPanel extends JPanel implements Runnable
 		// Adding player 1		
 
 		c.anchor = GridBagConstraints.PAGE_START;
-		c.gridx = 0;
+		c.gridx = 0;		
 		c.gridy = 0;
 		c.fill = GridBagConstraints.HORIZONTAL;		
 
@@ -54,38 +67,45 @@ public class StatsPanel extends JPanel implements Runnable
 
 		// Add history pane
 
-		c.gridy = 2;
-		c.ipadx = 150;
-		c.ipady = 150;
-		c.fill = GridBagConstraints.BOTH;
+		c.gridy = 2;	
+		c.ipadx = 100;		
+		c.fill = GridBagConstraints.BOTH;		
 		c.weighty = 0.5;		
 
 		add (history, c);	 
 
 		// Add buttons
+		
+		JButton button;
 
-		c.ipadx = 10;
-		c.ipady = 0;
-		c.weighty = 0;
+		c.ipadx = 0;
+		c.ipady = 0;	
+		c.weightx = 0.5;
+		c.weighty = 0;		
 		c.gridwidth = 1;
-
-		JButton button = new JButton ("Save");
-		c.gridy = 3;
-		add (button, c);	
-
-		button = new JButton ("Load");
-		c.gridx = 1;
-		c.gridy = 3;
-		add (button, c);
-
-		button = new JButton ("Undo");
+		c.fill = GridBagConstraints.HORIZONTAL;		
+		
+		button = new JButton ("Pause");
+		button.addActionListener(new MyButtonListener ());
 		c.gridx = 0;
-		c.gridy = 4;
-		c.gridwidth = 2;
+		c.gridy = 3;	
+		button.setMargin(new Insets(2, 0, 2, 0));
 		add (button, c);	
 
 		button = new JButton ("Resign");
-		c.gridy = 5;
+		button.addActionListener(new MyButtonListener ());		
+		c.gridx = 1;
+		c.gridy = 3;
+		button.setMargin(new Insets(2, 0, 2, 0));
+		add (button, c);
+		
+		button = new JButton ("Exit");
+		button.addActionListener(new MyButtonListener ());
+		c.weightx = 0;
+		c.gridwidth = 2;
+		c.gridx = 0;
+		c.gridy = 4;
+		button.setMargin(new Insets(2, 0, 2, 0));
 		add (button, c);
 
 		startTimer ();
@@ -100,7 +120,7 @@ public class StatsPanel extends JPanel implements Runnable
 
 		player1 = new PlayerPane ("Player 1");
 		player2 = new PlayerPane ("Player 2");
-		
+
 		player1.setPlaying ();
 	}
 
@@ -111,16 +131,21 @@ public class StatsPanel extends JPanel implements Runnable
 		if (turn == 1)
 		{
 			playing = player1;
-			waiting = player2;
+			waiting = player2;		
 		}
 		else
 		{
 			playing = player2;
-			waiting = player1;
+			waiting = player1;	
 		}
-
 		playing.setNotPlaying ();
-		waiting.setPlaying ();			
+		waiting.setPlaying ();
+		turn *= -1;
+	}
+
+	public void addMove (Move move)
+	{
+		historyText.append (move + "\n");
 	}
 
 	public void startTimer ()
@@ -128,6 +153,8 @@ public class StatsPanel extends JPanel implements Runnable
 		if (!timing)
 		{
 			timing = true;
+			PlayerPane player = turn == 1 ? player1 : player2;
+			player.setPlaying ();
 			thread = new Thread (this);	
 			thread.start ();
 		}
@@ -136,6 +163,8 @@ public class StatsPanel extends JPanel implements Runnable
 	public void stopTimer ()
 	{
 		timing = false;
+		PlayerPane player = turn == 1 ? player1 : player2;
+		player.setNotPlaying ();
 	}
 
 	@Override
@@ -153,5 +182,78 @@ public class StatsPanel extends JPanel implements Runnable
 			{					
 			}						
 		}
-	}		
+	}	
+
+	private class MyButtonListener implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+			Object parent = e.getSource();
+
+			if (parent instanceof JButton)
+			{
+				JButton button = (JButton) parent; 
+				String name = button.getText();
+				
+				if (name.equals("Pause"))
+				{
+					button.setText ("Resume");
+					StatsPanel.this.stopTimer ();
+				}
+				else if (name.equals ("Resume"))
+				{
+					button.setText ("Pause");
+					StatsPanel.this.startTimer ();
+				}
+				else if (name.equals("Exit"))
+				{
+					gui.close ();
+				}
+				/*
+				else if (name.equals("Save"))
+				{
+					save ();					
+				}
+				else if (name.equals("Load"))
+				{					
+					load ();					
+				}
+				*/
+			}
+		}
+
+	}
+	
+	/*
+	public void save ()
+	{
+		JFileChooser fc = new JFileChooser ("Save Game");	
+		fc.setFileFilter(new FileNameExtensionFilter ("Text", "txt"));
+		fc.setCurrentDirectory (defaultDirectory);
+		int result = fc.showSaveDialog (this);
+		if (result == JFileChooser.APPROVE_OPTION)
+		{
+			File path = fc.getSelectedFile();
+			defaultDirectory = path;
+			System.out.println (path);
+
+			JTextArea history = historyText;
+		}
+	}
+
+	public void load ()
+	{		
+		JFileChooser fc = new JFileChooser ("Load Game");		
+		fc.setFileFilter(new FileNameExtensionFilter ("Text", "txt"));	
+		fc.setAcceptAllFileFilterUsed(false);
+		fc.setCurrentDirectory (defaultDirectory);
+		int result = fc.showOpenDialog(this);
+		if (result == JFileChooser.APPROVE_OPTION)
+		{
+			File path = fc.getSelectedFile();
+			defaultDirectory = path;
+			System.out.println (path);			
+		}
+	}*/
 }

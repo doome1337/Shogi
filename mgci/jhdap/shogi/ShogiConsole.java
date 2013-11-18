@@ -121,6 +121,11 @@ public class ShogiConsole extends CommandLineInterface
 		
 		commands.add(new TileSize ("^t size( \\d+ \\d+)?$", 
 				"t size\t\tsets the size of the 9x9 tiles"));
+		
+		commands.add(new Turns ("^turns( [01])?$", 
+				"turns\t\tenables or disables turn taking"					
+						+"\n\t\t0 = disabled"
+						+"\n\t\t1 = enabled"));
 	}
 
 	/** Prints the welcome message. Automatically
@@ -670,6 +675,29 @@ public class ShogiConsole extends CommandLineInterface
 			else
 				println ("tile size = " + gui.board.getTileSize());
 		}
+	}
+	
+	private class Turns extends Command
+	{
+		public Turns(String regex, String detail) {
+			super(regex, detail);
+		}
+		@Override
+		void execute(String command) 
+		{
+			String[] parameters = command.split (" ");
+
+			if (parameters.length == 2)
+			{
+				if (parameters[1].equals("1"))
+					gui.board.takeTurns = true;
+				else
+					gui.board.takeTurns = false;
+				logToggle (parameters[1], "turn taking");
+			}
+			else			
+				println ("turn taking = " + gui.board.takeTurns);
+		}		
 	}
 
 	@Override

@@ -121,6 +121,7 @@ public abstract class Piece {
                 if (state.getCorrectDropTable(this.getAllegiance()).get(i) == this) {
                     space = i;
                 }
+                System.out.println (space);
             }
             return this.isValidDrop(state, x, y) && !state.willKingBeInCheckAfterDrop(x, y, this.getAllegiance(), space);
         } else {
@@ -160,7 +161,7 @@ public abstract class Piece {
             if (state.getCorrectDropTable(this.getAllegiance()).get(i) == this) {
                 space = i;
             }
-        }
+        }        
         return state.getPieceAt(x, y) instanceof EmptyPiece && !state.willKingBeInCheckAfterDrop(x, y, this.getAllegiance(), space);
     }
     

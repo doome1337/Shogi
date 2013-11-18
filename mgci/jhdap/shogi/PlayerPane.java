@@ -33,6 +33,7 @@ public class PlayerPane
 	
 	public void setPlaying ()
 	{
+		localStart = System.currentTimeMillis ();
 		txt.setFont(playingFont);
 		txt.setBorder(BorderFactory.createLineBorder(Color.red));
 		playing = true;
