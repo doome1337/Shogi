@@ -801,28 +801,25 @@ public class BoardPanel extends JPanel
 		if (piece.isValidMove (state, sq.x, sq.y))
 		{		
 			snap.play ();
-			if (log)
-				c.logValidMove(piece, new Tile (piece.x, piece.y), sq);
-			if (showLastMove)
-				lastMoved = sq;
-			piece.move(state, sq.x, sq.y);					
-			promote (piece);
-
-			successful = true;			
-		}		
-		else
-		{
 			if (piece.x == -1 && piece.y == -1)
-			{
-				snap.play ();
+			{				
 				state.dropPieceFromTable(piece.allegiance, sq.x, sq.y, piece);
 				if (showLastMove)
 					lastMoved = sq;
 				if (log)
 					c.logValidDrop(piece.allegiance, piece, sq);
 			}
+			else
+			{
+				if (log)
+					c.logValidMove(piece, new Tile (piece.x, piece.y), sq);
+				if (showLastMove)
+					lastMoved = sq;
+				piece.move(state, sq.x, sq.y);					
+				promote (piece);
+			}
+			successful = true;	
 		}
-
 		repaint ();	
 		return successful;
 	}
@@ -836,7 +833,9 @@ public class BoardPanel extends JPanel
 		repaint ();		
 		if (piece.isPromotable())
 		{
-			int result = JOptionPane.showConfirmDialog(this, "Promote piece?", "", JOptionPane.YES_NO_OPTION);
+			int result = JOptionPane.YES_OPTION;			 
+			if (!piece.mustPromoteIfMoved (state, piece.x, piece.y))
+				result = JOptionPane.showConfirmDialog(this, "Promote piece?", "", JOptionPane.YES_NO_OPTION);
 			if (result == JOptionPane.YES_OPTION)
 			{
 				snap.play();
@@ -973,7 +972,8 @@ public class BoardPanel extends JPanel
 	{	
 		snap.play();
 		state = new GameState ();
-		state.defaultBoardConfigure();		
+		state.defaultBoardConfigure();	
+		lastMoved = null;
 		repaint ();
 		if (log)
 			c.logReset();
