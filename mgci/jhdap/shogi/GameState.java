@@ -200,6 +200,10 @@ public class GameState {
         return tested;
     }
     
+    /** Returns whether a King of a given allegiance is in checkmate.
+     * The allegiance which we are checking for checkmate.
+     * @return              Whether the King of defendingAllegiance is in checkmate.
+     */
     public boolean isKingCheckmated(int defendingAllegiance) {
         boolean check = this.isKingInCheck(defendingAllegiance);
         if (check) {

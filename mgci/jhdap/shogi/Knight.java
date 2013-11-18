@@ -31,6 +31,12 @@ public class Knight extends PromotablePiece {
                 && (state.getPieceAt(x, y).getAllegiance() != this.allegiance));
     }
     
+    /** Returns whether a drop can be undertaken by this Knight.
+     * @param   state       The current state of the game at the time of verification. 
+     * @param   x           The x-value to which this piece is trying to drop on.
+     * @param   y           The y-value to which this piece is trying to drop on.
+     * @return              Whether this Knight can be dropped on the given x and y values.
+     */
     protected boolean isValidDrop(GameState state, int x, int y) {
         return state.getPieceAt(x, y) instanceof EmptyPiece
             && y != 4+4*this.allegiance

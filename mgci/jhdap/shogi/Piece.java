@@ -90,6 +90,13 @@ public abstract class Piece {
         return results;
     }
     
+    /** Returns whether a move can be undertaken,
+     * where move is either a move or a drop.
+     * @param   state       The current state of the game at the time of verification. 
+     * @param   x           The x-value to which this piece is trying to move.
+     * @param   y           The y-value to which this piece is trying to move.
+     * @return              Whether this Piece can move to the given x and y values.
+     */
     protected boolean isValidMove(GameState state, int x, int y) {
         if (this.x == -1 && this.y == -1) {
             return this.isValidDrop(state, x, y);
@@ -118,6 +125,12 @@ public abstract class Piece {
         return this.isValidNonDropMove(state, x, y);
     }
     
+    /** Returns whether a drop can be undertaken by this Piece.
+     * @param   state       The current state of the game at the time of verification. 
+     * @param   x           The x-value to which this piece is trying to drop on.
+     * @param   y           The y-value to which this piece is trying to drop on.
+     * @return              Whether this Piece can be dropped on the given x and y values.
+     */
     protected boolean isValidDrop(GameState state, int x, int y) {
         return state.getPieceAt(x, y) instanceof EmptyPiece;
     }
@@ -154,6 +167,13 @@ public abstract class Piece {
      */
     protected abstract boolean isPromotable ();
 
+    /** Returns whether this piece must promote 
+     * after it moved into the given target tile.
+     * @param   x           The x-value to which this piece is trying to move.
+     * @param   y           The y-value to which this piece is trying to move.
+     * @param   state       The state of the game before the piece is moved.
+     * @return              Whether this piece must promote after it gets to the target tile.
+     */
     protected boolean mustPromoteIfMoved(GameState state, int x, int y) {
         return false;
     }

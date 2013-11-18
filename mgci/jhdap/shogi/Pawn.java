@@ -39,6 +39,12 @@ public class Pawn extends PromotablePiece {
                   .getAllegiance() != this.allegiance));
     }
     
+    /** Returns whether a drop can be undertaken by this Pawn.
+     * @param   state       The current state of the game at the time of verification. 
+     * @param   x           The x-value to which this piece is trying to drop on.
+     * @param   y           The y-value to which this piece is trying to drop on.
+     * @return              Whether this Pawn can be dropped on the given x and y values.
+     */
     protected boolean isValidDrop(GameState state, int x, int y) {
         boolean nifu = true;
         for (int i = 0; nifu && i < 9; i++) {
