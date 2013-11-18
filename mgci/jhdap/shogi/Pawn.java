@@ -48,12 +48,12 @@ public class Pawn extends PromotablePiece {
     protected boolean isValidDrop(GameState state, int x, int y) {
         boolean nifu = true;
         for (int i = 0; nifu && i < 9; i++) {
-            nifu = !(state.getPieceAt(x, y) instanceof Pawn
-                       && state.getPieceAt(x, y).getAllegiance() == this.getAllegiance()); 
+            nifu = !(state.getPieceAt(x, i) instanceof Pawn
+                  && state.getPieceAt(x, i).getAllegiance() == this.getAllegiance()); 
         }
         Piece tempRep = state.getPieceAt(x, y);
         state.dropPieceFromTable(this.allegiance, x, y, this);
-        boolean uchifuzume = state.isKingCheckmated(-this.allegiance);
+        boolean uchifuzume = !state.isKingCheckmated(-this.allegiance);
         state.addPieceToDropTable(this.allegiance, this);
         state.setPieceAt(x, y, tempRep);
         return nifu
