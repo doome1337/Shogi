@@ -208,8 +208,7 @@ public class GameState {
         boolean check = this.isKingInCheck(defendingAllegiance);
         if (check) {
             for (List<Piece> row: board) {            	
-                for (Piece piece: row) {
-                	//System.out.println (piece);
+                for (Piece piece: row) {                	
                     if (piece.getAllegiance() == defendingAllegiance) {
                         boolean[][] moves = piece.generateMoves(this);
                         for (int i = 0; i < 9; i++) {
