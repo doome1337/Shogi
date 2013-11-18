@@ -28,7 +28,7 @@ public class PlayerPane
 	/** The JTextArea object that contains all of the text for this 
 	 * player pane. 
 	 */
-	public JTextArea txt = new JTextArea ();
+	public JTextArea txt;
 	
 	/** The name of this player. TODO: There is currently no way
 	 * to set player names. 
@@ -50,7 +50,8 @@ public class PlayerPane
 	public PlayerPane(String name) 
 	{
 		this.name = name;
-		localStart = System.currentTimeMillis ();	
+		localStart = System.currentTimeMillis ();
+		txt = new JTextArea  ();
 		updateTime ();
 		
 		txt.setBorder(BorderFactory.createLineBorder(Color.black));

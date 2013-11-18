@@ -1081,6 +1081,7 @@ public class BoardPanel extends JPanel
 		state.defaultBoardConfigure();	
 		lastMoved = null;	
 		winner = 0;
+		turn = 1;
 		repaint ();
 		if (log)
 			c.logReset();
