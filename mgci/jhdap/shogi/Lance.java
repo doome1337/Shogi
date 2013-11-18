@@ -46,7 +46,8 @@ public class Lance extends PromotablePiece {
             && y != 4+4*this.allegiance;
     }
     
-    protected boolean mustPromotedIfMoved(GameState state, int x, int y) {
+    @Override
+    protected boolean mustPromoteIfMoved(GameState state, int x, int y) {
         return y == 4+4*this.allegiance;
     }
     

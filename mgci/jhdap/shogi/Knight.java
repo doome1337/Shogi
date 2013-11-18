@@ -37,7 +37,8 @@ public class Knight extends PromotablePiece {
             && y != 4+3*this.allegiance;
     }
     
-    protected boolean mustPromotedIfMoved(GameState state, int x, int y) {
+    @Override
+    protected boolean mustPromoteIfMoved(GameState state, int x, int y) {
         return y == 4+4*this.allegiance
             || y == 4+3*this.allegiance;
     }
