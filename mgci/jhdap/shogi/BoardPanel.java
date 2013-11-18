@@ -115,6 +115,11 @@ public class BoardPanel extends JPanel
 	 */
 	protected int turn = 1;
 
+	/** The winner of the game. 1 indicates the bottom player as winner.
+	 * -1 indicates top player as winner. 0 indicates no winner; 
+	 */
+	protected int winner = 0;
+
 
 	// Other fields
 
@@ -151,7 +156,7 @@ public class BoardPanel extends JPanel
 
 	/** The path to the active texture pack. 
 	 */
-	public String texturePath = "resources/minTextures/";
+	public String texturePath = "resources/stdTextures/";
 
 	/** The HashMap storing the image IDs with their equivalent BufferedImages. 
 	 */
@@ -162,7 +167,7 @@ public class BoardPanel extends JPanel
 	private SoundEffect snap = new SoundEffect (new File ("resources/snap.wav"));
 
 	protected GraphicUI gui;
-	
+
 	/** The debug console. 
 	 */
 	protected ShogiConsole c = null;	
@@ -826,39 +831,47 @@ public class BoardPanel extends JPanel
 		Move move = null;		
 		boolean successful = pieceIsSelected = false;
 
-		if (piece.isValidMove (state, sq.x, sq.y))
-		{		
-			snap.play ();
-			move = new Move (state, piece, sq);
-			if (piece.x == -1 && piece.y == -1)
-			{						
-				state.dropPieceFromTable(piece.allegiance, sq.x, sq.y, piece);
-				if (showLastMove)
-					lastMoved = sq;
-				if (log)
-					c.logValidDrop(piece.allegiance, piece, sq);
-			}
-			else
-			{				
-				if (log)
-					c.logValidMove(piece, new Tile (piece.x, piece.y), sq);
-				if (showLastMove)
-					lastMoved = sq;
-				piece.move(state, sq.x, sq.y);
+		if (winner == 0)
+		{
+			if (piece.isValidMove (state, sq.x, sq.y))
+			{		
+				snap.play ();
+				move = new Move (state, piece, sq);
+				if (piece.x == -1 && piece.y == -1)
+				{						
+					state.dropPieceFromTable(piece.allegiance, sq.x, sq.y, piece);
+					if (showLastMove)
+						lastMoved = sq;
+					if (log)
+						c.logValidDrop(piece.allegiance, piece, sq);
+				}
+				else
+				{				
+					if (log)
+						c.logValidMove(piece, new Tile (piece.x, piece.y), sq);
+					if (showLastMove)
+						lastMoved = sq;
+					piece.move(state, sq.x, sq.y);
 
-				if (promote (piece))
-					move.promote();
+					if (promote (piece))
+						move.promote();
+				}
+				successful = true;	
+				turn *= -1;
+				s.switchTurn ();
+				s.addMove(move);
+
+				if (state.isKingCheckmated(-piece.allegiance))									
+					gui.putWinner(piece.allegiance);				
 			}
-			successful = true;	
-			turn *= -1;
-			s.switchTurn ();
-			s.addMove(move);
+			else if (proMode)
+				gui.putWinner(-piece.allegiance);				
 		}
 		repaint ();	
 		return successful;
 	}
-	
-	
+
+
 
 	/** Promotes the given piece, if it is valid.
 	 * 
@@ -1012,7 +1025,8 @@ public class BoardPanel extends JPanel
 		snap.play();
 		state = new GameState ();
 		state.defaultBoardConfigure();	
-		lastMoved = null;
+		lastMoved = null;	
+		winner = 0;
 		repaint ();
 		if (log)
 			c.logReset();
@@ -1118,7 +1132,8 @@ public class BoardPanel extends JPanel
 		{			
 			if (log)
 				if (!imageName.startsWith ("n"))
-					c.logError("Texture file for " + path + " not found.");
+					if (!imageName.contains ("Empty"))
+						c.logError("Texture file for " + path + " not found.");
 		}
 		return img;
 	}

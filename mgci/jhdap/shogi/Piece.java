@@ -120,8 +120,7 @@ public abstract class Piece {
             for (int i = 0; i < state.getCorrectDropTable(this.getAllegiance()).size(); i++) {
                 if (state.getCorrectDropTable(this.getAllegiance()).get(i) == this) {
                     space = i;
-                }
-                System.out.println (space);
+                }                
             }
             return this.isValidDrop(state, x, y) && !state.willKingBeInCheckAfterDrop(x, y, this.getAllegiance(), space);
         } else {

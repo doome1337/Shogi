@@ -64,4 +64,12 @@ public class PlayerPane
 			txt.append ("0");
 		txt.append("" + seconds);
 	}
+	
+	public void reset ()
+	{
+		setNotPlaying ();
+		localStart = System.currentTimeMillis();
+		dt = 0;		
+		updateTime ();
+	}
 }

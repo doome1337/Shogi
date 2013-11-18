@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
@@ -54,7 +55,7 @@ public class GraphicUI extends JFrame
 		
 		setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);	
 		setSize(width, height);	
-		setVisible(true);			
+		setVisible(true);					
 	}
 
 	/** Creates the menu bar for the GUI.
@@ -64,42 +65,47 @@ public class GraphicUI extends JFrame
 	private JMenuBar createMenuBar ()
 	{		
 		JMenuBar menuBar = new JMenuBar ();
-		JMenu file, help;
+		JMenu game, help;
 		JMenuItem button;
 
 		// "File" Menu        
-		file = new JMenu ("File");
-		file.setMnemonic('f');
+		game = new JMenu ("Game");
+		game.setMnemonic('g');
 
 		button = new JMenuItem ("New Game"); // new game button
 		button.setMnemonic('n');
 		button.setAccelerator(KeyStroke.getKeyStroke (
 				KeyEvent.VK_N, KeyEvent.CTRL_MASK));
 		button.addActionListener(this.new MenuListener ());
-		file.add(button);	
+		game.add(button);	
 		
 		button = new JMenuItem ("Developer Console"); // developer console button
 		button.setMnemonic('d');
-		button.setAccelerator(KeyStroke.getKeyStroke ('`'));
+		button.setAccelerator(KeyStroke.getKeyStroke (
+				KeyEvent.VK_D, KeyEvent.CTRL_MASK));
 		button.addActionListener(this.new MenuListener ());
-		file.add (button);		
+		game.add (button);		
 
 		button = new JMenuItem ("Exit"); // exit button
 		button.setMnemonic('x');
 		button.setAccelerator(KeyStroke.getKeyStroke (
 				KeyEvent.VK_X, KeyEvent.CTRL_MASK));
 		button.addActionListener (this.new MenuListener ());
-		file.add(button);
+		game.add(button);
 		
 		// "Help" Menu
 		help = new JMenu ("Help");
-		help.setMnemonic('h');
-		
-		button = new JMenuItem ("Ha ha, no help yet.");
-		help.add (button);
+		help.setMnemonic('h');	
 				
-		button = new JMenuItem ("No User's Guide at all.");
+		button = new JMenuItem ("User's Guide");
+		button.addActionListener (this.new MenuListener ());
 		help.add (button);
+		
+		button = new JMenuItem ("Javadoc");
+		button.addActionListener (this.new MenuListener ());
+		help.add (button);
+		
+		help.addSeparator ();
 						
 		button = new JMenuItem ("About"); // about button
 		button.setMnemonic('a');
@@ -108,7 +114,7 @@ public class GraphicUI extends JFrame
 		
 
 		// Add All Menus        
-		menuBar.add (file);
+		menuBar.add (game);
 		menuBar.add (help);
 
 		// Return        
@@ -130,10 +136,34 @@ public class GraphicUI extends JFrame
 		content.add (stats, "East");
 		
 		return content;
-	}	
+	}
+	
+	public void putWinner (int winner)
+	{
+		stats.stopTimer();		
+		String name = winner == 1 ? stats.player1.name : stats.player2.name;
+		String message;
+		if (board.winner == 0)
+		{
+			message = name + " wins! Congratulations! +1 rep!";
+			board.winner = winner;
+			stats.historyText.append(" WINNER " + name);
+		}
+		else
+			message = "Hey, the game's already over.";
+		
+		JOptionPane.showMessageDialog(GraphicUI.this, message, "Winner!", JOptionPane.INFORMATION_MESSAGE);		
+	}
+	
+	public void reset ()
+	{
+		board.reset ();
+		stats.reset ();
+	}
 	
 	public void close ()
 	{
+		stats.stopTimer();
 		if (consoleIsOpen)
 			board.c.dispose ();
 		dispose ();
@@ -155,7 +185,7 @@ public class GraphicUI extends JFrame
 
 				if (name.equals("New Game"))
 				{
-					board.reset();					
+					GraphicUI.this.reset ();					
 				}
 				else if (name.equals ("Developer Console"))
 				{
@@ -173,11 +203,29 @@ public class GraphicUI extends JFrame
 				else if (name.equals("Exit"))
 				{					
 					GraphicUI.this.close ();
-				}	
+				}
+				else if (name.equals ("User's Guide"))
+				{
+					String message = "You can find the user's guide at:\n";
+					message += "                  Shogi/UsersGuideMark2.odt\n";
+					message += "                  Shogi/UsersGuideMark2.pdf\n";
+					message += "It doesn't matter which file you choose. They're the same thing.\n";
+					JOptionPane.showMessageDialog(GraphicUI.this, message, 
+							"Ceci n'est pas un User's Guide", JOptionPane.INFORMATION_MESSAGE);					
+				}
+				else if (name.equals("Javadoc"))
+				{
+					String message = "You can find the documentation for this program at:\n";
+					message += "                  Shogi/doc/index.html";
+					JOptionPane.showMessageDialog(GraphicUI.this, message, 
+							"Ceci n'est pas un Javadoc", JOptionPane.INFORMATION_MESSAGE);	
+				}
 				else if (name.equals("About"))
 				{
-					if (consoleIsOpen)
-						board.c.println ("A JDialog box would open at this point.");				
+					String message = "Shogi version 2013.11.18\n";					
+					message += "Program by: Dmitry Andreevich Paramonov\n";
+					message += "                        Jiayin Huang\n";
+					JOptionPane.showMessageDialog(GraphicUI.this, message, "About", JOptionPane.PLAIN_MESSAGE);			
 				}
 			}			
 		}		

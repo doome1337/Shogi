@@ -7,16 +7,12 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-//import javax.swing.JFileChooser;
-//import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-//import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class StatsPanel extends JPanel implements Runnable
 {
@@ -31,10 +27,10 @@ public class StatsPanel extends JPanel implements Runnable
 	private int turn = 1;
 
 	private Thread thread;
+	
+	private JButton pauseButton;
 
 	public boolean timing = false;
-
-	protected File defaultDirectory = new File (".");
 	
 	protected GraphicUI gui;
 
@@ -48,7 +44,7 @@ public class StatsPanel extends JPanel implements Runnable
 
 		initComponents ();
 
-		c.insets = new Insets(2, 2, 2, 2); // insets for all components	
+		c.insets = new Insets(2, 2, 1, 0); // insets for all components	
 		c.gridwidth = 2;
 
 		// Adding player 1		
@@ -81,22 +77,27 @@ public class StatsPanel extends JPanel implements Runnable
 		c.ipadx = 0;
 		c.ipady = 0;	
 		c.weightx = 0.5;
-		c.weighty = 0;		
-		c.gridwidth = 1;
-		c.fill = GridBagConstraints.HORIZONTAL;		
+		c.weighty = 0;			
+		c.fill = GridBagConstraints.HORIZONTAL;	
 		
-		button = new JButton ("Pause");
+		button = new JButton ("New Game");
 		button.addActionListener(new MyButtonListener ());
+		c.gridwidth = 2;
 		c.gridx = 0;
-		c.gridy = 3;	
-		button.setMargin(new Insets(2, 0, 2, 0));
-		add (button, c);	
+		c.gridy = 3;			
+		add (button, c);
+		
+		pauseButton = new JButton ("Pause");
+		pauseButton.addActionListener(new MyButtonListener ());
+		c.gridwidth = 1;
+		c.gridx = 0;
+		c.gridy = 4;			
+		add (pauseButton, c);	
 
 		button = new JButton ("Resign");
 		button.addActionListener(new MyButtonListener ());		
 		c.gridx = 1;
-		c.gridy = 3;
-		button.setMargin(new Insets(2, 0, 2, 0));
+		c.gridy = 4;		
 		add (button, c);
 		
 		button = new JButton ("Exit");
@@ -104,8 +105,7 @@ public class StatsPanel extends JPanel implements Runnable
 		c.weightx = 0;
 		c.gridwidth = 2;
 		c.gridx = 0;
-		c.gridy = 4;
-		button.setMargin(new Insets(2, 0, 2, 0));
+		c.gridy = 5;		
 		add (button, c);
 
 		startTimer ();
@@ -115,14 +115,14 @@ public class StatsPanel extends JPanel implements Runnable
 	{
 		historyText = new JTextArea ();
 		historyText.setEditable(false);			
-		history = new JScrollPane (historyText);	
-		historyText.setFocusable(false);
-
+		history = new JScrollPane (historyText);
+		
 		player1 = new PlayerPane ("Player 1");
 		player2 = new PlayerPane ("Player 2");
 
 		player1.setPlaying ();
 	}
+	
 
 	public void switchTurn ()
 	{
@@ -151,8 +151,9 @@ public class StatsPanel extends JPanel implements Runnable
 	public void startTimer ()
 	{
 		if (!timing)
-		{
+		{			
 			timing = true;
+			pauseButton.setText ("Pause");
 			PlayerPane player = turn == 1 ? player1 : player2;
 			player.setPlaying ();
 			thread = new Thread (this);	
@@ -163,8 +164,20 @@ public class StatsPanel extends JPanel implements Runnable
 	public void stopTimer ()
 	{
 		timing = false;
+		pauseButton.setText ("Resume");
 		PlayerPane player = turn == 1 ? player1 : player2;
 		player.setNotPlaying ();
+	}
+	
+	public void reset ()
+	{
+		stopTimer ();
+		player1.reset();
+		player2.reset();
+		historyText.setText ("");
+		player1.setPlaying ();
+		turn = 1;
+		startTimer ();
 	}
 
 	@Override
@@ -182,7 +195,7 @@ public class StatsPanel extends JPanel implements Runnable
 			{					
 			}						
 		}
-	}	
+	}			
 
 	private class MyButtonListener implements ActionListener
 	{
@@ -196,64 +209,23 @@ public class StatsPanel extends JPanel implements Runnable
 				JButton button = (JButton) parent; 
 				String name = button.getText();
 				
-				if (name.equals("Pause"))
-				{
-					button.setText ("Resume");
-					StatsPanel.this.stopTimer ();
-				}
+				if (name.equals ("New Game"))
+					gui.reset();
+				else if (name.equals("Pause"))								
+					StatsPanel.this.stopTimer ();				
 				else if (name.equals ("Resume"))
 				{
-					button.setText ("Pause");
-					StatsPanel.this.startTimer ();
+					if (gui.board.winner == 0)
+						StatsPanel.this.startTimer ();
+					else
+						gui.putWinner(-turn);
 				}
-				else if (name.equals("Exit"))
-				{
-					gui.close ();
-				}
-				/*
-				else if (name.equals("Save"))
-				{
-					save ();					
-				}
-				else if (name.equals("Load"))
-				{					
-					load ();					
-				}
-				*/
+				else if (name.equals("Resign"))
+					gui.putWinner (-turn);
+				else if (name.equals("Exit"))				
+					gui.close ();							
 			}
 		}
-
 	}
 	
-	/*
-	public void save ()
-	{
-		JFileChooser fc = new JFileChooser ("Save Game");	
-		fc.setFileFilter(new FileNameExtensionFilter ("Text", "txt"));
-		fc.setCurrentDirectory (defaultDirectory);
-		int result = fc.showSaveDialog (this);
-		if (result == JFileChooser.APPROVE_OPTION)
-		{
-			File path = fc.getSelectedFile();
-			defaultDirectory = path;
-			System.out.println (path);
-
-			JTextArea history = historyText;
-		}
-	}
-
-	public void load ()
-	{		
-		JFileChooser fc = new JFileChooser ("Load Game");		
-		fc.setFileFilter(new FileNameExtensionFilter ("Text", "txt"));	
-		fc.setAcceptAllFileFilterUsed(false);
-		fc.setCurrentDirectory (defaultDirectory);
-		int result = fc.showOpenDialog(this);
-		if (result == JFileChooser.APPROVE_OPTION)
-		{
-			File path = fc.getSelectedFile();
-			defaultDirectory = path;
-			System.out.println (path);			
-		}
-	}*/
 }

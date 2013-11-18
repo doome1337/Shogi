@@ -9,7 +9,17 @@ import java.awt.Color;
  */
 public class ShogiConsole extends CommandLineInterface 
 {	
+	/** All of the Strings in this array will be
+	 * automatically run in the constructor of this
+	 * ShogiConsole.
+	 */
+	public static String [] startup = 
+		{				
+		}
+	;
+	
 	private static final long serialVersionUID = 1L;
+	
 	/** The GraphicUI object that this console
 	 * to which this console is connected. 
 	 */
@@ -22,8 +32,8 @@ public class ShogiConsole extends CommandLineInterface
 	 * <li> 1 = the standard shogi file,rank coordinates.
 	 * </ul>
 	 */
-	protected int notation = 0;
-
+	protected int notation = 0;	
+	
 	/** Creates a new shogi console object.
 	 * 
 	 * @param parent	the GraphicUI object that created
@@ -39,6 +49,8 @@ public class ShogiConsole extends CommandLineInterface
 		setLocationRelativeTo (gui);
 		setLocation (gui.getWidth(), 0);		
 		printInit ();
+		for (int i = 0; i < startup.length; i++)
+			parseInput (startup[i]);
 	}
 	
 	/** Initializes all of the commands 
@@ -67,12 +79,8 @@ public class ShogiConsole extends CommandLineInterface
 		commands.add(new ConfigNotation ("^config notation ?[01]?$", 
 				"config notation\tsets notation format for console"
 						+"\n\t\t0 = GameState xy"
-						+"\n\t\t1 = shogi standard"));
-				
-		commands.add(new ConfigTexturePack ("^config textures( [\\w\\p{Punct}]+)?$", 
-				"config textures\tsets the path of the texture pack"
-						+ "\n\t\tpath is relative to the parent directory (\"Shogi/\")"));
-
+						+"\n\t\t1 = shogi standard"));				
+		
 		commands.add(new Drop ("^drop -?1 \\w+ \\d[a-i\\d]$", 
 				"drop\t\tdrops indicated piece from indicated drop table onto board at XY"));
 		
@@ -106,6 +114,7 @@ public class ShogiConsole extends CommandLineInterface
 		commands.add(new ProMode ("^pro_mode( [01])?$", 
 				"pro_mode\t\tenables or disables pro mode"						
 						+ "\n\t\tDisables tile highlighting."
+						+ "\n\t\tInstant loss if an invalid move is attempted."
 						+"\n\t\t0 = disabled"
 						+"\n\t\t1 = enabled"));
 
@@ -117,10 +126,14 @@ public class ShogiConsole extends CommandLineInterface
 						+"\n\t\tto their default values."));
 
 		commands.add(new Reset ("^reset$", 
-				"reset\t\tresets shogi board"));	
-		
+				"reset\t\tresets shogi board"));			
+				
 		commands.add(new TileSize ("^t size( \\d+ \\d+)?$", 
 				"t size\t\tsets the size of the 9x9 tiles"));
+		
+		commands.add(new Textures ("^textures( [\\w\\p{Punct}]+)?$", 
+				"textures\t\tsets the path of the texture pack"
+						+ "\n\t\tpath is relative to the parent directory (\"Shogi/\")"));
 		
 		commands.add(new Turns ("^turns( [01])?$", 
 				"turns\t\tenables or disables turn taking"					
@@ -340,28 +353,6 @@ public class ShogiConsole extends CommandLineInterface
 		}		
 	}
 			
-
-	private class ConfigTexturePack extends Command
-	{
-		public ConfigTexturePack(String regex, String detail) {
-			super(regex, detail);
-		}
-
-		@Override
-		void execute(String command) 
-		{
-			String[] parameters = command.split(" ");
-			if (parameters.length == 3)
-			{				
-				gui.board.texturePath = parameters[2];
-				logConfig ("texture path", parameters[2]);
-				println ("Reload textures for changes to take effect.");
-			}
-			else
-				println ("texture path = " + gui.board.texturePath);
-		}
-
-	}	
 
 	private class Drop extends Command
 	{
@@ -636,8 +627,30 @@ public class ShogiConsole extends CommandLineInterface
 		@Override
 		void execute(String command) 
 		{			
-			gui.board.reset ();
+			gui.reset ();
 		}		
+	}	
+	
+	private class Textures extends Command
+	{
+		public Textures(String regex, String detail) {
+			super(regex, detail);
+		}
+
+		@Override
+		void execute(String command) 
+		{
+			String[] parameters = command.split(" ");
+			if (parameters.length == 2)
+			{				
+				gui.board.texturePath = parameters[1];
+				logConfig ("texture path", parameters[1]);
+				parseInput ("reload textures");
+			}
+			else
+				println ("texture path = " + gui.board.texturePath);
+		}
+
 	}	
 
 	private class ReloadTextures extends Command
