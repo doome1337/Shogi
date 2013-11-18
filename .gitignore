@@ -1,4 +1,5 @@
 *.swp
+*.class
 .idea/workspace.xml
 .classpath
 Thumbs.db
