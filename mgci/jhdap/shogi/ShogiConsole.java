@@ -2,26 +2,49 @@ package mgci.jhdap.shogi;
 
 import java.awt.Color;
 
-// TODO: annotate
-
 /** Experimental debug console for shogi GUI.
  * 
- * @author Jiayin
+ * @author 			Jiayin
+ * @author			Dmitry Andreevich Paramonov 
  */
 public class ShogiConsole extends CommandLineInterface 
 {	
 	private static final long serialVersionUID = 1L;
-	private GraphicUI gui;
-	private int notation = 0;
+	/** The GraphicUI object that this console
+	 * to which this console is connected. 
+	 */
+	protected GraphicUI gui;
+	
+	/** The current notation format that the
+	 * console uses for outputting coordinates.
+	 * <ul>
+	 * <li>	0 = the GameState x,y coordinates.
+	 * <li> 1 = the standard shogi file,rank coordinates.
+	 * </ul>
+	 */
+	protected int notation = 0;
 
-	public ShogiConsole(GraphicUI gui, String title, int width, int height) 
+	/** Creates a new shogi console object.
+	 * 
+	 * @param parent	the GraphicUI object that created
+	 * 					this ShogiConsole. 				
+	 * @param title		the title of this console
+	 * @param width		the width of this console
+	 * @param height	the height of this console
+	 */
+	public ShogiConsole(GraphicUI parent, String title, int width, int height) 
 	{
 		super(title, width, height);
+		gui = parent;
 		setLocationRelativeTo (gui);
-		setLocation (gui.getWidth(), 0);
-		this.gui = gui;
+		setLocation (gui.getWidth(), 0);		
 		printInit ();
 	}
+	
+	/** Initializes all of the commands 
+	 * for this ShogiConsole. Called
+	 * automatically by the constructor. 
+	 */
 	@Override
 	public void initCommands() 
 	{		
@@ -100,6 +123,9 @@ public class ShogiConsole extends CommandLineInterface
 				"t size\t\tsets the size of the 9x9 tiles"));
 	}
 
+	/** Prints the welcome message. Automatically
+	 * called by the constructor. 
+	 */
 	public void printInit ()
 	{
 		println ("Welcome to Shogi console.");		

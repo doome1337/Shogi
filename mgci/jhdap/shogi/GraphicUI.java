@@ -17,12 +17,14 @@ public class GraphicUI extends JFrame
 
 	/** The component representing the shogi board.
 	 */
-	protected BoardPanel board = new BoardPanel ();
+	protected BoardPanel board;
+	
+	protected StatsPanel stats;
 
 
 	public static void main(String[] args) 
 	{
-		new GraphicUI (720, 535);		
+		new GraphicUI (800, 535);		
 	}
 	
 	protected boolean consoleIsOpen = false;
@@ -34,14 +36,17 @@ public class GraphicUI extends JFrame
 	 */
 	public GraphicUI (int width, int height)
 	{
-		super ("Shogi");		
-
-		setJMenuBar (createMenuBar());		
-		setContentPane (createContent ());		
+		super ("Shogi");	
+		
+		board = new BoardPanel ();		
+		stats = new StatsPanel (this);				
+			
+		setContentPane (createContent ());	
+		setJMenuBar (createMenuBar());	
 		
 		setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);	
 		setSize(width, height);	
-		setVisible(true);	
+		setVisible(true);			
 	}
 
 	/** Creates the menu bar for the GUI.
@@ -63,8 +68,8 @@ public class GraphicUI extends JFrame
 		button.setAccelerator(KeyStroke.getKeyStroke (
 				KeyEvent.VK_N, KeyEvent.CTRL_MASK));
 		button.addActionListener(this.new MenuListener ());
-		file.add(button);		
-
+		file.add(button);	
+		
 		button = new JMenuItem ("Developer Console"); // developer console button
 		button.setMnemonic('d');
 		button.setAccelerator(KeyStroke.getKeyStroke ('`'));
@@ -112,8 +117,10 @@ public class GraphicUI extends JFrame
 
 		content.add(board, "Center");
 		board.addMouseListener(this.new CursorAdapter ());
-		board.addMouseMotionListener(this.new CursorAdapter ());		
-
+		board.addMouseMotionListener(this.new CursorAdapter ());
+		
+		content.add (stats, "East");
+		
 		return content;
 	}
 
@@ -158,7 +165,7 @@ public class GraphicUI extends JFrame
 				else if (name.equals("About"))
 				{
 					if (consoleIsOpen)
-						board.c.println ("A JDialog box would open at this point.");
+						board.c.println ("A JDialog box would open at this point.");				
 				}
 			}			
 		}		
