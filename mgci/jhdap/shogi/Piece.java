@@ -84,7 +84,7 @@ public abstract class Piece {
         boolean[][] results = new boolean[9][9];
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                results[i][j] = this.isValidNonDropMove(state, i, j);
+                results[i][j] = this.isValidMove(state, i, j);
             }
         }
         return results;
@@ -134,7 +134,7 @@ public abstract class Piece {
      * @return              The state of the game after the piece is moved.
      */
     protected GameState move (GameState state, int x, int y) {
-        if (this.isValidNonDropMove(state, x, y)) {
+        if (this.isValidMove(state, x, y)) {
             if (!(state.getPieceAt(x, y) instanceof EmptyPiece)) {
                 state.addPieceToDropTable(this.allegiance, state.getPieceAt(x, y));
             } 
