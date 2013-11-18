@@ -221,6 +221,16 @@ public class GameState {
                     }
                 }
             }
+            for (Piece piece: this.getCorrectDropTable(defendingAllegiance)) {
+                boolean[][] moves = piece.generateMoves(this);
+                for (int i = 0; i < 9; i++) {
+                    for (int j = 0; j < 9; j++) {
+                        if (moves[i][j]) {
+                            return false;
+                        }
+                    }
+                }
+            }
         }
         return check;
     }

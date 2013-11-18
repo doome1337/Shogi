@@ -90,6 +90,23 @@ public abstract class Piece {
         return results;
     }
     
+    /** Generates all possible drops for this piece.
+     * Used to see which tiles it can go to, 
+     * and returns an array of all possible (x, y)-value pairs 
+     * where this piece can drop.
+     * @param   state       The current state of the game at the time of verification.
+     * @return              The possible locations where this piece can drop.
+     */
+    public boolean[][] generateDrops (GameState state) {
+        boolean[][] results = new boolean[9][9];
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                results[i][j] = this.isValidDrop(state, i, j);
+            }
+        }
+        return results;
+    }
+    
     /** Returns whether a move can be undertaken,
      * where move is either a move or a drop.
      * @param   state       The current state of the game at the time of verification. 
@@ -99,7 +116,13 @@ public abstract class Piece {
      */
     protected boolean isValidMove(GameState state, int x, int y) {
         if (this.x == -1 && this.y == -1) {
-            return this.isValidDrop(state, x, y);
+            int space = -1;
+            for (int i = 0; i < state.getCorrectDropTable(this.getAllegiance()).size(); i++) {
+                if (state.getCorrectDropTable(this.getAllegiance()).get(i) == this) {
+                    space = i;
+                }
+            }
+            return this.isValidDrop(state, x, y) && !state.willKingBeInCheckAfterDrop(x, y, this.getAllegiance(), space);
         } else {
             return this.isValidNonDropMove(state, x, y) && !state.willKingBeInCheckAfterMove(x, y, this);
         }
@@ -132,7 +155,13 @@ public abstract class Piece {
      * @return              Whether this Piece can be dropped on the given x and y values.
      */
     protected boolean isValidDrop(GameState state, int x, int y) {
-        return state.getPieceAt(x, y) instanceof EmptyPiece;
+        int space = -1;
+        for (int i = 0; i < state.getCorrectDropTable(this.getAllegiance()).size(); i++) {
+            if (state.getCorrectDropTable(this.getAllegiance()).get(i) == this) {
+                space = i;
+            }
+        }
+        return state.getPieceAt(x, y) instanceof EmptyPiece && !state.willKingBeInCheckAfterDrop(x, y, this.getAllegiance(), space);
     }
     
     /** Moves the piece, and captures any pieces at the target tile.

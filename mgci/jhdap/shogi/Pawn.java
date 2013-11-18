@@ -56,10 +56,17 @@ public class Pawn extends PromotablePiece {
         boolean uchifuzume = !state.isKingCheckmated(-this.allegiance);
         state.addPieceToDropTable(this.allegiance, this);
         state.setPieceAt(x, y, tempRep);
+        int space = -1;
+        for (int i = 0; i < state.getCorrectDropTable(this.getAllegiance()).size(); i++) {
+            if (state.getCorrectDropTable(this.getAllegiance()).get(i) == this) {
+                space = i;
+            }
+        }
         return nifu
             && uchifuzume
             && state.getPieceAt(x, y) instanceof EmptyPiece
-            && y != 4+4*this.allegiance;
+            && y != 4+4*this.allegiance
+           && !state.willKingBeInCheckAfterDrop(x, y, this.getAllegiance(), space);
     }
 
     @Override

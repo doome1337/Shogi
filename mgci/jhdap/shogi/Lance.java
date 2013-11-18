@@ -50,8 +50,15 @@ public class Lance extends PromotablePiece {
      * @return              Whether this Lance can be dropped on the given x and y values.
      */
     protected boolean isValidDrop(GameState state, int x, int y) {
+        int space = -1;
+        for (int i = 0; i < state.getCorrectDropTable(this.getAllegiance()).size(); i++) {
+            if (state.getCorrectDropTable(this.getAllegiance()).get(i) == this) {
+                space = i;
+            }
+        }
         return state.getPieceAt(x, y) instanceof EmptyPiece
-            && y != 4+4*this.allegiance;
+            && y != 4+4*this.allegiance
+           && !state.willKingBeInCheckAfterDrop(x, y, this.getAllegiance(), space);
     }
     
     @Override
