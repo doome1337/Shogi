@@ -15,15 +15,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
-
 /** The JFrame containing all of the various JComponents
  * that make up the shogi GUI. This includes:
  * <ul>
  * <li> 1 BoardPanel
  * <li> 1 StatsPanel
  * </ul> 
- * @author                  Jiayin Huang
- * @author                  Dmitry Andreevich Paramonov 
+ * @author         Jiayin Huang
+ * @author         Dmitry Andreevich Paramonov 
  */
 public class GraphicUI extends JFrame
 {		
@@ -148,7 +147,7 @@ public class GraphicUI extends JFrame
 	/** Pops up a dialog that announces the victory
 	 * of the player with the given allegiance. (1 indicates
 	 * bottom player ; -1 indicates top player.) This method
-	 * also stops the timer, and  sets the "winner" int field 
+	 * also stops the timer, and sets the "winner" int field 
 	 * in the board BoardPanel object to the indicated allegiance. 
 	 * 
 	 * @param winner	the allegiance of the winner

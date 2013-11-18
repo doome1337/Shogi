@@ -20,8 +20,8 @@ import javax.swing.JPanel;
  * Updates based on invocations of its moveMouse (Point), pressMouse (int, Point),
  * and releaseMouse (int) methods.
  * 
- * @author                  Jiayin Huang
- * @author                  Dmitry Andreevich Paramonov 
+ * @author          Jiayin Huang
+ * @author          Dmitry Andreevich Paramonov 
  */
 public class BoardPanel extends JPanel 
 {	

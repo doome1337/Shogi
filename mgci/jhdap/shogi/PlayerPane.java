@@ -30,8 +30,7 @@ public class PlayerPane
 	 */
 	public JTextArea txt;
 	
-	/** The name of this player. TODO: There is currently no way
-	 * to set player names. 
+	/** The name of this player.
 	 */
 	public String name;
 	

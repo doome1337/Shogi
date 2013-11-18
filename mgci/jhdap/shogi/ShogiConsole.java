@@ -4,7 +4,7 @@ import java.awt.Color;
 
 /** Experimental debug console for shogi GUI.
  * 
- * @author 			Jiayin
+ * @author 			Jiayin Huang
  * @author			Dmitry Andreevich Paramonov 
  */
 public class ShogiConsole extends CommandLineInterface 
@@ -17,13 +17,13 @@ public class ShogiConsole extends CommandLineInterface
 		{				
 		}
 	;
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	/** The GraphicUI object to which this console is connected. 
 	 */
 	protected GraphicUI gui;
-	
+
 	/** The current notation format that the
 	 * console uses for outputting coordinates.
 	 * <ul>
@@ -32,7 +32,7 @@ public class ShogiConsole extends CommandLineInterface
 	 * </ul>
 	 */
 	protected int notation = 0;	
-	
+
 	/** Creates a new shogi console object.
 	 * 
 	 * @param parent	the GraphicUI object that created
@@ -51,7 +51,7 @@ public class ShogiConsole extends CommandLineInterface
 		for (int i = 0; i < startup.length; i++)
 			parseInput (startup[i]);
 	}
-	
+
 	/** Initializes all of the commands 
 	 * for this ShogiConsole. Called
 	 * automatically by the constructor. 
@@ -61,10 +61,10 @@ public class ShogiConsole extends CommandLineInterface
 	{	
 		commands.add(new BoardLabels ("^b labels( [01])?$", 
 				"b labels\t\tenables or disables board labels"));
-		
+
 		commands.add(new BoardOffset ("^b os( \\d+ \\d+)?$", 
 				"b os\t\tsets the board offset relative to the top left corner of JPanel"));
-		
+
 		commands.add(new Choices ("^choices \\d[a-i\\d]$", 
 				"choices\t\tdraws all possible moves of the piece at XY"
 						+"\n\t\tNote: there is currently a strange bug where" 
@@ -82,10 +82,10 @@ public class ShogiConsole extends CommandLineInterface
 				"config notation\tsets notation format for console"
 						+"\n\t\t0 = GameState xy"
 						+"\n\t\t1 = shogi standard"));				
-		
+
 		commands.add(new Drop ("^drop -?1 \\w+ \\d[a-i\\d]$", 
 				"drop\t\tdrops indicated piece from indicated drop table onto board at XY"));
-		
+
 		commands.add(new DropTableSize ("^dt size( \\d+ \\d+)?$", 
 				"dt size\t\tsets the size of the drop tables"));		
 
@@ -101,18 +101,23 @@ public class ShogiConsole extends CommandLineInterface
 		commands.add(new Help ("^help$", 
 				"help\t\tlists all commands"));
 
-		commands.add(new HelpDetail ("^help( [\\w\\p{Punct}]+)+$", 
+		commands.add(new HelpDetail ("^help( [\\w\\p{Punct} ]+)$", 
 				"help <command>\tprints specific details about the given command"));	
 
 		commands.add(new Move ("^move \\d[a-i\\d] \\d[a-i\\d]$", 
 				"move\t\tmoves piece at xy to XY"));
 
+		commands.add(new Name ("^name -?1( [\\w\\p{Punct} ]+)?$", 
+				"name\t\tsets the name of the indicated player"					
+						+"\n\t\t1 = bottom player"
+						+"\n\t\t-1 = top player"));
+
 		commands.add(new Param ("^param$", 
 				"param\t\tlists the regex format of all valid commands"));
-		
+
 		commands.add(new PieceSize ("^p size( \\d+ \\d+)?$", 
 				"p size\t\tsets the size of the shogi pieces"));
-		
+
 		commands.add(new Player ("^player( -?1)?$", 
 				"player\t\tsets the current player"					
 						+"\n\t\t1 = bottom player"
@@ -134,17 +139,17 @@ public class ShogiConsole extends CommandLineInterface
 
 		commands.add(new Reset ("^reset$", 
 				"reset\t\tresets shogi board"));	
-		
+
 		commands.add(new ShowLast ("^show last( [01])?$", 
 				"show last\t\tenables or disables the indication of the last move"));
-				
+
 		commands.add(new TileSize ("^t size( \\d+ \\d+)?$", 
 				"t size\t\tsets the size of the 9x9 tiles"));
-		
+
 		commands.add(new Textures ("^textures( [\\w\\p{Punct}]+)?$", 
 				"textures\t\tsets the path of the texture pack"
 						+ "\n\t\tpath is relative to the parent directory (\"Shogi/\")"));
-		
+
 		commands.add(new Turns ("^turns( [01])?$", 
 				"turns\t\tenables or disables turn taking"					
 						+"\n\t\t0 = disabled"
@@ -323,7 +328,7 @@ public class ShogiConsole extends CommandLineInterface
 	}
 
 	// The Command Classes	
-	
+
 	private class BoardLabels extends Command
 	{
 		public BoardLabels(String regex, String detail) {
@@ -345,7 +350,7 @@ public class ShogiConsole extends CommandLineInterface
 		}		
 	}
 
-	
+
 	private class BoardOffset extends Command
 	{
 		public BoardOffset(String regex, String detail) {
@@ -368,7 +373,7 @@ public class ShogiConsole extends CommandLineInterface
 				println ("board offset = " + gui.board.getBoardOffset());
 		}		
 	}
-	
+
 
 	private class Choices extends Command 
 	{
@@ -410,7 +415,7 @@ public class ShogiConsole extends CommandLineInterface
 			ShogiConsole.this.dispose ();			
 		}		
 	}
-		
+
 
 	private class ConfigLog extends Command
 	{
@@ -454,7 +459,7 @@ public class ShogiConsole extends CommandLineInterface
 				println ("notation = " + notation);
 		}		
 	}
-			
+
 
 	private class Drop extends Command
 	{
@@ -493,7 +498,7 @@ public class ShogiConsole extends CommandLineInterface
 				logDropTable404 (pieceName, allegiance);			
 		}		
 	}	
-	
+
 	private class DropTableSize extends Command
 	{
 		public DropTableSize(String regex, String detail) {
@@ -516,7 +521,7 @@ public class ShogiConsole extends CommandLineInterface
 				println ("drop table size = " + gui.board.getDropTableSize());
 		}		
 	}
-	
+
 	private class DumpPiece extends Command
 	{
 		public DumpPiece(String regex, String detail) {
@@ -569,7 +574,7 @@ public class ShogiConsole extends CommandLineInterface
 			setTextColor (null);
 		}		
 	}
-	
+
 
 	private class Exit extends Command
 	{
@@ -659,6 +664,38 @@ public class ShogiConsole extends CommandLineInterface
 		}		
 	}
 
+	private class Name extends Command
+	{
+		public Name(String regex, String detail) {
+			super(regex, detail);
+		}
+
+		@Override
+		void execute(String command) 
+		{
+			String[] parameters = command.split (" ");
+
+			if (parameters.length >= 2)
+			{
+				PlayerPane player = parameters[1].equals("1") ? gui.stats.player1 : gui.stats.player2;
+				
+				if (parameters.length >= 3)
+				{			
+					command = parameters[2];
+					for (int i = 3; i < parameters.length; i++)
+						command += " " + parameters[i];
+					
+					player.name = command;
+					player.updateTime();
+
+					logConfig("player " + parameters[1] + " name", command);
+				}
+				else
+					println ("player " + parameters[1] + " name = " + player.name);
+			}
+		}		
+	}
+
 	private class Param extends Command
 	{
 		public Param(String regex, String detail) {
@@ -673,7 +710,7 @@ public class ShogiConsole extends CommandLineInterface
 			setTextColor (null);
 		}
 	}
-	
+
 	private class PieceSize extends Command
 	{
 		public PieceSize(String regex, String detail) {
@@ -696,7 +733,7 @@ public class ShogiConsole extends CommandLineInterface
 				println ("piece size = " + gui.board.getPieceSize());
 		}
 	}
-	
+
 	private class Player extends Command
 	{
 		public Player(String regex, String detail) {
@@ -714,8 +751,7 @@ public class ShogiConsole extends CommandLineInterface
 			}
 			else
 				println ("current player = " + gui.board.turn);
-		}
-		
+		}		
 	}
 
 	private class ProMode extends Command
@@ -753,7 +789,7 @@ public class ShogiConsole extends CommandLineInterface
 			gui.reset ();
 		}		
 	}	
-	
+
 	private class ShowLast extends Command
 	{
 		public ShowLast(String regex, String detail) {
@@ -780,7 +816,7 @@ public class ShogiConsole extends CommandLineInterface
 				println ("show last move = " + gui.board.showBoardLabels);
 		}		
 	}
-	
+
 	private class Textures extends Command
 	{
 		public Textures(String regex, String detail) {
@@ -816,7 +852,7 @@ public class ShogiConsole extends CommandLineInterface
 			println ("Reloaded texture pack at: " + gui.board.texturePath);
 		}		
 	}
-	
+
 	private class TileSize extends Command
 	{
 		public TileSize(String regex, String detail) {
@@ -839,7 +875,7 @@ public class ShogiConsole extends CommandLineInterface
 				println ("tile size = " + gui.board.getTileSize());
 		}
 	}
-	
+
 	private class Turns extends Command
 	{
 		public Turns(String regex, String detail) {

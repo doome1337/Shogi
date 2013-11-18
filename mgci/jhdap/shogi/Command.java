@@ -2,7 +2,7 @@ package mgci.jhdap.shogi;
 
 /** 
  * This abstract class is meant to be used to deal with 
- * many different inputed text commands by using polymorphism.
+ * various inputed text commands by using polymorphism.
  */
 public abstract class Command
 {

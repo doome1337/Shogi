@@ -20,8 +20,8 @@ import javax.swing.text.StyledDocument;
 /**
  * An experimental command line interface.
  * 
- * @author 					Jiayin Huang
- * @author                  Dmitry Andreevich Paramonov 
+ * @author 		Jiayin Huang
+ * @author      Dmitry Andreevich Paramonov 
  */
 public abstract class CommandLineInterface extends JFrame 
 {	

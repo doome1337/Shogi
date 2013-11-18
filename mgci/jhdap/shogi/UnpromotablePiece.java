@@ -1,7 +1,7 @@
 package mgci.jhdap.shogi;
 /** An abstract class representing a piece that cannot promote.
  * @author      Dmitry Andreevich Paramonov
- * @author      Jiaying Huang
+ * @author      Jiayin Huang
  */
 public abstract class UnpromotablePiece extends Piece {
     /** Constructs an unpromotable piece at a given x and y-value,
