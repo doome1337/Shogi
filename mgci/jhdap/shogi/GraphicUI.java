@@ -235,8 +235,8 @@ public class GraphicUI extends JFrame
 				else if (name.equals ("User's Guide"))
 				{
 					String message = "You can find the user's guide at:\n";
-					message += "                  Shogi/UsersGuideMark2.odt\n";
-					message += "                  Shogi/UsersGuideMark2.pdf\n";
+					message += "                        /UsersGuideMark2.odt\n";
+					message += "                        /UsersGuideMark2.pdf\n";
 					message += "It doesn't matter which file you choose. They're the same thing.\n";
 					JOptionPane.showMessageDialog(GraphicUI.this, message, 
 							"Ceci n'est pas un User's Guide", JOptionPane.INFORMATION_MESSAGE);					
@@ -244,7 +244,7 @@ public class GraphicUI extends JFrame
 				else if (name.equals("Javadoc"))
 				{
 					String message = "You can find the documentation for this program at:\n";
-					message += "                  Shogi/doc/index.html";
+					message += "                        /doc/index.html";
 					JOptionPane.showMessageDialog(GraphicUI.this, message, 
 							"Ceci n'est pas un Javadoc", JOptionPane.INFORMATION_MESSAGE);	
 				}
