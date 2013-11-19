@@ -106,6 +106,16 @@ public class GameState {
         //TODO: Pretty sure this is finished nao.
     }
     
+    /** Restores a piece to its position on its drop table
+     * after a simulation dropping.
+     * @param   allegiance  The drop table to be added to. Either 1 or -1.
+     * @param   piece       The piece to be added to the drop table.
+     */
+    protected void mockAddPieceToDropTable (int allegiance, Piece piece) {
+    	piece.setAllegiance(allegiance);        
+        piece.setPosition(-1, -1);     
+    }
+    
     /** Drops a piece from the drop table onto the board.
      * Removes the piece from the drop table, 
      * and places it on the board.
@@ -119,6 +129,18 @@ public class GameState {
         piece.setPosition(x, y);
         this.getCorrectDropTable(allegiance).remove(piece);
         //TODO: This is done if addPieceToDropTable is done(). I think. Revise this anyway.
+    }
+    
+    /** Simulates the dropping of a piece from the drop table onto the board.
+     * Places the piece on the board.
+     * @param allegiance    The allegiance of the drop table we're dropping from.
+     * @param x             The x-value at which we're dropping the piece.
+     * @param y             The y-value at which we're dropping the piece.
+     * @param piece         The piece we're dropping.
+     */
+    protected void mockDropPieceFromTable (int allegiance, int x, int y, Piece piece) {
+        this.setPieceAt(x, y, piece);
+        piece.setPosition(x, y);                
     }
     
     /** Drops a piece from the drop table onto the board.
@@ -135,6 +157,19 @@ public class GameState {
         this.getCorrectDropTable(allegiance).get(pieceNumberInDropTable).setPosition(x, y);
         this.getCorrectDropTable(allegiance).remove(pieceNumberInDropTable);
         //TODO: This is done if addPieceToDropTable is done(). I think. Revise this anyway.
+    }
+    
+    /** Simulates the dropping of a piece from the drop table onto the board.
+     * Places the piece on the board.
+     * @param allegiance    The allegiance of the drop table we're dropping from.
+     * @param x             The x-value at which we're dropping the piece.
+     * @param y             The y-value at which we're dropping the piece.
+     * @param pieceNumberInDropTable         
+     *                      The index of the piece we're dropping in the drop table.
+     */
+    protected void mockDropPieceFromTable (int allegiance, int x, int y, int pieceNumberInDropTable) {
+        this.setPieceAt(x, y, this.getCorrectDropTable(allegiance).get(pieceNumberInDropTable));
+        this.getCorrectDropTable(allegiance).get(pieceNumberInDropTable).setPosition(x, y);        
     }
     
     /** Obtains the Piece at a point on the board.
@@ -261,9 +296,9 @@ public class GameState {
      * @return              Whether this drop would put the friendly king in check.
      */
     public boolean willKingBeInCheckAfterDrop(int x, int y, int droppingAllegiance, int numberOfPieceToDrop) {
-        this.dropPieceFromTable(droppingAllegiance, x, y, numberOfPieceToDrop);
+        this.mockDropPieceFromTable(droppingAllegiance, x, y, numberOfPieceToDrop);
         boolean tested = this.isKingInCheck(droppingAllegiance);
-        this.addPieceToDropTable(droppingAllegiance, this.getPieceAt(x, y));
+        this.mockAddPieceToDropTable(droppingAllegiance, this.getPieceAt(x, y));
         this.setPieceAt(x, y, new EmptyPiece(x, y));
         return tested;
     }

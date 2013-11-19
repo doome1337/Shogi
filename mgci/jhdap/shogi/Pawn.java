@@ -52,9 +52,9 @@ public class Pawn extends PromotablePiece {
                   && state.getPieceAt(x, i).getAllegiance() == this.getAllegiance()); 
         }
         Piece tempRep = state.getPieceAt(x, y);
-        state.dropPieceFromTable(this.allegiance, x, y, this);
+        state.mockDropPieceFromTable(this.allegiance, x, y, this);
         boolean uchifuzume = !state.isKingCheckmated(-this.allegiance);
-        state.addPieceToDropTable(this.allegiance, this);
+        state.mockAddPieceToDropTable(this.allegiance, this);
         state.setPieceAt(x, y, tempRep);
         int space = -1;
         for (int i = 0; i < state.getCorrectDropTable(this.getAllegiance()).size(); i++) {
