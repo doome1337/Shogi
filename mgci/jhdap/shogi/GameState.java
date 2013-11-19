@@ -3,7 +3,7 @@ package mgci.jhdap.shogi;
 import java.util.ArrayList;
 import java.util.List;
 
-/** A class representing the state of the game at any given moment.
+/** A Class representing the state of the game at any given moment.
  * Stores the board and the contents of the two drop tables.
  * Can be considered the table the game is being played on.
  * @author                  Dmitry Andreevich Paramonov

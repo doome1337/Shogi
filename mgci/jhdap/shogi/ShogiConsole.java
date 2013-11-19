@@ -107,10 +107,11 @@ public class ShogiConsole extends CommandLineInterface
 		commands.add(new Move ("^move \\d[a-i\\d] \\d[a-i\\d]$", 
 				"move\t\tmoves piece at xy to XY"));
 
-		commands.add(new Name ("^name -?1( [\\w\\p{Punct} ]+)?$", 
+		commands.add(new Name ("^name (-?1|2)( [\\w\\p{Punct} ]+)?$", 
 				"name\t\tsets the name of the indicated player"					
 						+"\n\t\t1 = bottom player"
-						+"\n\t\t-1 = top player"));
+						+"\n\t\t-1 = top player"
+						+"\n\t\t2 = top player also"));
 
 		commands.add(new Param ("^param$", 
 				"param\t\tlists the regex format of all valid commands"));
@@ -745,9 +746,11 @@ public class ShogiConsole extends CommandLineInterface
 		{
 			String[] parameters = command.split (" ");
 			if (parameters.length == 2)
-			{				
+			{		
+				if (parameters[1] == "2")
+					parameters[1] = "-1";
 				gui.board.turn = Integer.parseInt(parameters[1]);
-				logConfig("current player", parameters[2]);
+				logConfig("current player", parameters[1]);
 			}
 			else
 				println ("current player = " + gui.board.turn);
@@ -834,7 +837,7 @@ public class ShogiConsole extends CommandLineInterface
 				parseInput ("reload textures");
 			}
 			else
-				println ("texture path = " + gui.board.texturePath);
+				println ("texture pack = " + gui.board.texturePath);
 		}
 
 	}	

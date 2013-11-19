@@ -1,6 +1,6 @@
 package mgci.jhdap.shogi;
 
-/** A class that represents a piece move.
+/** A Class that represents a piece move.
  * Meant to be later used with the legitimate shogi notation 
  * (e.g. P-8f or 7&#20845;&#27497), but right now, no Japanese.
  * <br><br>
@@ -24,7 +24,7 @@ public class Move
 	/** Where the piece was moved to. 
 	 */
 	public Tile to;	
-	/** The modifier for this move: - indicates a normal move.
+	/** The modifier for this move. - indicates a normal move.
 	 * * indicates a drop. x indicates a capture. 
 	 */
 	public char modifier;

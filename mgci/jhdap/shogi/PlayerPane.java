@@ -6,7 +6,7 @@ import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.JTextArea;
 
-/** This class represents the info box of one player
+/** The Class representing the info box of one player
  * in the statistics panel present in the shogi GUI.
  * 
  * @author 			Jiayin Huang

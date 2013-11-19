@@ -1,5 +1,4 @@
 package mgci.jhdap.shogi;
-
 /** A Class representing a rook in a game of shogi.
  */
 public class Rook extends PromotablePiece {

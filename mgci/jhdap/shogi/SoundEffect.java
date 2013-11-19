@@ -15,7 +15,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
 
-/** A class that represents a sound effect. 
+/** A Class that represents a sound effect. 
  * Comes with its own play() method. 
  * Most of this code was pilfered from: 
  * http://www.oracle.com/technetwork/java/index-139508.html ; 

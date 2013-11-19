@@ -1,6 +1,6 @@
 package mgci.jhdap.shogi;
 
-/** A class representing a tile on which there is no piece.
+/** A Class representing a tile on which there is no piece.
  * @author              Dmitry Andreevich Paramonov
  * @author              Jiayin Huang
  */

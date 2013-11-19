@@ -1,6 +1,6 @@
 package mgci.jhdap.shogi;
 
-/** This class is the launcher for the entire program. Hooray.
+/** This Class is the launcher for the entire program. Hooray.
  * @author              Dmitry Andreevich Paramonov
  * @author              Jiayin Huang
  */

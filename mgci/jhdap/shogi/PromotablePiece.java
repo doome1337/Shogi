@@ -1,6 +1,6 @@
 package mgci.jhdap.shogi;
 
-/** An abstract class representing a piece that can promote.
+/** An abstract Class representing a piece that can promote.
  * @author      Dmitry Andreevich Paramonov
  * @author      Jiayin Huang
  */

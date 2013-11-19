@@ -2,7 +2,7 @@ package mgci.jhdap.shogi;
 
 import java.awt.Point;
 
-/** This class represents the position of a
+/** The Class representing the position of a
  * tile or shogi board square.
  * 
  * @author 			Jiayin Huang
@@ -119,8 +119,8 @@ public class Tile extends Point
 	 * Calculates and sets the equivalent shogi
 	 * standard notation coordinates.
 	 * 
-	 * @param file		the column of the tile
-	 * @param rank		the row of the tile
+	 * @param x		the column of the tile
+	 * @param y		the row of the tile
 	 */
 	public void determineOther (int x, int y)
 	{
