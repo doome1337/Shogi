@@ -23,7 +23,11 @@ public class Knight extends PromotablePiece {
      */
     @Override
     protected boolean isValidNonDropMove(GameState state, int x, int y) {
-        //TODO: Comment.
+        /* Checks if the target tile is 2 tiles in front  
+         * and one to the side. 
+         * Then verifies if the target tile is still in the board, 
+         * and whether the target tile could be moved into.
+         * */
         return (((y == this.y+2*this.allegiance) 
                 && (x == this.x-1 || x == this.x+1))  
                && !(y < 0 || y > 8)

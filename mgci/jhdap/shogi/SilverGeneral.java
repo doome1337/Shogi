@@ -24,7 +24,12 @@ public class SilverGeneral extends PromotablePiece {
      */
     @Override
     protected boolean isValidNonDropMove(GameState state, int x, int y) {
-        //TODO: Comment.
+        /* Checks if the target tile is in front 
+         * and in one of three horizontal directions, 
+         * or backwards diagonally.
+         * Then verifies if the target tile is still in the board, 
+         * and whether the target tile could be moved into.
+         * */
         return ((((y == this.y+this.allegiance) 
                && (x == this.x-1 || x == this.x || x == this.x+1)) 
               || ((y == this.y-this.allegiance) 

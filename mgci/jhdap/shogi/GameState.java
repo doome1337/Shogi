@@ -100,10 +100,6 @@ public class GameState {
             case 1:     dropTable1.add(piece); break;
             case -1:    dropTable2.add(piece); break;
         }
-        
-        //TODO: Finish this.
-        //TODO: Is this finished? Look back over plans and decide.
-        //TODO: Pretty sure this is finished nao.
     }
     
     /** Restores a piece to its position on its drop table
@@ -128,7 +124,7 @@ public class GameState {
         this.setPieceAt(x, y, piece);
         piece.setPosition(x, y);
         this.getCorrectDropTable(allegiance).remove(piece);
-        //TODO: This is done if addPieceToDropTable is done(). I think. Revise this anyway.
+        
     }
     
     /** Simulates the dropping of a piece from the drop table onto the board.
@@ -156,7 +152,6 @@ public class GameState {
         this.setPieceAt(x, y, this.getCorrectDropTable(allegiance).get(pieceNumberInDropTable));
         this.getCorrectDropTable(allegiance).get(pieceNumberInDropTable).setPosition(x, y);
         this.getCorrectDropTable(allegiance).remove(pieceNumberInDropTable);
-        //TODO: This is done if addPieceToDropTable is done(). I think. Revise this anyway.
     }
     
     /** Simulates the dropping of a piece from the drop table onto the board.
@@ -226,7 +221,7 @@ public class GameState {
         boolean tested = false;
         for (int i = 0; !tested && i < 9; i++) {
             for (int j = 0; !tested && j < 9; j++) {
-                if (this.getPieceAt(i, j)/*.getCheckmatable()*/ instanceof King 
+                if (this.getPieceAt(i, j).getCheckmatable() 
                  && this.getPieceAt(i, j).getAllegiance() == defendingAllegiance) {
                     tested = this.isAttacked(i, j, -defendingAllegiance);
                 }

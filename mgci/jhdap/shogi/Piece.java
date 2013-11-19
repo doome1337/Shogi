@@ -53,7 +53,6 @@ public abstract class Piece {
      */
     protected boolean checkmatable; 
     
-    //TODO: IMPLEMENT EVERYWHERE! ALSO, rename all image files.
     /** The path to the image representing this piece. 
      * Note that it will not reference any folders, 
      * for the possibility of alternate textures. 

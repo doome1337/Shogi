@@ -24,7 +24,6 @@ public class PromotedRook extends UnpromotablePiece {
      */
     @Override
     protected boolean isValidNonDropMove(GameState state, int x, int y) {
-        //TODO: Doublecheck this thing. Is messy.
         /* Begins by verifying if the target tile is with the board.
          * Then checks if the change in x or y values is 0 (same row/column).
          * Then verifies if all the tiles on the way to the target tile are empty.

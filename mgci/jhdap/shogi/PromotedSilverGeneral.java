@@ -1,5 +1,4 @@
 package mgci.jhdap.shogi;
-//TODO: Documentation.
 /** A Class representing a promoted silver general in a game of shogi.
  */
 public class PromotedSilverGeneral extends UnpromotablePiece {
